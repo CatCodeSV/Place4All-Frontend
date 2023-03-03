@@ -15,7 +15,6 @@ function reserve() {
 </script>
 
 <template>
-  TEST
   <v-card :loading="loading" class="mx-auto my-12" max-width="374">
     <template v-slot:loader="{ isActive }">
       <v-progress-linear :active="isActive" color="secondary" height="4" indeterminate></v-progress-linear>

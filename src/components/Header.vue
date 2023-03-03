@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 function goToRestaurants() {
-  router.push('/restaurants');
+  router.push('/restaurantes');
 }
 </script>
 <template>
@@ -26,4 +26,4 @@ function goToRestaurants() {
   </v-app-bar>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
