@@ -17,7 +17,8 @@ import Footer from './components/Footer.vue';
 
 <style lang="scss" scoped>
 .footer {
-  position: fixed;
+  /* position: fixed; */
+  position: relative;
   bottom: 0;
   width: 100%;
 }
