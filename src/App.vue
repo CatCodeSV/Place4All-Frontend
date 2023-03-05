@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+/* import Restaurant from './views/Restaurants/Restaurant/Restaurant.vue'; */
 </script>
 
 <style lang="scss" scoped>

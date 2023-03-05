@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const loading = ref(false);
 const selection = ref(1);
@@ -11,6 +14,8 @@ function reserve() {
   setTimeout(() => {
     loading.value = false;
   }, 2000);
+
+  router.push('/restaurantes/restaurant');
 }
 </script>
 
@@ -39,7 +44,7 @@ function reserve() {
     <v-divider class="mx-4 mb-1"></v-divider>
 
     <v-card-actions>
-      <v-btn color="primary" variant="text" @click="reserve"> Reservar </v-btn>
+      <v-btn color="primary" variant="text" @click="reserve()"> Reservar </v-btn>
     </v-card-actions>
   </v-card>
 </template>
