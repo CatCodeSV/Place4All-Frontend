@@ -3,10 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
 const loading = ref(false);
-const selection = ref(1);
-const rating = ref(4.5);
 
 function reserve() {
   loading.value = true;

@@ -17,7 +17,7 @@ function reserve() {
       >Place4All
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain">Restaurantes</v-btn>
       <!--Entramos en la pantalla detalles desde el boton reservar de cada restaurante-->
-      <!-- <v-btn @click="reserve()" class="ml-2" variant="plain">Restaurant</v-btn> -->
+      <v-btn @click="reserve()" class="ml-2" variant="plain">Restaurant</v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon>
