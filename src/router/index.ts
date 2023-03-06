@@ -21,6 +21,11 @@ const routes = [
     name: 'Restaurants',
     component: () => import('@/views/Restaurants/Restaurants.vue'),
   },
+  {
+    path: '/restaurantes/search',
+    name: 'search',
+    component: () => import('@/views/Restaurants/Restaurants.vue'),
+  },
 ];
 
 const router = createRouter({
