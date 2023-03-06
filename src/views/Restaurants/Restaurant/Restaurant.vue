@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const router = useRouter();
+const selection = ref(1.0);
+const rating = ref(5.0);
 
 function goToListRestaurants() {
   router.push('/restaurantes');

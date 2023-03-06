@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const selection = ref(1);
+const rating = ref(4.5);
+
 const router = useRouter();
 const loading = ref(false);
 
