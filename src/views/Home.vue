@@ -1,22 +1,18 @@
 <script lang="ts" setup>
-import router from '@/router';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const loading = ref(false);
 const search = ref('');
 
 function buscar() {
-  router.push({ name: 'Restaurants', params: { search: search.value } });
-
   loading.value = true;
-  //router.push
-
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
+  console.log(search.value);
+  router.push({ name: 'Restaurants', query: { search: search.value } });
+  loading.value = false;
 }
 </script>
-
 
 <!--Pantalla 1920 x 1080-->
 <template>
@@ -51,7 +47,8 @@ function buscar() {
                   append-inner-icon="mdi-magnify"
                   hide-details
                   v-model="search"
-                  v-bind:on-click:append-inner="$event => buscar()">
+                  v-bind:on-click:append-inner="buscar"
+                  @keydown.enter="buscar">
                 </v-text-field>
               </v-card-text>
             </v-card>
@@ -61,5 +58,4 @@ function buscar() {
     </v-row>
   </div>
 </template>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
