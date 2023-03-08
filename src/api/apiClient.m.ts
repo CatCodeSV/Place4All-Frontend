@@ -70,7 +70,7 @@ class Place4AllHttpClient {
   }
 
   getAll<T = any, R = AxiosResponse<T[]>>(url: string, urlSufix?: string): Promise<R> {
-    return this.http.get<T[], R>(`${url}/getAll${urlSufix ? urlSufix : ''}`);
+    return this.http.get<T[], R>(`${url}${urlSufix ? urlSufix : ''}`);
   }
 
   getIdValues<T = IdValue, R = AxiosResponse<T[]>>(url: string): Promise<R> {

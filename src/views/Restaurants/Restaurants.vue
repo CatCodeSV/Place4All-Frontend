@@ -23,9 +23,11 @@ function reserve() {
 </script>
 
 <template>
-  <div>
-    <RestaurantCard v-for="restaurant of restaurants" :key="restaurant.id.toString()" :restaurant="restaurant" />
-  </div>
+  <v-row>
+    <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurants" :key="restaurant.id.toString()">
+      <RestaurantCard :restaurant="restaurant" />
+    </v-col>
+  </v-row>
 </template>
 
 <style scoped></style>

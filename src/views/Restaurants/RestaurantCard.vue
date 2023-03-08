@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, toRef } from 'vue';
-import { defineProps } from 'vue';
 import { Restaurant } from '@/models/Restaurant';
+import { defineProps, ref } from 'vue';
 
 const loading = ref(false);
 const props = defineProps<{
@@ -32,14 +31,16 @@ function reserve() {
     <v-card-text>
       <v-row align="center" class="mx-0">
         <v-rating
-          :model-value="props.restaurant.reviews.reviewsAverage"
+          :model-value="props.restaurant.reviews?.reviewsAverage"
           color="amber"
           density="compact"
           half-increments
           readonly
           size="medium"></v-rating>
 
-        <div class="text-grey ms-4">{{ props.restaurant.reviews.reviewsAverage }} ({{ props.restaurant.reviews.reviewsNumber }})</div>
+        <div class="text-grey ms-4">
+          {{ props.restaurant.reviews?.reviewsAverage }} ({{ props.restaurant.reviews?.reviewsNumber }})
+        </div>
       </v-row>
 
       <div class="mt-4 text-subtitle-1">$ • Italiano, Cafe</div>

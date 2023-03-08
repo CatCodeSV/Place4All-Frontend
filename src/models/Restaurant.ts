@@ -10,7 +10,7 @@ export interface Restaurant {
   image: string;
   servicio: any[];
   createdAt: string;
-  reviews: {
+  reviews?: {
     reviewsNumber: number;
     reviewsAverage: number;
   };
