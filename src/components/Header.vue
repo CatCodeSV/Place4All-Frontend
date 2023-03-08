@@ -6,18 +6,15 @@ const router = useRouter();
 function goToRestaurants() {
   router.push('/restaurantes');
 }
-/**Detalles de cada restaurante */
-function reserve() {
-  router.push('/restaurantes/restaurant');
+function goToHome() {
+  router.push('/');
 }
 </script>
 <template>
   <v-app-bar>
-    <v-toolbar-title
-      >Place4All
+    <v-toolbar-title>
+      <v-btn @click="goToHome()">Place4All</v-btn>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain">Restaurantes</v-btn>
-      <!--Entramos en la pantalla detalles desde el boton reservar de cada restaurante-->
-      <v-btn @click="reserve()" class="ml-2" variant="plain">Restaurant</v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon>

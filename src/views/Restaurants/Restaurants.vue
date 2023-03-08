@@ -1,9 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { onBeforeMount, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const selection = ref(1);
 const rating = ref(4.5);
+const route = useRoute();
+onBeforeMount(() => {
+  console.log(route.query.search);
+});
 
 const router = useRouter();
 const loading = ref(false);

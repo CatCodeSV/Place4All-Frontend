@@ -3,7 +3,6 @@
     <Header />
     <v-main style="min-height: 300px">
       <RouterView />
-      <Restaurant />
       <div class="footer">
         <Footer />
       </div>
@@ -15,11 +14,13 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import Restaurant from './views/Restaurants/Restaurant/Restaurant.vue';
+import Home from './views/Home.vue';
 </script>
 
 <style lang="scss" scoped>
 .footer {
-  position: fixed;
+  /* position: fixed; */
+  position: relative;
   bottom: 0;
   width: 100%;
 }
