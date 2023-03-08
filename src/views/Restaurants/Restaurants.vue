@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { useRestaurant } from '@/composables/useRestaurant';
 import { onBeforeMount, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
 
 onBeforeMount(async () => {
   loading.value = true;
+  console.log(route.query.search);
   await setRestaurants();
   loading.value = false;
 });
@@ -12,6 +14,7 @@ const { restaurants, setRestaurants } = useRestaurant();
 const loading = ref(false);
 const selection = ref(1);
 const rating = ref(4.5);
+const route = useRoute();
 
 function reserve() {
   loading.value = true;
