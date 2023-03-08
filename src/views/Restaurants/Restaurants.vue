@@ -16,11 +16,11 @@ const loading = ref(false);
 function reserve() {
   loading.value = true;
 
+  router.push('/restaurantes/1');
+
   setTimeout(() => {
     loading.value = false;
   }, 2000);
-
-  router.push('/restaurantes/restaurant');
 }
 </script>
 
@@ -52,6 +52,27 @@ function reserve() {
       <v-btn color="primary" variant="text" @click="reserve()"> Reservar </v-btn>
     </v-card-actions>
   </v-card>
+  <div class="container">
+    <div class="images">
+      <!-- vfor -->
+      <div class="image"></div>
+    </div>
+    <div class="top"></div>
+    <div class="middle">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="bottom"></div>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.images {
+  display: flex;
+}
+</style>

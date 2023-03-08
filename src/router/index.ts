@@ -22,10 +22,10 @@ const routes = [
     component: () => import('@/views/Restaurants/Restaurants.vue'),
   },
   {
-    path: '/restaurant',
+    path: '/restaurantes/:id',
     name: 'Restaurant',
     component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
-  }
+  },
 ];
 
 const router = createRouter({

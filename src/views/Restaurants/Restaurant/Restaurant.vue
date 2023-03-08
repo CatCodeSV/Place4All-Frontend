@@ -1,116 +1,144 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { defineProps, onBeforeMount } from 'vue';
+import { Restaurant } from '@/models/Restaurant';
 
 const router = useRouter();
-const selection = ref(1.0);
-const rating = ref(5.0);
 
+onBeforeMount(() => {
+  /* reviews.value =   coger de la API las reviews por restaurante*/
+});
+const props = defineProps<{ restaurant: Restaurant }>();
 function goToListRestaurants() {
   router.push('/restaurantes');
 }
-/* export default {
-    data: () => ({ rating: 4 }),
-  } */
+const reviews = ref<Review[]>([]);
+function reserve() {}
+function summarizedAddress(address: Address) {
+  return `${address.street} ${address.number}, ${address.zip}. ${address.city}`;
+}
 </script>
 
 <template>
   <!--Boton de volver a la lista-->
-  <v-card-actions>
-    <v-btn color="prisecondarymary" variant="elevated" @click="goToListRestaurants()">
+  <v-card-actions class="mx-auto">
+    <v-btn color="primary" variant="elevated" @click="goToListRestaurants()">
       <v-icon start icon="mdi-arrow-left"></v-icon>
       Volver
     </v-btn>
   </v-card-actions>
-  <!--Detalles de restaurante-->
-  <v-row class="d-flex justify-center">
-    <v-col cols="12">
-      <v-hover v-slot="{ isHovering, props }" disabled>
-        <v-card :elevation="isHovering ? 12 : 5" class="mx-auto" height="700" max-width="80%" v-bind="props">
-          <!--CARD: Detalles Restaurante-->
-          <v-card
-            ><!--imagenes-->
-            <div class="d-flex flex-colum">
-              <v-img cover height="250" width="30%" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-              <v-img cover height="250" width="30%" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-              <v-img cover height="250" width="30%" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-            </div>
-            <div class="d-flex flex-colum">
-              <!--columna: servicios | columna: informacion-->
-              <v-col cols="4" class="">
-                <v-card-text class="my-4 text"> Telefono</v-card-text>
-                <v-card-text class="my-4 text"> Ubicacion</v-card-text>
-              </v-col>
-              <v-col cols="8">
-                <v-card-text class="my-4 text"> Descripcion</v-card-text>
-                <v-card-text class="my-4 text"> Servicios</v-card-text>
-              </v-col>
-            </div>
-          </v-card>
-
-          <!--CARD: Comentarios-->
-          <div class="d-flex flex-colum">
-            <v-card class="mx-auto my-5" color="white" elevation="30" max-width="300" height="auto">
-              <!--comentario 1-->
-              <div class="d-flex flex-column">
-                <v-card-title class="flex-grow-1 flex-column align-start">
-                  <div class="text-h6 font-weight-thin">Usuario</div>
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque odit amet vitae labore saepe consectetur sequi
-                  assumenda.
-                </v-card-text>
-                <v-rating v-model="rating" item-aria-label="custom icon label text {0} of {1}"></v-rating>
-              </div>
-            </v-card>
-            <v-card class="mx-auto my-5" color="white" elevation="30" max-width="300" height="auto">
-              <!--comentario 1-->
-              <div class="d-flex flex-column">
-                <v-card-title class="flex-grow-1 flex-column align-start">
-                  <div class="text-h6 font-weight-thin">Usuario</div>
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque odit amet vitae labore saepe consectetur sequi
-                  assumenda.
-                </v-card-text>
-                <v-rating v-model="rating" item-aria-label="custom icon label text {0} of {1}"></v-rating>
-              </div>
-            </v-card>
-            <v-card class="mx-auto my-5" color="white" elevation="30" max-width="300" height="auto">
-              <!--comentario 1-->
-              <div class="d-flex flex-column">
-                <v-card-title class="flex-grow-1 flex-column align-start">
-                  <div class="text-h6 font-weight-thin">Usuario</div>
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque odit amet vitae labore saepe consectetur sequi
-                  assumenda.
-                </v-card-text>
-                <v-rating v-model="rating" item-aria-label="custom icon label text {0} of {1}"></v-rating>
-              </div>
-            </v-card>
-            <v-card class="mx-auto my-5" color="white" elevation="30" max-width="300" height="auto">
-              <!--comentario 1-->
-              <div class="d-flex flex-column">
-                <v-card-title class="flex-grow-1 flex-column align-start">
-                  <div class="text-h6 font-weight-thin">Usuario</div>
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque odit amet vitae labore saepe consectetur sequi
-                  assumenda.
-                </v-card-text>
-                <v-rating v-model="rating" item-aria-label="custom icon label text {0} of {1}"></v-rating>
-              </div>
-            </v-card>
+  <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="80%">
+    <v-card>
+      <div class="d-flex flex-colum bg-white">
+        <v-img v-for="image of props.restaurant.images" v-bind:key="image.name" cover height="250" width="30%" :src="image.address" />
+      </div>
+      <div class="d-flex pa-4 w-100 bg-white">
+        <h2 class="align-self-center">{{ props.restaurant.name }} |</h2>
+        <v-rating
+          class="ml-2 align-self-center"
+          :model-value="4"
+          color="amber"
+          density="compact"
+          half-increments
+          readonly
+          size="medium" />
+        <v-spacer />
+        <v-btn color="primary" rounded="pill" prepend-icon="mdi-calendar-clock" class="w-80 my-4" @click="reserve">Reservar</v-btn>
+      </div>
+      <v-divider />
+      <div class="d-flex w-100 bg-white">
+        <div class="w-25 bg-white pa-4">
+          <div class="d-flex flex-wrap justify-center align-items-center w-100">
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
+            <v-btn class="ma-1 mx-2">
+              Top
+              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            </v-btn>
           </div>
-        </v-card>
-      </v-hover>
-    </v-col>
-  </v-row>
+        </div>
+        <div class="w-75 bg-white">
+          <div class="bg-white mx-auto mb-4 pa-4" height="100%">
+            <v-row>
+              <v-col align-self="center" cols="12" sm="3" md="3">
+                <h4 class="my-4 text">Teléfono</h4>
+              </v-col>
+              <v-col align-self="center" cols="12" sm="9" md="9">
+                <p class="text">{{ props.restaurant.phoneNumber }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col align-self="center" cols="12" sm="3" md="3">
+                <h4 class="my-4 text">Ubicacion</h4>
+              </v-col>
+              <v-col align-self="center" cols="12" sm="9" md="9">
+                <p class="text">{{ summarizedAddress(props.restaurant.address) }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col align-self="center" cols="12" sm="3" md="3">
+                <h4 class="my-4 text w-100">Descripcion</h4>
+              </v-col>
+              <v-col align-self="end" cols="12" sm="9" md="9">
+                <p class="text">
+                  {{ props.restaurant.description }}
+                </p>
+              </v-col>
+            </v-row>
+          </div>
+        </div>
+      </div>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-title>
+            <template v-slot:default="{}">
+              <v-row no-gutters>
+                <v-col cols="4" class="d-flex justify-start"> Reviews </v-col>
+              </v-row>
+            </template>
+          </v-expansion-panel-title>
+          <v-expansion-panel-text class="w-100 bg-white">
+            <v-col class="h-100" cols="12" lg="4" md="6" sm="12">
+              <v-card v-for="review in reviews" outlined color="transparent" :border="0" :elevation="5" class="h-100">
+                <v-card-item>
+                  <v-card-title>{{ review.title }}</v-card-title>
+                  <v-card-subtitle> {{ review.user.name }} </v-card-subtitle>
+                  <v-rating :model-value="review.value" color="amber" density="compact" half-increments readonly size="small" />
+                </v-card-item>
+                <v-card-text>
+                  <div>{{ review.comment }}</div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-card>
+  </v-card>
 </template>
-
-<style scoped></style>
