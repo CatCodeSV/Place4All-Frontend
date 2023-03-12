@@ -14,11 +14,17 @@ export const useRestaurant = () => {
       restaurantStore.setRestaurants(restaurants)
     );
   }
+
+  function filterRestaurantsByFeature(features: { value: string; title: string }[]) {
+    return restaurantStore.getByFeature(features);
+  }
+
   return {
     //! Properties
     restaurants: restaurantsState,
     //! Computed
     //! Metodos
     setRestaurants,
+    filterRestaurantsByFeature,
   };
 };
