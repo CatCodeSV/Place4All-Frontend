@@ -42,7 +42,7 @@ class Place4AllHttpClient {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'place4all-api-dev.azurewebsites.net',
+      baseURL: 'http://place4all-api-dev.azurewebsites.net',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
