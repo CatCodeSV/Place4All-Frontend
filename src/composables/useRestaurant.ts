@@ -15,8 +15,10 @@ export const useRestaurant = () => {
     );
   }
 
-  function setRestaurant(restaurant: Restaurant) {
-    restaurantStore.setRestaurant(restaurant);
+  async function setRestaurant(id: string) {
+    await baseUse.executeApiAction(getRestaurant.getRestaurant(id), (restaurant: Restaurant) => {
+      restaurantStore.setRestaurant(restaurant);
+    });
   }
   return {
     //! Properties

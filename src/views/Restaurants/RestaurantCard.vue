@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Restaurant } from '@/models/Restaurant';
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
 const loading = ref(false);
 const props = defineProps<{
@@ -14,6 +14,10 @@ function reserve() {
     loading.value = false;
   }, 2000);
 }
+
+function getImageUrl(image: string) {
+  return image.replace('@', 'src');
+}
 </script>
 
 <template>
@@ -22,7 +26,7 @@ function reserve() {
       <v-progress-linear :active="isActive" color="secondary" height="4" indeterminate></v-progress-linear>
     </template>
 
-    <v-img cover height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+    <v-img cover height="250" :src="getImageUrl(restaurant.image[0])"></v-img>
 
     <v-card-item>
       <v-card-title>{{ props.restaurant.name }}</v-card-title>

@@ -2,19 +2,23 @@
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Address } from '@/models/Address';
 import { Review } from '@/models/Review';
-import { onBeforeMount, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const { restaurant } = useRestaurant();
-onBeforeMount(() => {});
+onMounted(() => {});
 function goToListRestaurants() {
   router.push('/restaurantes');
 }
+const { restaurant } = useRestaurant();
 const reviews = ref<Review[]>([]);
 function reserve() {}
 function summarizedAddress(address: Address) {
   return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
+}
+
+function getImageUrl(image: string) {
+  return image.replace('@', '/src');
 }
 </script>
 
@@ -29,7 +33,7 @@ function summarizedAddress(address: Address) {
   <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="80%">
     <v-card>
       <div class="d-flex flex-colum bg-white">
-        <v-img v-for="image of restaurant!.images" v-bind:key="image" cover height="250" width="30%" :src="image" />
+        <v-img v-for="image of restaurant!.image" v-bind:key="image" cover height="250" width="30%" :src="getImageUrl(image)" />
       </div>
       <div class="d-flex pa-4 w-100 bg-white">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>

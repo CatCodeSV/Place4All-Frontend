@@ -8,8 +8,9 @@ import RestaurantCard from './RestaurantCard.vue';
 onBeforeMount(async () => {
   loading.value = true;
   console.log(route.query.search);
-  await setRestaurants();
-  let mappedRestaurants = restaurants.value.map((restaurant: Restaurant) => {});
+  if (restaurants.value.length == 0) {
+    await setRestaurants();
+  }
   loading.value = false;
 });
 const { restaurants, setRestaurants, setRestaurant } = useRestaurant();
@@ -26,16 +27,23 @@ function reserve() {
     loading.value = false;
   }, 2000);
 }
-function goToDetail(restaurant: Restaurant) {
-  setRestaurant(restaurant);
-  router.push('/restaurantes/' + restaurant.id);
+async function goToDetail(restaurant: Restaurant) {
+  await setRestaurant(restaurant.stringId);
+  router.push('/restaurantes/' + restaurant.stringId);
 }
 </script>
 
 <template>
   <v-row>
-    <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurants" :key="restaurant.id.toString()">
+    <v-col v-if="!loading" cols="12" md="3" sm="6" v-for="restaurant of restaurants" :key="restaurant.stringId">
       <RestaurantCard :restaurant="restaurant" @click="goToDetail(restaurant)" />
+    </v-col>
+    <v-col v-if="loading" cols="12" md="3" sm="6" v-for="(n, index) in 10" :key="index">
+      <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+        <template v-slot:loader="{ isActive }">
+          <v-progress-linear :active="isActive" color="secondary" height="4" indeterminate></v-progress-linear>
+        </template>
+      </v-card>
     </v-col>
   </v-row>
 </template>

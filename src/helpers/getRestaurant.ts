@@ -8,4 +8,8 @@ async function getRestaurants(): Promise<Restaurant[]> {
   return response.data;
 }
 
-export default { getRestaurants };
+async function getRestaurant(id: string): Promise<Restaurant> {
+  const response = await apiClient.getById<Restaurant>(baseURL, id);
+  return response.data;
+}
+export default { getRestaurants, getRestaurant };

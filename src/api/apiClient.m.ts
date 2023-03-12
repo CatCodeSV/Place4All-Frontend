@@ -77,7 +77,7 @@ class Place4AllHttpClient {
     return this.getAll<T, R>(url);
   }
 
-  getById<T = any, R = AxiosResponse<T>>(url: string, id: number): Promise<R> {
+  getById<T = any, R = AxiosResponse<T>>(url: string, id: string): Promise<R> {
     return this.http.get<T, R>(`${url}/${id}`);
   }
 
