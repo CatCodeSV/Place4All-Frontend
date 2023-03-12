@@ -21,6 +21,11 @@ const routes = [
     name: 'Restaurants',
     component: () => import('@/views/Restaurants/Restaurants.vue'),
   },
+  {
+    path: '/restaurantes/:id',
+    name: 'Restaurant',
+    component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
+  },
 ];
 
 const router = createRouter({

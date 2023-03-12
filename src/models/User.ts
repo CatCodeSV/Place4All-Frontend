@@ -1,8 +1,7 @@
-import { ObjectId } from 'mongodb';
 import { Address } from './Address';
+import { PDocument } from './PDocument';
 
-export interface User {
-  id: ObjectId;
+export interface User extends PDocument {
   name: string;
   lastName: string;
   gender: string;

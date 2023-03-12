@@ -1,33 +1,33 @@
+import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 export const useRestaurantStore = defineStore('restaurants', () => {
   const restaurantsState = ref<Restaurant[]>([]);
+  const restaurant = ref<Restaurant>();
 
   //Siempre que es un ref hay que poner value
   function setRestaurants(restaurants: Restaurant[]) {
     restaurantsState.value = restaurants;
   }
 
-  //function getByFeature prarámetro de entrada = arrayFeature, return elementos del array coincidentes función some
-  function getByFeature(features: string[]) {
-    debugger;
+  function setRestaurant(restaurantSet: Restaurant) {
+    restaurant.value = restaurantSet;
+  }
+
+  function getByFeature(features: Features[]) {
     return restaurantsState.value.filter(restaurant => {
       return features.some(feature => {
         return restaurant.servicio.includes(feature);
       });
     });
   }
-
-  const filterRestaurants = computed<Restaurant[]>((filter: string[]) => {
-    return getByFeature(filter);
-  });
-
   return {
     restaurantsState,
-    filterRestaurants,
+    restaurant,
     setRestaurants,
+    setRestaurant,
     getByFeature,
   };
 });

@@ -1,18 +1,23 @@
 <script lang="ts" setup>
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
-import { Feature } from '@/models/Feature';
+import { Features } from '@/models/Features';
 import { onBeforeMount, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
+
+const { restaurants, setRestaurants, setRestaurant } = useRestaurant();
+const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
   loading.value = true;
   console.log(route.query.search);
-  await setRestaurants();
+  if (restaurants.value.length == 0) {
+    await setRestaurants();
+  }
   restaurantsToShow.value = restaurants.value;
   await setFeatures();
-  mappedFeatures.value = features.value.map((feature: Feature) => {
+  mappedFeatures.value = features.value.map((feature: Features) => {
     return {
       value: feature.name,
       title: feature.name,
@@ -20,19 +25,9 @@ onBeforeMount(async () => {
   });
   loading.value = false;
 });
-const { restaurants, setRestaurants } = useRestaurant();
-const { features, setFeatures } = useFeature();
 const loading = ref(false);
 const route = useRoute();
-
-function reserve() {
-  loading.value = true;
-
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
-}
-
+const router = useRouter();
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 const selectedFeature = ref(null);
@@ -78,7 +73,14 @@ function setFiltered(filter: any[]) {
   </v-row>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.images {
+  display: flex;
+}
 #filters-tab {
   flex: 0 1 auto;
 }

@@ -77,7 +77,7 @@ class Place4AllHttpClient {
     return this.getAll<T, R>(url);
   }
 
-  getById<T = any, R = AxiosResponse<T>>(url: string, id: number): Promise<R> {
+  getById<T = any, R = AxiosResponse<T>>(url: string, id: string): Promise<R> {
     return this.http.get<T, R>(`${url}/${id}`);
   }
 
@@ -93,19 +93,19 @@ class Place4AllHttpClient {
     return this.http.put<T, R>(url, data);
   }
 
-  putEntity<T = any, R = AxiosResponse<T>, T1 = any>(url: string, entityId: number, data: T1): Promise<R> {
+  putEntity<T = any, R = AxiosResponse<T>, T1 = any>(url: string, entityId: string, data: T1): Promise<R> {
     return this.put<T, R>(`${url}/${entityId}`, data);
   }
 
-  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: number): Promise<R> {
+  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: string): Promise<R> {
     return this.http.delete<T, R>(`${url}/${id}`);
   }
 
-  add<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: number, childId: number): Promise<R> {
+  add<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: string, childId: string): Promise<R> {
     return this.http.post<T, R>(`${url}/${parentId}/${childType}/${childId}`);
   }
 
-  remove<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: number, childId: number): Promise<R> {
+  remove<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: string, childId: string): Promise<R> {
     return this.http.delete<T, R>(`${url}/${parentId}/${childType}/${childId}`);
   }
 }
