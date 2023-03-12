@@ -14,6 +14,7 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import Home from './views/Home.vue';
+import Users from './views/Users/Users.vue';
 </script>
 
 <style lang="scss" scoped>
