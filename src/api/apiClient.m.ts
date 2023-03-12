@@ -5,7 +5,7 @@ interface IdValue {
   id: number;
   value: string;
 }
-const injectToken = (config: AxiosRequestConfig): AxiosRequestConfig => {
+const injectToken = (config: AxiosRequestConfig): any => {
   try {
     const { token } = useUser();
     if (token.value) {

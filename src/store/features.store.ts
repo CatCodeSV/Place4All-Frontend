@@ -1,11 +1,11 @@
-import { Feature } from '@/models/Feature';
+import { Features } from '@/models/Features';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useFeatureStore = defineStore('features', () => {
-  const featuresState = ref<Feature[]>([]);
+  const featuresState = ref<Features[]>([]);
 
-  function setFeatures(features: Feature[]) {
+  function setFeatures(features: Features[]) {
     featuresState.value = features;
   }
 

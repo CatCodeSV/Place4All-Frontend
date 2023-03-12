@@ -1,10 +1,10 @@
 import { apiClient } from '@/api/apiClient.m';
-import { Feature } from '@/models/Feature';
+import { Features } from '@/models/Features';
 
 const baseURL = '/Features';
 
-async function getFeatures(): Promise<Feature[]> {
-  const response = await apiClient.getAll<Feature>(baseURL);
+async function getFeatures(): Promise<Features[]> {
+  const response = await apiClient.getAll<Features>(baseURL);
   return response.data;
 }
 
