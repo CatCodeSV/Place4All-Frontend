@@ -1,6 +1,6 @@
 import { Restaurant } from '@/models/Restaurant';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export const useRestaurantStore = defineStore('restaurants', () => {
   const restaurantsState = ref<Restaurant[]>([]);
@@ -11,7 +11,8 @@ export const useRestaurantStore = defineStore('restaurants', () => {
   }
 
   //function getByFeature prarámetro de entrada = arrayFeature, return elementos del array coincidentes función some
-  function getByFeature(features: { value: string; title: string }[]) {
+  function getByFeature(features: string[]) {
+    debugger;
     return restaurantsState.value.filter(restaurant => {
       return features.some(feature => {
         return restaurant.servicio.includes(feature);
@@ -19,8 +20,13 @@ export const useRestaurantStore = defineStore('restaurants', () => {
     });
   }
 
+  const filterRestaurants = computed<Restaurant[]>((filter: string[]) => {
+    return getByFeature(filter);
+  });
+
   return {
     restaurantsState,
+    filterRestaurants,
     setRestaurants,
     getByFeature,
   };

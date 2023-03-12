@@ -2,7 +2,9 @@
   <v-layout>
     <Header />
     <v-main style="min-height: 300px">
-      <RouterView />
+      <div style="min-height: 100vh">
+        <RouterView />
+      </div>
       <div class="footer">
         <Footer />
       </div>
@@ -11,9 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-import Home from './views/Home.vue';
+import Header from './components/Header.vue';
 </script>
 
 <style lang="scss" scoped>

@@ -18,14 +18,11 @@ onBeforeMount(async () => {
       title: feature.name,
     };
   });
-  console.log(mappedFeatures.value);
   loading.value = false;
 });
-const { restaurants, setRestaurants, filterRestaurantsByFeature } = useRestaurant();
+const { restaurants, setRestaurants } = useRestaurant();
 const { features, setFeatures } = useFeature();
 const loading = ref(false);
-const selection = ref(1);
-const rating = ref(4.5);
 const route = useRoute();
 
 function reserve() {
@@ -42,16 +39,20 @@ const selectedFeature = ref(null);
 const restaurantsToShow = ref();
 
 function setFiltered(filter: any[]) {
-  console.log(filter);
-  restaurantsToShow.value = filterRestaurantsByFeature(filter);
+  if (filter.length === 0) {
+    restaurantsToShow.value = restaurants.value;
+    return;
+  }
+  restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.servicio.some(feature => filter.includes(feature.name)));
 }
 </script>
 
 <template>
-  <v-tabs fixed-tabs class="mt-4 mx-4" id="filters-tab">
-    <div class="checked-drop-down-list" id="features-filter">
+  <div class="d-flex mt-10">
+    <div class="checked-drop-down-list my-4 mx-10" id="features-filter">
       <v-select
         clearable
+        color="secondary"
         :items="mappedFeatures"
         chips
         label="Necesidades"
@@ -60,15 +61,20 @@ function setFiltered(filter: any[]) {
         @update:model-value="setFiltered">
       </v-select>
     </div>
-    <div class="checked-drop-down-list" id="stars-filter">
-      <v-select clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
+    <div class="checked-drop-down-list my-4" id="stars-filter">
+      <v-select color="secondary" clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
     </div>
-  </v-tabs>
-  <span class="span-filtered-results"> {{ restaurants.length }} Resultados </span>
+  </div>
+
+  <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow.length }} Resultados </span>
+  <v-divider class="my-10" />
   <v-row class="pa-6">
     <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurantsToShow" :key="restaurant.id.toString()">
-      <RestaurantCard :restaurant="restaurant" />
+      <v-skeleton-loader transition="scale-transition" :loading="loading" class="mx-auto" max-width="300" type="card">
+        <RestaurantCard :restaurant="restaurant" />
+      </v-skeleton-loader>
     </v-col>
+    <v-col cols="12" md="3" sm="6" v-for="(n, index) in 10" :key="index"> </v-col>
   </v-row>
 </template>
 
@@ -84,7 +90,7 @@ function setFiltered(filter: any[]) {
 }
 .span-filtered-results {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: smaller;
+  font-size: medium;
   color: grey;
   margin-left: 4rem;
 }
