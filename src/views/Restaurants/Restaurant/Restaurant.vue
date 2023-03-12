@@ -6,6 +6,7 @@ import { Features } from '@/models/Features';
 import { Review } from '@/models/Review';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import AddReviewDialog from './Review/AddReviewDialog.vue';
 
 const { restaurant, addFeatures } = useRestaurant();
 const { features, setFeatures } = useFeature();
@@ -34,6 +35,8 @@ function getImageUrl(image: string) {
 async function addFeature() {
   await addFeatures(restaurant.value!, selectedFeatures.value);
 }
+
+const reviewsDialog = ref(false);
 </script>
 
 <template>
@@ -129,6 +132,11 @@ async function addFeature() {
             </template>
           </v-expansion-panel-title>
           <v-expansion-panel-text class="w-100 bg-white">
+            <div class="w-100 d-flex">
+              <v-spacer></v-spacer>
+              <v-btn color="primary" append-icon="mdi-plus" @click="reviewsDialog = true">Nueva Review</v-btn>
+              <AddReviewDialog :dialog="reviewsDialog"></AddReviewDialog>
+            </div>
             <v-col class="h-100" cols="12" lg="4" md="6" sm="12">
               <v-card v-for="review in reviews" outlined color="transparent" :border="0" :elevation="5" class="h-100">
                 <v-card-item>
