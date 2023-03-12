@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import Login from './Login.vue';
 
 const router = useRouter();
 
@@ -8,6 +9,9 @@ function goToRestaurants() {
 }
 function goToHome() {
   router.push('/');
+}
+function openLogin() {
+  return (Login.dialog = true);
 }
 </script>
 <template>
@@ -23,10 +27,10 @@ function goToHome() {
     <v-btn icon>
       <v-icon>mdi-comment-text-outline</v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn icon id="login-btn" @click="openLogin()">
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>
   </v-app-bar>
+  <Login></Login>
 </template>
-
 <style scoped lang="scss"></style>
