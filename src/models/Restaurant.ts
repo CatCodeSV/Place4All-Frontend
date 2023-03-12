@@ -7,7 +7,7 @@ export interface Restaurant {
   address: Address;
   descripcion: string;
   phoneNumber: string;
-  image: string;
+  image: string[];
   servicio: any[];
   createdAt: string;
   reviews?: {
