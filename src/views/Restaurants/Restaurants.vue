@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
+import { Feature } from '@/models/Feature';
 import { Restaurant } from '@/models/Restaurant';
 import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
+
+const { restaurants, setRestaurants, setRestaurant } = useRestaurant();
+const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
   loading.value = true;
@@ -11,12 +16,19 @@ onBeforeMount(async () => {
   if (restaurants.value.length == 0) {
     await setRestaurants();
   }
+  restaurantsToShow.value = restaurants.value;
+  await setFeatures();
+  mappedFeatures.value = features.value.map((feature: Feature) => {
+    return {
+      value: feature.name,
+      title: feature.name,
+    };
+  });
   loading.value = false;
 });
-const { restaurants, setRestaurants, setRestaurant } = useRestaurant();
+const loading = ref(false);
 const route = useRoute();
 const router = useRouter();
-const loading = ref(false);
 
 function reserve() {
   loading.value = true;
@@ -31,20 +43,48 @@ async function goToDetail(restaurant: Restaurant) {
   await setRestaurant(restaurant.stringId);
   router.push('/restaurantes/' + restaurant.stringId);
 }
+//Para el filtro de features/necesidades
+const mappedFeatures = ref();
+const selectedFeature = ref(null);
+const restaurantsToShow = ref();
+
+function setFiltered(filter: any[]) {
+  if (filter.length === 0) {
+    restaurantsToShow.value = restaurants.value;
+    return;
+  }
+  restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.servicio.some(feature => filter.includes(feature.name)));
+}
 </script>
 
 <template>
-  <v-row>
-    <v-col v-if="!loading" cols="12" md="3" sm="6" v-for="restaurant of restaurants" :key="restaurant.stringId">
-      <RestaurantCard :restaurant="restaurant" @click="goToDetail(restaurant)" />
+  <div class="d-flex mt-10">
+    <div class="checked-drop-down-list my-4 mx-10" id="features-filter">
+      <v-select
+        clearable
+        color="secondary"
+        :items="mappedFeatures"
+        chips
+        label="Necesidades"
+        multiple
+        v-model="selectedFeature"
+        @update:model-value="setFiltered">
+      </v-select>
+    </div>
+    <div class="checked-drop-down-list my-4" id="stars-filter">
+      <v-select color="secondary" clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
+    </div>
+  </div>
+
+  <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow.length }} Resultados </span>
+  <v-divider class="my-10" />
+  <v-row class="pa-6">
+    <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurantsToShow" :key="restaurant.id.toString()">
+      <v-skeleton-loader transition="scale-transition" :loading="loading" class="mx-auto" max-width="300" type="card">
+        <RestaurantCard :restaurant="restaurant" />
+      </v-skeleton-loader>
     </v-col>
-    <v-col v-if="loading" cols="12" md="3" sm="6" v-for="(n, index) in 10" :key="index">
-      <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-        <template v-slot:loader="{ isActive }">
-          <v-progress-linear :active="isActive" color="secondary" height="4" indeterminate></v-progress-linear>
-        </template>
-      </v-card>
-    </v-col>
+    <v-col cols="12" md="3" sm="6" v-for="(n, index) in 10" :key="index"> </v-col>
   </v-row>
 </template>
 
@@ -53,8 +93,22 @@ async function goToDetail(restaurant: Restaurant) {
   display: flex;
   flex-direction: column;
 }
-
 .images {
   display: flex;
+}
+#filters-tab {
+  flex: 0 1 auto;
+}
+.checked-drop-down-list {
+  width: 12.5rem;
+}
+#features-filter {
+  margin-left: 2rem;
+}
+.span-filtered-results {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: medium;
+  color: grey;
+  margin-left: 4rem;
 }
 </style>

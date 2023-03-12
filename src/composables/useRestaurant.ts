@@ -7,7 +7,7 @@ import { useBase } from './useBase';
 export const useRestaurant = () => {
   const restaurantStore = useRestaurantStore();
   const baseUse = useBase();
-  const { restaurantsState, restaurant } = storeToRefs(restaurantStore);
+  const { restaurantsState, restaurant, filterRestaurants } = storeToRefs(restaurantStore);
 
   async function setRestaurants() {
     await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: Restaurant[]) =>
@@ -20,13 +20,19 @@ export const useRestaurant = () => {
       restaurantStore.setRestaurant(restaurant);
     });
   }
+  function filterRestaurantsByFeature(features: string[]) {
+    return restaurantStore.getByFeature(features);
+  }
+
   return {
     //! Properties
     restaurants: restaurantsState,
     restaurant,
     //! Computed
+    filterRestaurants,
     //! Metodos
     setRestaurants,
     setRestaurant,
+    filterRestaurantsByFeature,
   };
 };
