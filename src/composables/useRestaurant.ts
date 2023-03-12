@@ -7,18 +7,24 @@ import { useBase } from './useBase';
 export const useRestaurant = () => {
   const restaurantStore = useRestaurantStore();
   const baseUse = useBase();
-  const { restaurantsState } = storeToRefs(restaurantStore);
+  const { restaurantsState, restaurant } = storeToRefs(restaurantStore);
 
   async function setRestaurants() {
     await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: Restaurant[]) =>
       restaurantStore.setRestaurants(restaurants)
     );
   }
+
+  function setRestaurant(restaurant: Restaurant) {
+    restaurantStore.setRestaurant(restaurant);
+  }
   return {
     //! Properties
     restaurants: restaurantsState,
+    restaurant,
     //! Computed
     //! Metodos
     setRestaurants,
+    setRestaurant,
   };
 };
