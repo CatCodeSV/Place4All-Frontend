@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import router from '@/router';
+import User from '@/models/User';
 </script>
 <template>
   <div></div>
@@ -20,12 +20,18 @@ import router from '@/router';
                 <v-col cols="12">
                   <v-hover v-slot="{ isHovering, props }" disabled>
                     <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="500px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6"> Usuario web </v-card-text>
+                      <v-card-text class="my-4 text-center text-h6">{{ User.name }} {{ User.lastname }}</v-card-text>
                       <img class="d-flex align-center" src="" alt="imagen" />
                       <div class="usuario-web ma-3">
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Usuario web" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Email web" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Password web" rows="1"></v-textarea>
+                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Usuario" rows="1"
+                          >{{ User.name }} {{ User.lastname }}</v-textarea
+                        >
+                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Email" rows="1">{{
+                          User.email
+                        }}</v-textarea>
+                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Password" rows="1">{{
+                          User.Password
+                        }}</v-textarea>
                       </div>
                     </v-card>
                   </v-hover>
@@ -37,7 +43,7 @@ import router from '@/router';
                 <v-col cols="12">
                   <v-hover v-slot="{ isHovering, props }" disabled>
                     <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="auto" width="600px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6"> Datos personales</v-card-text>
+                      <v-card-text class="my-4 text-center text-h6">Datos personales</v-card-text>
                       <div class="datos-personales ma-3">
                         <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
                         <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
@@ -56,7 +62,7 @@ import router from '@/router';
                 <v-col cols="12">
                   <v-hover v-slot="{ isHovering, props }" disabled>
                     <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="700px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6"> Reservas pasadas</v-card-text>
+                      <v-card-text class="my-4 text-center text-h6"> Últimas reservas</v-card-text>
                       <div class="datos-personales">
                         <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
                         <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
@@ -70,6 +76,4 @@ import router from '@/router';
           </div> </v-card></v-hover></v-col
   ></v-row>
 </template>
-
-
 <style scoped></style>
