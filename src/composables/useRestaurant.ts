@@ -1,4 +1,5 @@
 import getRestaurant from '@/helpers/getRestaurant';
+import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
 import { useRestaurantStore } from '@/store/restaurants.store';
 import { storeToRefs } from 'pinia';
@@ -21,12 +22,20 @@ export const useRestaurant = () => {
     });
   }
 
+  async function addFeatures(restaurant: Restaurant, features: Features[]) {
+    restaurant.servicio = [...restaurant.servicio, ...features];
+    await baseUse.executeApiAction(getRestaurant.updateRestaurant(restaurant.stringId, restaurant), (restaurant: Restaurant) => {
+      restaurantStore.setRestaurant(restaurant);
+    });
+  }
+
   return {
     //! Properties
     restaurants: restaurantsState,
     restaurant,
     //! Computed
     //! Metodos
+    addFeatures,
     setRestaurants,
     setRestaurant,
   };

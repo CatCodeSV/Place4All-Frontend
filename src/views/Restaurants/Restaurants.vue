@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
-import { Feature } from '@/models/Feature';
-import { Restaurant } from '@/models/Restaurant';
+import { Features } from '@/models/Features';
 import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
@@ -18,7 +17,7 @@ onBeforeMount(async () => {
   }
   restaurantsToShow.value = restaurants.value;
   await setFeatures();
-  mappedFeatures.value = features.value.map((feature: Feature) => {
+  mappedFeatures.value = features.value.map((feature: Features) => {
     return {
       value: feature.name,
       title: feature.name,
@@ -29,20 +28,6 @@ onBeforeMount(async () => {
 const loading = ref(false);
 const route = useRoute();
 const router = useRouter();
-
-function reserve() {
-  loading.value = true;
-
-  router.push('/restaurantes/1');
-
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
-}
-async function goToDetail(restaurant: Restaurant) {
-  await setRestaurant(restaurant.stringId);
-  router.push('/restaurantes/' + restaurant.stringId);
-}
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 const selectedFeature = ref(null);

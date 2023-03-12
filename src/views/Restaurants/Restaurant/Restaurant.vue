@@ -1,16 +1,26 @@
 <script lang="ts" setup>
+import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Address } from '@/models/Address';
+import { Features } from '@/models/Features';
 import { Review } from '@/models/Review';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const { restaurant, addFeatures } = useRestaurant();
+const { features, setFeatures } = useFeature();
 const router = useRouter();
-onMounted(() => {});
+onMounted(async () => {
+  if (features.value.length < 1) {
+    await setFeatures();
+  }
+});
 function goToListRestaurants() {
   router.push('/restaurantes');
 }
-const { restaurant } = useRestaurant();
+
+const selectedFeatures = ref<Features[]>([]);
+const isEdit = ref(false);
 const reviews = ref<Review[]>([]);
 function reserve() {}
 function summarizedAddress(address: Address) {
@@ -19,6 +29,10 @@ function summarizedAddress(address: Address) {
 
 function getImageUrl(image: string) {
   return image.replace('@', '/src');
+}
+
+async function addFeature() {
+  await addFeatures(restaurant.value!, selectedFeatures.value);
 }
 </script>
 
@@ -46,11 +60,27 @@ function getImageUrl(image: string) {
           readonly
           size="medium" />
         <v-spacer />
+        <v-btn color="secondary" icon="mdi-pencil" class="w-80 my-3 mr-4" @click="isEdit = !isEdit" />
         <v-btn color="primary" rounded="pill" prepend-icon="mdi-calendar-clock" class="w-80 my-4" @click="reserve">Reservar</v-btn>
       </div>
       <v-divider />
       <div class="d-flex w-100 bg-white">
         <div class="w-25 bg-white pa-4">
+          <div class="d-flex align-items-center justify-space-between" v-if="isEdit">
+            <v-autocomplete
+              clearable
+              chips
+              multiple
+              return-object
+              validate-on="blur"
+              :items="features"
+              item-title="name"
+              v-model="selectedFeatures"
+              color="secondary"
+              >Nuevo Servicio</v-autocomplete
+            >
+            <v-btn icon="mdi-plus" color="secondary" class="w-80 ml-4" @click="addFeature" />
+          </div>
           <div class="d-flex flex-wrap justify-center align-items-center w-100">
             <v-btn v-for="(feature, index) in restaurant?.servicio" :key="index" class="ma-1 mx-2">
               {{ feature.name }}
