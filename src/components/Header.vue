@@ -10,7 +10,7 @@ function goToHome() {
   router.push('/');
 }
 function goUser() {
-  router.push('/user');
+  router.push('/users');
 }
 </script>
 <template>
