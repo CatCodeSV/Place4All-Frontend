@@ -22,9 +22,9 @@ const routes = [
     component: () => import('@/views/Restaurants/Restaurants.vue'),
   },
   {
-    path: '/users',
-    name: 'Users',
-    component: () => import('@/views/Users/Users.vue'),
+    path: '/restaurantes/:id',
+    name: 'Restaurant',
+    component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
   },
 ];
 
