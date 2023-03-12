@@ -10,7 +10,7 @@ export type LoginResponse = {
   user: User;
 };
 const login = async (login: Login): Promise<LoginResponse> => {
-  const res = await apiClient.post<LoginResponse>('/User/login', login);
+  const res = await apiClient.post<LoginResponse>('/Users/authenticate', login);
   return res.data;
 };
 

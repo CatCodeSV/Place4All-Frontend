@@ -18,10 +18,15 @@ import { ref } from 'vue';
 import Footer from './components/Footer.vue';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
+import { useUser } from './composables/useUser';
 
+const { user } = useUser();
 const dialog = ref(false);
 
 function onOpenDialog() {
+  if (user.value !== undefined) {
+    return;
+  }
   console.log('onOpenDialog');
   dialog.value = true;
 }
