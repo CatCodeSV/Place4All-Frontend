@@ -5,7 +5,7 @@ interface IdValue {
   id: number;
   value: string;
 }
-const injectToken = (config: AxiosRequestConfig): AxiosRequestConfig => {
+const injectToken = (config: AxiosRequestConfig): any => {
   try {
     const { token } = useUser();
     if (token.value) {
@@ -42,7 +42,7 @@ class Place4AllHttpClient {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'http://place4all-api-dev.azurewebsites.net',
+      baseURL: 'https://place4all-api-dev.azurewebsites.net',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',

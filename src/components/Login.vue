@@ -1,30 +1,43 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-const dialog = ref(false);
+import { computed, ref } from 'vue';
+
+const visible = ref(false);
+//Props for dialog boolean
+const props = defineProps<{
+  value: boolean;
+  onClose: Function;
+}>();
+
+function onLogin() {}
+const show = computed(() => {
+  return props.value;
+});
 </script>
 <template>
-  <v-dialog v-model="dialog" persistent width="1024">
-    <v-card>
-      <v-card-title>
-        <span class="text-h5">Login</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field label="Email*" required></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field label="Password*" type="password" required></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
+  <v-dialog v-model="show" persistent width="1024">
+    <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" min-width="35%" rounded="lg">
+      <div class="text-subtitle-1 text-medium-emphasis">Email</div>
+
+      <v-text-field density="compact" placeholder="Email" prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
+
+      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Contraseña</div>
+
+      <v-text-field
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="Contraseña"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="visible = !visible"></v-text-field>
+
+      <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="onLogin()"> Iniciar sesión </v-btn>
+
+      <v-card-text class="text-center">
+        <v-btn variant="text" class="text-blue text-decoration-none" @click="onClose()">
+          Cancelar <v-icon icon="mdi-chevron-right"></v-icon>
+        </v-btn>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false"> Cerrar </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false"> Guarfar </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

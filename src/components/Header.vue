@@ -13,6 +13,7 @@ function goToHome() {
 function openLogin() {
   return (Login.dialog = true);
 }
+const emits = defineEmits(['openDialog']);
 </script>
 <template>
   <v-app-bar>
@@ -27,10 +28,9 @@ function openLogin() {
     <v-btn icon>
       <v-icon>mdi-comment-text-outline</v-icon>
     </v-btn>
-    <v-btn icon id="login-btn" @click="openLogin()">
+    <v-btn icon id="login-btn" @click="emits('openDialog')">
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>
   </v-app-bar>
-  <Login></Login>
 </template>
 <style scoped lang="scss"></style>
