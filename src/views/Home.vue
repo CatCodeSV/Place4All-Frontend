@@ -16,8 +16,7 @@ function buscar() {
 
 <!--Pantalla 1920 x 1080-->
 <template>
-  <div class="container" style="background-image: url('~@/assets/home.jpg')">
-    <!-- <div class="bg-white title">Encuentra tu lugar ideal</div> -->
+  <div class="container" style="background-image: url('@/assets/home.jpg')">
     <div class="d-flex justify-space-around align-center"></div>
     <!--imagen principal-->
     <v-img class="img-home mx-auto" max-width="100%" src="@/assets/necesidades.jpg" alt="imagen-home"></v-img>

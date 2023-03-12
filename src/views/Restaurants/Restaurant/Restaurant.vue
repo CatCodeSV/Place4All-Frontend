@@ -1,21 +1,20 @@
 <script lang="ts" setup>
+import { useRestaurant } from '@/composables/useRestaurant';
+import { Address } from '@/models/Address';
+import { Review } from '@/models/Review';
+import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { defineProps, onBeforeMount } from 'vue';
-import { Restaurant } from '@/models/Restaurant';
 
 const router = useRouter();
-
-onBeforeMount(() => {
-  /* reviews.value =   coger de la API las reviews por restaurante*/
-});
-const props = defineProps<{ restaurant: Restaurant }>();
+const { restaurant } = useRestaurant();
+onBeforeMount(() => {});
 function goToListRestaurants() {
   router.push('/restaurantes');
 }
 const reviews = ref<Review[]>([]);
 function reserve() {}
 function summarizedAddress(address: Address) {
-  return `${address.street} ${address.number}, ${address.zip}. ${address.city}`;
+  return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
 }
 </script>
 
@@ -30,13 +29,13 @@ function summarizedAddress(address: Address) {
   <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="80%">
     <v-card>
       <div class="d-flex flex-colum bg-white">
-        <v-img v-for="image of props.restaurant.images" v-bind:key="image.name" cover height="250" width="30%" :src="image.address" />
+        <v-img v-for="image of restaurant!.images" v-bind:key="image" cover height="250" width="30%" :src="image" />
       </div>
       <div class="d-flex pa-4 w-100 bg-white">
-        <h2 class="align-self-center">{{ props.restaurant.name }} |</h2>
+        <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
         <v-rating
           class="ml-2 align-self-center"
-          :model-value="4"
+          :model-value="restaurant?.reviews?.reviewsAverage"
           color="amber"
           density="compact"
           half-increments
@@ -49,37 +48,9 @@ function summarizedAddress(address: Address) {
       <div class="d-flex w-100 bg-white">
         <div class="w-25 bg-white pa-4">
           <div class="d-flex flex-wrap justify-center align-items-center w-100">
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
-            </v-btn>
-            <v-btn class="ma-1 mx-2">
-              Top
-              <v-tooltip activator="parent" location="top">Tooltip</v-tooltip>
+            <v-btn v-for="(feature, index) in restaurant?.servicio" :key="index" class="ma-1 mx-2">
+              {{ feature.name }}
+              <v-tooltip activator="parent" location="top">{{ feature.description }}</v-tooltip>
             </v-btn>
           </div>
         </div>
@@ -90,7 +61,7 @@ function summarizedAddress(address: Address) {
                 <h4 class="my-4 text">Teléfono</h4>
               </v-col>
               <v-col align-self="center" cols="12" sm="9" md="9">
-                <p class="text">{{ props.restaurant.phoneNumber }}</p>
+                <p class="text">{{ restaurant!.phoneNumber }}</p>
               </v-col>
             </v-row>
             <v-row>
@@ -98,7 +69,7 @@ function summarizedAddress(address: Address) {
                 <h4 class="my-4 text">Ubicacion</h4>
               </v-col>
               <v-col align-self="center" cols="12" sm="9" md="9">
-                <p class="text">{{ summarizedAddress(props.restaurant.address) }}</p>
+                <p class="text">{{ summarizedAddress(restaurant!.address) }}</p>
               </v-col>
             </v-row>
             <v-row>
@@ -107,7 +78,7 @@ function summarizedAddress(address: Address) {
               </v-col>
               <v-col align-self="end" cols="12" sm="9" md="9">
                 <p class="text">
-                  {{ props.restaurant.description }}
+                  {{ restaurant!.descripcion }}
                 </p>
               </v-col>
             </v-row>
@@ -127,7 +98,7 @@ function summarizedAddress(address: Address) {
             <v-col class="h-100" cols="12" lg="4" md="6" sm="12">
               <v-card v-for="review in reviews" outlined color="transparent" :border="0" :elevation="5" class="h-100">
                 <v-card-item>
-                  <v-card-title>{{ review.title }}</v-card-title>
+                  <v-card-title>{{ review.comment.title }}</v-card-title>
                   <v-card-subtitle> {{ review.user.name }} </v-card-subtitle>
                   <v-rating :model-value="review.value" color="amber" density="compact" half-increments readonly size="small" />
                 </v-card-item>
