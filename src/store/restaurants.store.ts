@@ -1,3 +1,4 @@
+import { Feature } from '@/models/Feature';
 import { Restaurant } from '@/models/Restaurant';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -5,8 +6,20 @@ import { ref } from 'vue';
 export const useRestaurantStore = defineStore('restaurants', () => {
   const restaurantsState = ref<Restaurant[]>([]);
 
+  //Siempre que es un ref hay que poner value
   function setRestaurants(restaurants: Restaurant[]) {
     restaurantsState.value = restaurants;
+  }
+
+  //getters
+
+  //function getByFeature prarámetro de entrada = arrayFeature, return elementos del array coincidentes función some
+  function getByFeature(features: Feature[]) {
+    return restaurantsState.value.filter(restaurant => {
+      return features.some(feature => {
+        return restaurant.servicio.includes(feature);
+      });
+    });
   }
 
   return {
@@ -14,3 +27,9 @@ export const useRestaurantStore = defineStore('restaurants', () => {
     setRestaurants,
   };
 });
+
+//Filtro necsidades:
+//Llamar a la función que corresponda al filtro checkeado
+//Obtener el valor del filtro checheado en el caso de las features el id
+//Función que busca los Id de los restaurantes según el id de las necesidades checeadas
+//Hacer for each de la lista de restaurantes y llamar al método setReataurants con Id

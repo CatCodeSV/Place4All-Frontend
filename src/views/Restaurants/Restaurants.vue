@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Feature } from '@/models/Feature';
 import { onBeforeMount, ref } from 'vue';
@@ -9,9 +10,18 @@ onBeforeMount(async () => {
   loading.value = true;
   console.log(route.query.search);
   await setRestaurants();
+  await setFeatures();
+  mappedFeatures.value = features.value.map((feature: Feature) => {
+    return {
+      value: feature.name,
+      title: feature.name,
+    };
+  });
+  console.log(mappedFeatures.value);
   loading.value = false;
 });
 const { restaurants, setRestaurants } = useRestaurant();
+const { features, setFeatures } = useFeature();
 const loading = ref(false);
 const selection = ref(1);
 const rating = ref(4.5);
@@ -26,20 +36,20 @@ function reserve() {
 }
 
 //Para el filtro de features/necesidades
-const features = ref<Feature[]>([]);
+const mappedFeatures = ref();
 const selectedFeature = ref(null);
 </script>
 
 <template>
   <v-tabs fixed-tabs class="mt-4 mx-4" id="filters-tab">
-    <div class="checked-drop-down-list">
-      <v-select clearable :items="features" chips label="Necesidades" multiple v-model="selectedFeature"> </v-select>
+    <div class="checked-drop-down-list" id="features-filter">
+      <v-select clearable :items="mappedFeatures" chips label="Necesidades" multiple v-model="selectedFeature"> </v-select>
     </div>
-    <div class="checked-drop-down-list">
+    <div class="checked-drop-down-list" id="stars-filter">
       <v-select clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
     </div>
   </v-tabs>
-  <span> {{ restaurants.length }} Resultados </span>
+  <span class="span-filtered-results"> {{ restaurants.length }} Resultados </span>
   <v-row class="pa-6">
     <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurants" :key="restaurant.id.toString()">
       <RestaurantCard :restaurant="restaurant" />
@@ -53,5 +63,14 @@ const selectedFeature = ref(null);
 }
 .checked-drop-down-list {
   width: 12.5rem;
+}
+#features-filter {
+  margin-left: 2rem;
+}
+.span-filtered-results {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: smaller;
+  color: grey;
+  margin-left: 4rem;
 }
 </style>
