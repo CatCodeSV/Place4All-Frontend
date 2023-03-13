@@ -21,7 +21,7 @@ function reserve() {
 }
 
 function getImageUrl(image: string) {
-  return image.replace('@', 'src');
+  return image.replace('@/assets', '');
 }
 
 function summarizeAdress(address: Address) {

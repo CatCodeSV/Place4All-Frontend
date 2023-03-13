@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
+import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
 import { Review } from '@/models/Review';
@@ -9,6 +10,7 @@ import { useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 
 const { restaurant, addFeatures } = useRestaurant();
+const { user } = useUser();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
 onMounted(async () => {
@@ -29,7 +31,7 @@ function summarizedAddress(address: Address) {
 }
 
 function getImageUrl(image: string) {
-  return image.replace('@', '/src');
+  return image.replace('@/assets', '');
 }
 
 async function addFeature() {
