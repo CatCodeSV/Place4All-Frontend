@@ -44,27 +44,29 @@ function setFiltered(filter: any[]) {
 
 <template>
   <div class="d-flex mt-10">
-    <div class="checked-drop-down-list my-4 mx-10" id="features-filter">
-      <v-select
-        clearable
-        color="secondary"
-        :items="mappedFeatures"
-        chips
-        label="Necesidades"
-        multiple
-        v-model="selectedFeature"
-        @update:model-value="setFiltered">
-      </v-select>
-    </div>
-    <div class="checked-drop-down-list my-4" id="stars-filter">
-      <v-select color="secondary" clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
-    </div>
+    <v-row class="px-10">
+      <v-col cols="12" lg="2" sm="6" xs="6">
+        <v-select
+          clearable
+          color="secondary"
+          :items="mappedFeatures"
+          chips
+          label="Necesidades"
+          multiple
+          v-model="selectedFeature"
+          @update:model-value="setFiltered" />
+      </v-col>
+
+      <v-col cols="12" lg="2" sm="6" xs="6">
+        <v-select color="secondary" clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"> </v-select>
+      </v-col>
+    </v-row>
   </div>
 
   <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow.length }} Resultados </span>
   <v-divider class="my-10" />
   <v-row class="pa-6">
-    <v-col cols="12" md="3" sm="6" v-for="restaurant of restaurantsToShow" :key="restaurant.id.toString()">
+    <v-col cols="12" md="3" sm="6" v-for="(restaurant, index) in restaurants" :key="index">
       <v-skeleton-loader transition="scale-transition" :loading="loading" class="mx-auto" max-width="300" type="card">
         <RestaurantCard :restaurant="restaurant" />
       </v-skeleton-loader>
@@ -83,9 +85,6 @@ function setFiltered(filter: any[]) {
 }
 #filters-tab {
   flex: 0 1 auto;
-}
-.checked-drop-down-list {
-  width: 12.5rem;
 }
 #features-filter {
   margin-left: 2rem;

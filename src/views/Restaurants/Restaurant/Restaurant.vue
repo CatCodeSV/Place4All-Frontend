@@ -5,7 +5,7 @@ import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
 import { Review } from '@/models/Review';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 
@@ -39,6 +39,9 @@ async function addFeature() {
 }
 
 const reviewsDialog = ref(false);
+const windowWidht = computed(() => {
+  return window.innerWidth;
+});
 </script>
 
 <template>
@@ -54,7 +57,7 @@ const reviewsDialog = ref(false);
       <div class="d-flex flex-colum bg-white">
         <v-img v-for="image of restaurant!.image" v-bind:key="image" cover height="250" width="30%" :src="getImageUrl(image)" />
       </div>
-      <div class="d-flex pa-4 w-100 bg-white">
+      <div class="d-flex pa-4 w-100 bg-white flex-wrap">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
         <v-rating
           class="ml-2 align-self-center"
@@ -70,7 +73,7 @@ const reviewsDialog = ref(false);
       </div>
       <v-divider />
       <div class="d-flex w-100 bg-white">
-        <div class="w-25 bg-white pa-4">
+        <div class="w-25 bg-white pa-4" v-if="windowWidht > 1200">
           <div class="d-flex align-items-center justify-space-between" v-if="isEdit">
             <v-autocomplete
               clearable

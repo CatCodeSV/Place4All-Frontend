@@ -17,17 +17,19 @@ const emits = defineEmits(['openDialog']);
 </script>
 <template>
   <v-app-bar>
-    <v-toolbar-title>
+    <v-toolbar-nav-icon>
       <v-btn @click="goToHome()">Place4All</v-btn>
+    </v-toolbar-nav-icon>
+    <v-toolbar-items>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain">Restaurantes</v-btn>
-    </v-toolbar-title>
+    </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-star-outline</v-icon>
     </v-btn>
-    <v-btn icon>
+    <!--   <v-btn icon>
       <v-icon>mdi-comment-text-outline</v-icon>
-    </v-btn>
+    </v-btn> -->
     <v-btn icon id="login-btn" @click="emits('openDialog')">
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>

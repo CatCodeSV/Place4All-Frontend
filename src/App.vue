@@ -1,8 +1,8 @@
 <template>
   <v-layout>
     <Header @open-dialog="onOpenDialog" />
-    <v-main style="min-height: 300px">
-      <div style="min-height: 100vh">
+    <v-main id="page-container" class="d-flex w-100 flex-column">
+      <div id="main-content">
         <RouterView />
         <Login :value="dialog" :on-close="() => (dialog = !dialog)" />
       </div>
@@ -33,10 +33,18 @@ function onOpenDialog() {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  /* position: fixed; */
+#page-container {
+  min-height: 100vh;
   position: relative;
+}
+
+#main-content {
+  padding-bottom: 101px;
+}
+.footer {
+  position: absolute;
   bottom: 0;
   width: 100%;
+  margin-top: auto;
 }
 </style>
