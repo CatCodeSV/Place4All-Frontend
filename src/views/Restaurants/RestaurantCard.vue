@@ -14,7 +14,7 @@ const props = defineProps<{
 
 function reserve() {
   loading.value = true;
-
+  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
   setTimeout(() => {
     loading.value = false;
   }, 2000);

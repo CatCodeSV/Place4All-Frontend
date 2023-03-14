@@ -5,12 +5,12 @@ import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
 import { Review } from '@/models/Review';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 
 const { restaurant, addFeatures } = useRestaurant();
-const { user } = useUser();
+const { user, token } = useUser();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
 onMounted(async () => {
@@ -25,7 +25,9 @@ function goToListRestaurants() {
 const selectedFeatures = ref<Features[]>([]);
 const isEdit = ref(false);
 const reviews = ref<Review[]>([]);
-function reserve() {}
+function reserve() {
+  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
+}
 function summarizedAddress(address: Address) {
   return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
 }
@@ -39,9 +41,7 @@ async function addFeature() {
 }
 
 const reviewsDialog = ref(false);
-const windowWidht = computed(() => {
-  return window.innerWidth;
-});
+const windowWidht = ref(window.innerWidth);
 </script>
 
 <template>
@@ -68,7 +68,12 @@ const windowWidht = computed(() => {
           readonly
           size="medium" />
         <v-spacer />
-        <v-btn color="secondary" icon="mdi-pencil" class="w-80 my-3 mr-4" @click="isEdit = !isEdit" />
+        <v-btn
+          v-if="token !== '' || token === undefined"
+          color="secondary"
+          icon="mdi-pencil"
+          class="w-80 my-3 mr-4"
+          @click="isEdit = !isEdit" />
         <v-btn color="primary" rounded="pill" prepend-icon="mdi-calendar-clock" class="w-80 my-4" @click="reserve">Reservar</v-btn>
       </div>
       <v-divider />
