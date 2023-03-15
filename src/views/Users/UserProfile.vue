@@ -1,12 +1,10 @@
-<script lang="ts" setup>
-import User from '@/models/User';
-</script>
+<script lang="ts" setup></script>
 <template>
   <div></div>
   <v-row align="center" justify="center">
     <v-col cols="12">
       <v-hover v-slot="{ isHovering, props }" disabled>
-        <v-card :elevation="isHovering ? 12 : 2" class="mx-auto my-10" height="auto" max-width="70%" v-bind="props">
+        <v-card :elevation="isHovering ? 12 : 2" class="mx-auto my-10" height="auto" max-width="96%" v-bind="props">
           <div>
             <v-btn class="ma-2" color="blue-darken-2">
               <v-icon start icon="mdi-arrow-left"></v-icon>
@@ -20,18 +18,28 @@ import User from '@/models/User';
                 <v-col cols="12">
                   <v-hover v-slot="{ isHovering, props }" disabled>
                     <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="500px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6">{{ User.name }} {{ User.lastname }}</v-card-text>
-                      <img class="d-flex align-center" src="" alt="imagen" />
+                      <v-card-text class="my-4 text-center text-h6"
+                        >Nombre Apellido<!-- {{ User.name }} {{ User.lastname }} --></v-card-text
+                      >
+                      <img
+                        class="d-flex align-center"
+                        id="profileImage"
+                        src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
+                        alt="imagen de perfil" />
                       <div class="usuario-web ma-3">
                         <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Usuario" rows="1"
-                          >{{ User.name }} {{ User.lastname }}</v-textarea
+                          >Nombre Apellido<!-- {{ User.name }} {{ User.lastname }} --></v-textarea
                         >
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Email" rows="1">{{
+                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Email" rows="1"
+                          >Email<!-- {{
                           User.email
-                        }}</v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Password" rows="1">{{
+                        }} --></v-textarea
+                        >
+                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Password" rows="1"
+                          >Password<!-- {{
                           User.Password
-                        }}</v-textarea>
+                        }} --></v-textarea
+                        >
                       </div>
                     </v-card>
                   </v-hover>
@@ -76,4 +84,9 @@ import User from '@/models/User';
           </div> </v-card></v-hover></v-col
   ></v-row>
 </template>
-<style scoped></style>
+<style scoped>
+#profileImage {
+  max-width: 300px;
+  max-height: 300px;
+}
+</style>
