@@ -66,7 +66,7 @@ function setFiltered(filter: any[]) {
   <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow.length }} Resultados </span>
   <v-divider class="my-10" />
   <v-row class="pa-6">
-    <v-col cols="12" md="3" sm="6" v-for="(restaurant, index) in restaurants" :key="index">
+    <v-col cols="12" md="3" sm="6" v-for="(restaurant, index) in restaurantsToShow" :key="index">
       <v-skeleton-loader transition="scale-transition" :loading="loading" class="mx-auto" max-width="300" type="card">
         <RestaurantCard :restaurant="restaurant" />
       </v-skeleton-loader>
