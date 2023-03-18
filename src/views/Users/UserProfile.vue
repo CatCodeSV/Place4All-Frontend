@@ -1,92 +1,87 @@
 <script lang="ts" setup></script>
 <template>
-  <div></div>
-  <v-row align="center" justify="center">
-    <v-col cols="12">
-      <v-hover v-slot="{ isHovering, props }" disabled>
-        <v-card :elevation="isHovering ? 12 : 2" class="mx-auto my-10" height="auto" max-width="96%" v-bind="props">
-          <div>
-            <v-btn class="ma-2" color="blue-darken-2">
-              <v-icon start icon="mdi-arrow-left"></v-icon>
-              Volver
-            </v-btn>
-          </div>
-          <v-card-text class="my-4 text-center text-h6"> Perfil de usuario </v-card-text>
-          <div class="block-superior mx-auto d-flex justify-space-around">
-            <div>
-              <v-row>
-                <v-col cols="12">
-                  <v-hover v-slot="{ isHovering, props }" disabled>
-                    <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="500px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6"
-                        >Nombre Apellido<!-- {{ User.name }} {{ User.lastname }} --></v-card-text
-                      >
-                      <img
-                        class="d-flex align-center"
-                        id="profileImage"
-                        src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
-                        alt="imagen de perfil" />
-                      <div class="usuario-web ma-3">
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Usuario" rows="1"
-                          >Nombre Apellido<!-- {{ User.name }} {{ User.lastname }} --></v-textarea
-                        >
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Email" rows="1"
-                          >Email<!-- {{
-                          User.email
-                        }} --></v-textarea
-                        >
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Password" rows="1"
-                          >Password<!-- {{
-                          User.Password
-                        }} --></v-textarea
-                        >
-                      </div>
-                    </v-card>
-                  </v-hover>
-                </v-col>
-              </v-row>
-            </div>
-            <div>
-              <v-row>
-                <v-col cols="12">
-                  <v-hover v-slot="{ isHovering, props }" disabled>
-                    <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="auto" width="600px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6">Datos personales</v-card-text>
-                      <div class="datos-personales ma-3">
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Dirección" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Fecha nacimiento" rows="1"></v-textarea>
-                      </div>
-                    </v-card>
-                  </v-hover>
-                </v-col>
-              </v-row>
-            </div>
-          </div>
-          <div class="block-inferior mx-auto my-8 d-flex justify-space-around">
-            <div>
-              <v-row>
-                <v-col cols="12">
-                  <v-hover v-slot="{ isHovering, props }" disabled>
-                    <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="700px" v-bind="props">
-                      <v-card-text class="my-4 text-center text-h6"> Últimas reservas</v-card-text>
-                      <div class="datos-personales">
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
-                        <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
-                        <v-textarea prepend-inner-icon="mdi-comment" class="mx-2" label="Dirección" rows="1"></v-textarea>
-                      </div>
-                    </v-card>
-                  </v-hover>
-                </v-col>
-              </v-row>
-            </div>
-          </div> </v-card></v-hover></v-col
-  ></v-row>
+  <div>
+    <v-btn class="ma-2" color="blue-darken-2">
+      <v-icon start icon="mdi-arrow-left"></v-icon>
+      Volver
+    </v-btn>
+  </div>
+  <v-card-text class="my-4 text-center text-h6"> Perfil de usuario </v-card-text>
+  <div class="block-superior mx-auto d-flex" id="block-superior">
+    <div>
+      <v-row>
+        <v-col cols="12">
+          <v-hover v-slot="{ isHovering, props }" disabled>
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="auto" min-width="fit-content" v-bind="props">
+              <v-card-text class="my-4 text-center text-h6">Nombre Apellido</v-card-text>
+              <v-img cover max-height="200" src="https://picsum.photos/id/237/200/300"></v-img>
+              <div class="usuario-web ma-3">
+                <v-card-text class="text-center text"><strong>Usuario:</strong> MLage</v-card-text>
+                <v-card-text class="text-center text"><strong>Email:</strong> lagemarcos@gmail.com</v-card-text>
+                <v-card-text class="text-center text"><strong>Contraseña:</strong> test</v-card-text>
+              </div>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
+    <div>
+      <v-row>
+        <v-col cols="12">
+          <v-hover v-slot="{ isHovering, props }" disabled>
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="auto" min-width="fit-content" v-bind="props">
+              <v-card-text class="my-4 text-center text-h6">Datos personales</v-card-text>
+              <div class="datos-personales ma-3">
+                <v-card-text class="text"><strong>Nombre:</strong> Marcos</v-card-text>
+                <v-card-text class="text"><strong>Apellidos:</strong> Lage</v-card-text>
+                <v-card-text class="text"><strong>Dirección:</strong> Avenida de los Naranjos 1, Valencia</v-card-text>
+                <v-card-text class="text"><strong>Fecha de nacimiento:</strong> 10/10/1998</v-card-text>
+              </div>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
+  <div class="block-inferior mx-auto my-8 d-flex justify-space-around">
+    <div>
+      <v-row>
+        <v-col cols="12">
+          <v-hover v-slot="{ isHovering, props }" disabled>
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="700px" v-bind="props">
+              <v-card-text class="my-4 text-center text-h6"> Últimas reservas</v-card-text>
+              <div class="datos-personales">
+                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
+                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
+                <v-textarea prepend-inner-icon="mdi-comment" class="mx-2" label="Dirección" rows="1"></v-textarea>
+              </div>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
+    <div>
+      <v-row>
+        <v-col cols="12">
+          <v-hover v-slot="{ isHovering, props }" disabled>
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" width="700px" v-bind="props">
+              <v-card-text class="my-4 text-center text-h6"> Últimas reservas</v-card-text>
+              <div class="datos-personales">
+                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
+                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
+                <v-textarea prepend-inner-icon="mdi-comment" class="mx-2" label="Dirección" rows="1"></v-textarea>
+              </div>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
 </template>
 <style scoped>
-#profileImage {
-  max-width: 300px;
-  max-height: 300px;
+#block-superior {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
 }
 </style>
