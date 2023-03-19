@@ -12,7 +12,7 @@
       <v-row>
         <v-col cols="12">
           <v-hover v-slot="{ isHovering, props }" disabled>
-            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350px" min-width="fit-content" v-bind="props">
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="468px" min-width="360px" v-bind="props">
               <v-card-text class="my-4 text-center text-h6">Nombre Apellido</v-card-text>
               <v-img cover max-height="200" src="https://picsum.photos/id/237/200/300"></v-img>
               <div class="usuario-web ma-3">
@@ -29,7 +29,7 @@
       <v-row>
         <v-col cols="12">
           <v-hover v-slot="{ isHovering, props }" disabled>
-            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350px" min-width="fit-content" v-bind="props">
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="468px" min-width="360px" v-bind="props">
               <v-card-text class="my-4 text-center text-h6">Datos personales</v-card-text>
               <div class="datos-personales ma-3">
                 <v-card-text class="text"><strong>Nombre:</strong> Marcos</v-card-text>
@@ -43,12 +43,12 @@
       </v-row>
     </div>
   </div>
-  <div class="block-inferior mx-auto my-8 d-flex justify-space-around">
+  <div class="block-inferior mx-auto my-8 d-flex" id="block-superior">
     <div>
       <v-row>
         <v-col cols="12">
           <v-hover v-slot="{ isHovering, props }" disabled>
-            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" min-width="fit-content" v-bind="props">
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" min-width="360px" v-bind="props">
               <v-card-text class="my-4 text-center text-h6">Discapacidad</v-card-text>
               <v-card-text class="text-center text-h7"><strong>Tipo de discapacidad:</strong> Ninguna</v-card-text>
               <v-slider :ticks="tickLabels" :max="3" step="1" show-ticks="always" tick-size="4"> </v-slider>
@@ -61,12 +61,24 @@
       <v-row>
         <v-col cols="12">
           <v-hover v-slot="{ isHovering, props }" disabled>
-            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" min-width="fit-content" v-bind="props">
+            <v-card :elevation="isHovering ? 12 : 2" class="mx-auto" height="350" min-width="360px" v-bind="props">
               <v-card-text class="my-4 text-center text-h6"> Últimas reservas</v-card-text>
-              <div class="datos-personales">
-                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Nombre" rows="1"></v-textarea>
-                <v-textarea id="" prepend-inner-icon="mdi-comment" class="mx-2" label="Apellidos" rows="1"></v-textarea>
-                <v-textarea prepend-inner-icon="mdi-comment" class="mx-2" label="Dirección" rows="1"></v-textarea>
+              <div class="reservas">
+                <v-card title="Nombre Restaurante" subtitle="Fecha">
+                  <v-card-actions>
+                    <v-btn>Detalles</v-btn>
+                  </v-card-actions>
+                </v-card>
+                <v-card title="Nombre Restaurante" subtitle="Fecha">
+                  <v-card-actions>
+                    <v-btn>Detalles</v-btn>
+                  </v-card-actions>
+                </v-card>
+                <v-card title="Nombre Restaurante" subtitle="Fecha">
+                  <v-card-actions>
+                    <v-btn>Detalles</v-btn>
+                  </v-card-actions>
+                </v-card>
               </div>
             </v-card>
           </v-hover>
@@ -77,6 +89,11 @@
 </template>
 <style scoped>
 #block-superior {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+#block-inferior {
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
