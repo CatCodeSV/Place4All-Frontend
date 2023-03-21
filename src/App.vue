@@ -6,16 +6,15 @@
         <RouterView />
         <Login :value="dialog" :on-close="() => (dialog = !dialog)" />
       </div>
-      <div class="footer">
+      <!--  <div class="footer">
         <Footer />
-      </div>
+      </div> -->
     </v-main>
   </v-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import Footer from './components/Footer.vue';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
 import { useUser } from './composables/useUser';

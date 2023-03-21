@@ -10,8 +10,9 @@ export interface Review extends PDocument {
   comment: Comment;
 }
 
-export interface Comment extends PDocument {
+export interface Comment {
   title: string;
+  comments: string;
   informationAccuracy: number;
   hasFeatures: Features[];
 }

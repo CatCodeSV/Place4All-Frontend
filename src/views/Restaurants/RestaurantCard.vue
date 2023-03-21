@@ -29,7 +29,7 @@ function summarizeAdress(address: Address) {
 }
 
 async function goToDetail(restaurant: Restaurant) {
-  await setRestaurant(restaurant.stringId);
+  await setRestaurant(restaurant!.stringId!);
   router.push('/restaurantes/' + restaurant.stringId);
 }
 </script>
