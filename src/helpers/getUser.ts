@@ -1,6 +1,8 @@
 import { apiClient } from '@/api/apiClient.m';
 import { User } from '@/models/User';
 
+const baseURL = '/UserProfile';
+
 export type Login = {
   email: string;
   password: string;
