@@ -14,14 +14,14 @@ const props = defineProps<{
 
 function reserve() {
   loading.value = true;
-
+  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
   setTimeout(() => {
     loading.value = false;
   }, 2000);
 }
 
 function getImageUrl(image: string) {
-  return image.replace('@', 'src');
+  return image.replace('@/assets', '');
 }
 
 function summarizeAdress(address: Address) {
@@ -29,7 +29,7 @@ function summarizeAdress(address: Address) {
 }
 
 async function goToDetail(restaurant: Restaurant) {
-  await setRestaurant(restaurant.stringId);
+  await setRestaurant(restaurant!.stringId!);
   router.push('/restaurantes/' + restaurant.stringId);
 }
 </script>
