@@ -7,12 +7,11 @@ export interface Review extends PDocument {
   value: number;
   restaurant: Restaurant;
   user: User;
-  comment: Comment;
+  comments: Comments;
 }
-
-export interface Comment {
+export interface Comments {
   title: string;
-  comments: string;
+  comment: string;
   informationAccuracy: number;
   hasFeatures: Features[];
 }

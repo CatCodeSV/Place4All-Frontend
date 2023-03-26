@@ -26,9 +26,9 @@ async function onSubmit() {
     value: reviewValue.value,
     restaurant: props.restaurant,
     user: user.value!,
-    comment: {
+    comments: {
       title: title.value,
-      comments: comments.value,
+      comment: comments.value,
       informationAccuracy: informationAccuracy.value,
       hasFeatures: moreServices.value,
     },

@@ -156,12 +156,12 @@ const windowWidht = ref(window.innerWidth);
               <v-col cols="12" lg="4" md="6" sm="12" v-for="review in reviews">
                 <v-card outlined color="transparent" :border="0" :density="'compact'" height="250px" :elevation="5">
                   <v-card-item>
-                    <v-card-title>{{ review.comment.title }}</v-card-title>
+                    <v-card-title>{{ review.comments.title }}</v-card-title>
                     <v-card-subtitle> {{ review.user.name }} </v-card-subtitle>
                     <v-rating :model-value="review.value" color="amber" density="compact" half-increments readonly size="small" />
                   </v-card-item>
                   <v-card-text>
-                    <div>{{ review.comment.comment || 'No hay comentario.' }}</div>
+                    <div>{{ review.comments.comment || 'No hay comentario.' }}</div>
                   </v-card-text>
                 </v-card>
               </v-col>
