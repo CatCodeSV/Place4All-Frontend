@@ -7,13 +7,6 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const { user } = useUser();
 const isEdit = ref(false);
-const tickLabels = ref({
-  0: 'Nula',
-  1: 'Leve',
-  2: 'Moderada',
-  3: 'Grave',
-  4: 'Muy grave',
-});
 
 function goToHome() {
   router.push('/home');
@@ -31,6 +24,7 @@ function nameCapitalLetters(user: User) {
   let result = `${nameCL}${surnameCL}`;
   return result;
 }
+const reservationsDialog = ref(false);
 </script>
 <template>
   <v-card-actions class="mx-auto">
@@ -43,7 +37,7 @@ function nameCapitalLetters(user: User) {
     <div class="block-superior mx-auto my-8 d-flex" id="block-superior">
       <div class="div-personalData" id="rofile">
         <h1 class="my-4 text-center text-h6">{{ user?.name }} {{ user?.lastName }}</h1>
-        <div class="d-flex">
+        <div class="d-flex" id="userDetails">
           <v-avatar class="mx-4 my-4" color="info" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
           <v-row class="mx-2 my-2">
             <v-col>
@@ -84,32 +78,35 @@ function nameCapitalLetters(user: User) {
             </v-col>
           </v-row>
           <v-row class="mx-2 my-0.5">
-            <p class="text"><strong>Tipo de discapacidad: </strong></p>
-            <v-slider class="mx-2" :ticks="tickLabels" :max="4" step="1" show-ticks="always" tick-size="4"></v-slider>
+            <v-col>
+              <p class="text"><strong>Tipo de discapacidad: </strong></p>
+            </v-col>
+            <v-col>
+              <v-select
+                label="Discapacidad"
+                :items="['Nula', 'Leve', 'Moderada', 'Grave', 'Muy Grave']"
+                variant="underlined"></v-select>
+            </v-col>
           </v-row>
         </div>
       </div>
     </div>
-    <div class="block-inferior mx-auto my-8 d-flex" id="block-inferior">
+    <div class="block-inferior mx-auto d-flex" id="block-inferior">
       <div id="personalReservations">
-        <v-card-text class="my-1 text-center text-h6"> Últimas reservas</v-card-text>
-        <div class="reservas">
-          <v-card title="Nombre Restaurante" subtitle="Fecha">
-            <v-card-actions>
-              <v-btn size="x-small" color="secondary">Detalles</v-btn>
-            </v-card-actions>
-          </v-card>
-          <v-card title="Nombre Restaurante" subtitle="Fecha">
-            <v-card-actions>
-              <v-btn size="x-small" color="secondary">Detalles</v-btn>
-            </v-card-actions>
-          </v-card>
-          <v-card title="Nombre Restaurante" subtitle="Fecha">
-            <v-card-actions>
-              <v-btn size="x-small" color="secondary">Detalles</v-btn>
-            </v-card-actions>
-          </v-card>
-        </div>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-title>
+              <template v-slot:default="{}">
+                <v-row no-gutters>
+                  <v-col cols="4" class="d-flex justify-start"> Reservas </v-col>
+                </v-row>
+              </template>
+            </v-expansion-panel-title>
+            <v-expansion-panel-text class="w-100 bg-white">
+              <v-col class="h-100" cols="12" lg="4" md="6" sm="12"> </v-col>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </div>
     </div>
   </v-card>
@@ -139,5 +136,9 @@ function nameCapitalLetters(user: User) {
 }
 #personalReservations {
   width: 100%;
+}
+#userDetails {
+  flex-direction: column;
+  align-items: center;
 }
 </style>
