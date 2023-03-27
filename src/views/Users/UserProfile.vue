@@ -82,9 +82,10 @@ const reservationsDialog = ref(false);
             </v-col>
             <v-col>
               <v-select
+                :disabled="true"
                 label="Discapacidad"
                 :items="['Nula', 'Leve', 'Moderada', 'Grave', 'Muy Grave']"
-                variant="underlined"></v-select>
+                variant="underlined" />
             </v-col>
           </v-row>
         </div>
