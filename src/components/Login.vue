@@ -17,7 +17,7 @@ const email = ref('');
 const password = ref('');
 
 function goToUser() {
-  router.push('/profile');
+  router.push('/perfil');
 }
 
 async function onLogin() {

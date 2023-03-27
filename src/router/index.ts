@@ -17,7 +17,7 @@ const routes = [
     component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
   },
   {
-    path: '/profile',
+    path: '/perfil',
     name: 'UserProfile',
     component: () => import('@/views/Users/UserProfile.vue'),
   },

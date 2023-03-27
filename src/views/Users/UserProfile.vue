@@ -6,10 +6,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const { user } = useUser();
-const isEdit = ref(false);
 
 function goToHome() {
-  router.push('/home');
+  router.push('/');
 }
 
 function summarizedAddress(address: Address) {
@@ -35,7 +34,7 @@ const reservationsDialog = ref(false);
   </v-card-actions>
   <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="90%">
     <div class="block-superior mx-auto my-8 d-flex" id="block-superior">
-      <div class="div-personalData" id="rofile">
+      <div class="div-personalData">
         <h1 class="my-4 text-center text-h6">{{ user?.name }} {{ user?.lastName }}</h1>
         <div class="d-flex" id="userDetails">
           <v-avatar class="mx-4 my-4" color="info" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
@@ -127,9 +126,6 @@ const reservationsDialog = ref(false);
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-}
-#profile {
-  width: 50%;
 }
 #personalData {
   width: 50%;
