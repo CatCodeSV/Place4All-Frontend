@@ -15,15 +15,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
 import { useUser } from './composables/useUser';
 
+const router = useRouter();
 const { user } = useUser();
 const dialog = ref(false);
 
 function onOpenDialog() {
   if (user.value !== undefined) {
+    router.push('/perfil');
     return;
   }
   console.log('onOpenDialog');
