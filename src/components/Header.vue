@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useUser } from '@/composables/useUser';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const profile = ref(false);
+const { user, isLogged, clearStore } = useUser();
 
 function goToRestaurants() {
   router.push('/restaurantes');
@@ -12,6 +14,13 @@ function goToHome() {
 }
 function openNavProfile() {
   profile.value = !profile.value;
+}
+function goToUser() {
+  router.push('/perfil');
+}
+function logOut() {
+  router.push('/');
+  clearStore();
 }
 
 const emits = defineEmits(['openDialog']);
@@ -34,16 +43,23 @@ const emits = defineEmits(['openDialog']);
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>
-  <v-navigation-drawer id="profile-nav-drawer" v-model="profile" temporary location="right" rounded>
+  <v-navigation-drawer id="profile-nav-drawer" v-model="profile" temporary location="right" width="224px" height="200px">
     <v-list density="compact" nav>
       <v-list-item>
-        <v-btn id="login-btn" @click="emits('openDialog')">Login</v-btn>
+        <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged">Iniciar sesión</v-btn>
+      </v-list-item>
+      <v-list-item>
+        <v-btn id="myProfile-btn" @click="goToUser()" variant="text" v-if="isLogged">Mi perfil</v-btn>
+      </v-list-item>
+      <v-list-item>
+        <v-btn id="closeSession-btn" @click="logOut()" variant="text" v-if="isLogged">Cerrar sesión</v-btn>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 <style scoped lang="scss">
 #profile-nav-drawer {
-  height: 500px;
+  width: 224px;
+  height: 20%;
 }
 </style>
