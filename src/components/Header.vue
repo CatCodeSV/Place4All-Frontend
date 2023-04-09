@@ -19,7 +19,7 @@ function goToUser() {
   router.push('/perfil');
 }
 function logOut() {
-  router.push('/');
+  goToHome();
   clearStore();
 }
 
