@@ -24,10 +24,6 @@ function nameCapitalLetters(user: User) {
   return result;
 }
 const reservationsDialog = ref(false);
-function logOut() {
-  router.push('/');
-  clearStore();
-}
 </script>
 <template>
   <v-card-actions class="mx-auto">
@@ -35,8 +31,6 @@ function logOut() {
       <v-icon start icon="mdi-arrow-left"></v-icon>
       Volver
     </v-btn>
-    <v-spacer />
-    <v-btn @click="logOut">Cerrar sesión</v-btn>
   </v-card-actions>
   <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="90%">
     <div class="block-superior mx-auto my-8 d-flex" id="block-superior">
