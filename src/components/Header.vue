@@ -39,7 +39,10 @@ const emits = defineEmits(['openDialog']);
     </v-btn>
     <v-toolbar-items>
       <v-btn icon id="profile-btn" @click="openNavProfile()">
+        <!-- <v-badge dot color="success" v-if="isLogged"> -->
         <v-icon>mdi-account-outline</v-icon>
+        <!-- </v-badge> -->
+        <!-- TODO: Badge no funciona del todo bien, preguntar -->
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>
