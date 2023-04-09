@@ -47,10 +47,11 @@ const emits = defineEmits(['openDialog']);
     <v-list density="compact" nav>
       <v-list-item>
         <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged">Iniciar sesión</v-btn>
-      </v-list-item>
-      <v-list-item>
         <v-btn id="myProfile-btn" @click="goToUser()" variant="text" v-if="isLogged">Mi perfil</v-btn>
       </v-list-item>
+      <!-- <v-list-item>
+        <v-btn id="myProfile-btn" @click="goToUser()" variant="text" v-if="isLogged">Mi perfil</v-btn>
+      </v-list-item> -->
       <v-list-item>
         <v-btn id="closeSession-btn" @click="logOut()" variant="text" v-if="isLogged">Cerrar sesión</v-btn>
       </v-list-item>
