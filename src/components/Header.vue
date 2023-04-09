@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import Login from './Login.vue';
-
 const router = useRouter();
+const profile = ref(false);
 
 function goToRestaurants() {
   router.push('/restaurantes');
@@ -10,9 +10,10 @@ function goToRestaurants() {
 function goToHome() {
   router.push('/');
 }
-function openLogin() {
-  return (Login.dialog = true);
+function openNavProfile() {
+  profile.value = !profile.value;
 }
+
 const emits = defineEmits(['openDialog']);
 </script>
 <template>
@@ -27,12 +28,22 @@ const emits = defineEmits(['openDialog']);
     <v-btn icon>
       <v-icon>mdi-star-outline</v-icon>
     </v-btn>
-    <!--   <v-btn icon>
-      <v-icon>mdi-comment-text-outline</v-icon>
-    </v-btn> -->
-    <v-btn icon id="login-btn" @click="emits('openDialog')">
-      <v-icon>mdi-account-outline</v-icon>
-    </v-btn>
+    <v-toolbar-items>
+      <v-btn icon id="profile-btn" @click="openNavProfile()">
+        <v-icon>mdi-account-outline</v-icon>
+      </v-btn>
+    </v-toolbar-items>
   </v-app-bar>
+  <v-navigation-drawer id="profile-nav-drawer" v-model="profile" temporary location="right" rounded>
+    <v-list density="compact" nav>
+      <v-list-item>
+        <v-btn id="login-btn" @click="emits('openDialog')">Login</v-btn>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+#profile-nav-drawer {
+  height: 500px;
+}
+</style>
