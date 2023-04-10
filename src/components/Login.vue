@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { useUser } from '@/composables/useUser';
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
 
 const { authenticate } = useUser();
 const visible = ref(false);
@@ -16,16 +13,11 @@ const loading = ref(false);
 const email = ref('');
 const password = ref('');
 
-function goToUser() {
-  router.push('/perfil');
-}
-
 async function onLogin() {
   loading.value = true;
   await authenticate({ email: email.value, password: password.value });
   loading.value = false;
   props.onClose();
-  goToUser();
 }
 const show = computed(() => {
   return props.value;

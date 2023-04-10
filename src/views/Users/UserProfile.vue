@@ -5,7 +5,7 @@ import { User } from '@/models/User';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const { user } = useUser();
+const { user, clearStore } = useUser();
 
 function goToHome() {
   router.push('/');

@@ -6,7 +6,7 @@ import { useBase } from './useBase';
 export const useUser = () => {
   const userStore = useUserStore();
   const baseUse = useBase();
-  const { token, user } = storeToRefs(userStore);
+  const { token, user, isLogged } = storeToRefs(userStore);
 
   async function authenticate(login: Login): Promise<boolean> {
     const response = await baseUse.executeApiAction(getUser.login(login), res => {
@@ -21,6 +21,7 @@ export const useUser = () => {
     token,
     user,
     //! Computed
+    isLogged,
     //! Metodos
     clearStore: userStore.clearState,
     authenticate,
