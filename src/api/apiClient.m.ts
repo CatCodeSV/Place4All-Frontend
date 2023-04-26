@@ -1,7 +1,7 @@
 import { useUser } from '@/composables/useUser';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const apiUrl = 'https://localhost:7157';
+const apiUrl = 'https://localhost:5021';
 interface IdValue {
   id: number;
   value: string;
