@@ -1,20 +1,25 @@
 <script lang="ts" setup>
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
+import { useReview } from '@/composables/useReview';
+import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
-import { Review } from '@/models/Review';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 
 const { restaurant, addFeatures } = useRestaurant();
+const { user, token } = useUser();
+const { getReviewsByRestaurant } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
+const reviews = ref();
 onMounted(async () => {
   if (features.value.length < 1) {
     await setFeatures();
   }
+  reviews.value = await getReviewsByRestaurant(restaurant.value!.stringId!);
 });
 function goToListRestaurants() {
   router.push('/restaurantes');
@@ -22,14 +27,15 @@ function goToListRestaurants() {
 
 const selectedFeatures = ref<Features[]>([]);
 const isEdit = ref(false);
-const reviews = ref<Review[]>([]);
-function reserve() {}
+function reserve() {
+  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
+}
 function summarizedAddress(address: Address) {
   return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
 }
 
 function getImageUrl(image: string) {
-  return image.replace('@', '/src');
+  return image.replace('@/assets', '');
 }
 
 async function addFeature() {
@@ -37,6 +43,7 @@ async function addFeature() {
 }
 
 const reviewsDialog = ref(false);
+const windowWidht = ref(window.innerWidth);
 </script>
 
 <template>
@@ -52,7 +59,7 @@ const reviewsDialog = ref(false);
       <div class="d-flex flex-colum bg-white">
         <v-img v-for="image of restaurant!.image" v-bind:key="image" cover height="250" width="30%" :src="getImageUrl(image)" />
       </div>
-      <div class="d-flex pa-4 w-100 bg-white">
+      <div class="d-flex pa-4 w-100 bg-white flex-wrap">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
         <v-rating
           class="ml-2 align-self-center"
@@ -63,12 +70,17 @@ const reviewsDialog = ref(false);
           readonly
           size="medium" />
         <v-spacer />
-        <v-btn color="secondary" icon="mdi-pencil" class="w-80 my-3 mr-4" @click="isEdit = !isEdit" />
+        <v-btn
+          v-if="token !== '' || token === undefined"
+          color="secondary"
+          icon="mdi-pencil"
+          class="w-80 my-3 mr-4"
+          @click="isEdit = !isEdit" />
         <v-btn color="primary" rounded="pill" prepend-icon="mdi-calendar-clock" class="w-80 my-4" @click="reserve">Reservar</v-btn>
       </div>
       <v-divider />
       <div class="d-flex w-100 bg-white">
-        <div class="w-25 bg-white pa-4">
+        <div class="w-25 bg-white pa-4" v-if="windowWidht > 1200">
           <div class="d-flex align-items-center justify-space-between" v-if="isEdit">
             <v-autocomplete
               clearable
@@ -135,20 +147,25 @@ const reviewsDialog = ref(false);
             <div class="w-100 d-flex">
               <v-spacer></v-spacer>
               <v-btn color="primary" append-icon="mdi-plus" @click="reviewsDialog = true">Nueva Review</v-btn>
-              <AddReviewDialog :dialog="reviewsDialog"></AddReviewDialog>
+              <AddReviewDialog
+                :dialog="reviewsDialog"
+                :restaurant="restaurant!"
+                :onClose="() => (reviewsDialog = false)"></AddReviewDialog>
             </div>
-            <v-col class="h-100" cols="12" lg="4" md="6" sm="12">
-              <v-card v-for="review in reviews" outlined color="transparent" :border="0" :elevation="5" class="h-100">
-                <v-card-item>
-                  <v-card-title>{{ review.comment.title }}</v-card-title>
-                  <v-card-subtitle> {{ review.user.name }} </v-card-subtitle>
-                  <v-rating :model-value="review.value" color="amber" density="compact" half-increments readonly size="small" />
-                </v-card-item>
-                <v-card-text>
-                  <div>{{ review.comment }}</div>
-                </v-card-text>
-              </v-card>
-            </v-col>
+            <v-row>
+              <v-col cols="12" lg="4" md="6" sm="12" v-for="review in reviews">
+                <v-card outlined color="transparent" :border="0" :density="'compact'" height="250px" :elevation="5">
+                  <v-card-item>
+                    <v-card-title>{{ review.comments.title }}</v-card-title>
+                    <v-card-subtitle> {{ review.user.name }} </v-card-subtitle>
+                    <v-rating :model-value="review.value" color="amber" density="compact" half-increments readonly size="small" />
+                  </v-card-item>
+                  <v-card-text>
+                    <div>{{ review.comments.comment || 'No hay comentario.' }}</div>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>

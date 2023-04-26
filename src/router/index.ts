@@ -4,17 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
-      {
-        path: '',
-        name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-      },
-    ],
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/restaurantes',
@@ -25,6 +15,11 @@ const routes = [
     path: '/restaurantes/:id',
     name: 'Restaurant',
     component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
+  },
+  {
+    path: '/perfil',
+    name: 'UserProfile',
+    component: () => import('@/views/Users/UserProfile.vue'),
   },
 ];
 

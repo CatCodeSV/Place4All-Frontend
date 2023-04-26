@@ -24,7 +24,7 @@ export const useRestaurant = () => {
 
   async function addFeatures(restaurant: Restaurant, features: Features[]) {
     restaurant.servicio = [...restaurant.servicio, ...features];
-    await baseUse.executeApiAction(getRestaurant.updateRestaurant(restaurant.stringId, restaurant), (restaurant: Restaurant) => {
+    await baseUse.executeApiAction(getRestaurant.updateRestaurant(restaurant.stringId!, restaurant), (restaurant: Restaurant) => {
       restaurantStore.setRestaurant(restaurant);
     });
   }

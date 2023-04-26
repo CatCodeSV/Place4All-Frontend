@@ -1,30 +1,32 @@
 <template>
   <v-layout>
     <Header @open-dialog="onOpenDialog" />
-    <v-main style="min-height: 300px">
-      <div style="min-height: 100vh">
+    <v-main id="page-container" class="d-flex w-100 flex-column">
+      <div id="main-content">
         <RouterView />
         <Login :value="dialog" :on-close="() => (dialog = !dialog)" />
       </div>
-      <div class="footer">
+      <!--  <div class="footer">
         <Footer />
-      </div>
+      </div> -->
     </v-main>
   </v-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import Footer from './components/Footer.vue';
+import { useRouter } from 'vue-router';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
 import { useUser } from './composables/useUser';
 
+const router = useRouter();
 const { user } = useUser();
 const dialog = ref(false);
 
 function onOpenDialog() {
   if (user.value !== undefined) {
+    router.push('/perfil');
     return;
   }
   console.log('onOpenDialog');
@@ -33,10 +35,18 @@ function onOpenDialog() {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  /* position: fixed; */
+#page-container {
+  min-height: 100vh;
   position: relative;
+}
+
+#main-content {
+  padding-bottom: 101px;
+}
+.footer {
+  position: absolute;
   bottom: 0;
   width: 100%;
+  margin-top: auto;
 }
 </style>

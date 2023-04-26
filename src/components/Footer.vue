@@ -18,12 +18,12 @@ const links = ref([
 </script>
 
 <template>
-  <v-footer :elevation="2" class="index bg-surface text-center d-flex flex-column">
-    <div>
+  <v-footer :elevation="2" class="index bg-surface text-center d-flex flex-column align-items-center justify-center">
+    <!--  <div>
       <v-btn v-for="link in links" :key="link.id" class="mx-4" variant="text">{{ link.title }}</v-btn>
     </div>
-    <v-divider></v-divider>
-    <div class="mt-6">Todos los derechos reservados a Place4All, una compañia de CatCode</div>
+    <v-divider></v-divider> -->
+    <div class="pa-4">Todos los derechos reservados a Place4All, una compañía de CatCode.</div>
   </v-footer>
 </template>
 
