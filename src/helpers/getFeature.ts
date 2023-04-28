@@ -5,7 +5,8 @@ const baseURL = '/Features';
 
 async function getFeatures(): Promise<Features[]> {
   const response = await apiClient.getAll<Features>(baseURL);
-  return response.data;
+  console.log(response.data.data);
+  return response.data.data;
 }
 
 export default { getFeatures };
