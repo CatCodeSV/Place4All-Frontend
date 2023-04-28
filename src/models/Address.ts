@@ -1,11 +1,9 @@
-import { ObjectId } from 'mongodb';
+import { PDocument } from './PDocument';
 
-export interface Address {
+export interface Address extends PDocument {
   street: string;
   number: number;
   city: string;
   zipCode: string;
   province: string;
-  id: ObjectId;
-  createdAt: string;
 }
