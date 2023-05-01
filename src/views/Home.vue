@@ -23,8 +23,8 @@ function buscar() {
         <!--Tamaño de la card-->
         <v-card image="/necesidades.jpg" :elevation="5" class="mx-auto pa-10 w-100" color="bg-grey-lighten-4">
           <!--Logotipo Place4All-->
-          <div class="logotipo d-flex align-center mx-auto my-10" style="max-width: 350px">
-            <v-img class="text-center d-flex" src="@/assets/WebLogo.png"></v-img>
+          <div class="logotipo d-flex align-center mx-auto my-10" style="max-width: 700px">
+            <v-img class="text-center d-flex" src="@/assets/Place4All-2.png"></v-img>
           </div>
           <!--Texto hover-->
           <v-card-text class="my-4 text-center text-h6 text-white"> Encuentra tu lugar ideal </v-card-text>
