@@ -29,6 +29,8 @@ function summarizeAdress(address: Address) {
 }
 
 async function goToDetail(restaurant: Restaurant) {
+  debugger;
+  console.log(reviews);
   router.push('/restaurantes/' + restaurant.id);
 }
 </script>
