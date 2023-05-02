@@ -5,6 +5,7 @@ const baseURL = '/Reviews';
 
 async function getReviewByRestaurant(id: number): Promise<Review[]> {
   const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurants`, id);
+  console.log(response.data.data);
   return response.data.data;
 }
 
