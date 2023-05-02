@@ -5,26 +5,30 @@ import { useReview } from '@/composables/useReview';
 import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onBeforeMount, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 
-const { restaurant, addFeatures } = useRestaurant();
+const { restaurant, addFeatures, setRestaurant } = useRestaurant();
 const { user, token } = useUser();
 const { getReviewsByRestaurant } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
+const route = useRoute();
 const reviews = ref();
-onMounted(async () => {
-  if (features.value.length < 1) {
-    await setFeatures();
-  }
-  reviews.value = await getReviewsByRestaurant(restaurant.value!.stringId!);
+onBeforeMount(async () => {
+  loading.value = true;
+  const restaurantId = route.params.id;
+  if (restaurant.value === undefined) await setRestaurant(restaurantId[0]);
+  if (features.value.length < 1) await setFeatures();
+  reviews.value = await getReviewsByRestaurant(restaurant.value!.id!);
+  loading.value = false;
 });
 function goToListRestaurants() {
   router.push('/restaurantes');
 }
 
+const loading = ref(false);
 const selectedFeatures = ref<Features[]>([]);
 const isEdit = ref(false);
 function reserve() {
@@ -48,16 +52,22 @@ const windowWidht = ref(window.innerWidth);
 
 <template>
   <!--Boton de volver a la lista-->
-  <v-card-actions class="mx-auto">
+  <v-card-actions v-if="!loading" class="mx-auto">
     <v-btn color="primary" variant="elevated" @click="goToListRestaurants()">
       <v-icon start icon="mdi-arrow-left"></v-icon>
       Volver
     </v-btn>
   </v-card-actions>
-  <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="80%">
+  <v-card :loading="loading" outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="80%">
     <v-card>
       <div class="d-flex flex-colum bg-white">
-        <v-img v-for="image of restaurant!.image" v-bind:key="image" cover height="250" width="30%" :src="getImageUrl(image)" />
+        <v-img
+          v-for="image of restaurant!.images"
+          v-bind:key="image.id"
+          cover
+          height="250"
+          width="30%"
+          :src="getImageUrl(image.link)" />
       </div>
       <div class="d-flex pa-4 w-100 bg-white flex-wrap">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
@@ -97,7 +107,7 @@ const windowWidht = ref(window.innerWidth);
             <v-btn icon="mdi-plus" color="secondary" class="w-80 ml-4" @click="addFeature" />
           </div>
           <div class="d-flex flex-wrap justify-center align-items-center w-100">
-            <v-btn v-for="(feature, index) in restaurant?.servicio" :key="index" class="ma-1 mx-2">
+            <v-btn v-for="(feature, index) in restaurant?.features" :key="index" class="ma-1 mx-2">
               {{ feature.name }}
               <v-tooltip activator="parent" location="top">{{ feature.description }}</v-tooltip>
             </v-btn>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Address } from '@/models/Address';
-import { Restaurant } from '@/models/Restaurant';
+import { Image, Restaurant } from '@/models/Restaurant';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -20,8 +20,8 @@ function reserve() {
   }, 2000);
 }
 
-function getImageUrl(image: string) {
-  return image.replace('@/assets', '');
+function getImageUrl(image: Image) {
+  return image.link.replace('@/assets', '');
 }
 
 function summarizeAdress(address: Address) {
@@ -29,8 +29,7 @@ function summarizeAdress(address: Address) {
 }
 
 async function goToDetail(restaurant: Restaurant) {
-  await setRestaurant(restaurant!.stringId!);
-  router.push('/restaurantes/' + restaurant.stringId);
+  router.push('/restaurantes/' + restaurant.id);
 }
 </script>
 
@@ -40,7 +39,7 @@ async function goToDetail(restaurant: Restaurant) {
       <v-progress-linear :active="isActive" color="secondary" height="4" indeterminate></v-progress-linear>
     </template>
 
-    <v-img @click="goToDetail(restaurant)" cover height="250" :src="getImageUrl(restaurant.image[0])"></v-img>
+    <v-img @click="goToDetail(restaurant)" cover height="250" :src="getImageUrl(restaurant.images[0])"></v-img>
 
     <v-card-item @click="goToDetail(restaurant)">
       <v-card-title>{{ props.restaurant.name }}</v-card-title>

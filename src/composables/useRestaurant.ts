@@ -16,15 +16,15 @@ export const useRestaurant = () => {
     );
   }
 
-  async function setRestaurant(id: string) {
+  async function setRestaurant(id: number | string) {
     await baseUse.executeApiAction(getRestaurant.getRestaurant(id), (restaurant: Restaurant) => {
       restaurantStore.setRestaurant(restaurant);
     });
   }
 
   async function addFeatures(restaurant: Restaurant, features: Features[]) {
-    restaurant.servicio = [...restaurant.servicio, ...features];
-    await baseUse.executeApiAction(getRestaurant.updateRestaurant(restaurant.stringId!, restaurant), (restaurant: Restaurant) => {
+    restaurant.features = [...restaurant.features, ...features];
+    await baseUse.executeApiAction(getRestaurant.updateRestaurant(restaurant.id!, restaurant), (restaurant: Restaurant) => {
       restaurantStore.setRestaurant(restaurant);
     });
   }

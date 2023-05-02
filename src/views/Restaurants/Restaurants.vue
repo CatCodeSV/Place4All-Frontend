@@ -2,6 +2,7 @@
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
+import { Restaurant } from '@/models/Restaurant';
 import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
@@ -11,12 +12,13 @@ const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
   loading.value = true;
-  console.log(route.query.search);
   if (restaurants.value.length == 0) {
     await setRestaurants();
   }
   restaurantsToShow.value = restaurants.value;
-  await setFeatures();
+  if (features.value.length == 0) {
+    await setFeatures();
+  }
   mappedFeatures.value = features.value.map((feature: Features) => {
     return {
       value: feature.name,
@@ -31,14 +33,15 @@ const router = useRouter();
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 const selectedFeature = ref(null);
-const restaurantsToShow = ref();
+const restaurantsToShow = ref<Restaurant[]>();
 
 function setFiltered(filter: any[]) {
   if (filter.length === 0) {
+    console.log(restaurants.value);
     restaurantsToShow.value = restaurants.value;
     return;
   }
-  restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.servicio.some(feature => filter.includes(feature.name)));
+  restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.features.some(feature => filter.includes(feature.name)));
 }
 </script>
 
@@ -52,7 +55,6 @@ function setFiltered(filter: any[]) {
           :items="mappedFeatures"
           chips
           label="Necesidades"
-          multiple
           v-model="selectedFeature"
           @update:model-value="setFiltered" />
       </v-col>
@@ -63,7 +65,7 @@ function setFiltered(filter: any[]) {
     </v-row>
   </div>
 
-  <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow.length }} Resultados </span>
+  <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow?.length }} Resultados </span>
   <v-divider class="my-10" />
   <v-row class="pa-6">
     <v-col cols="12" md="3" sm="6" v-for="(restaurant, index) in restaurantsToShow" :key="index">

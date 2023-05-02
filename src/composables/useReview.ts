@@ -5,12 +5,12 @@ import { useBase } from './useBase';
 export const useReview = () => {
   const baseUse = useBase();
 
-  async function getReviewsByRestaurant(id: string) {
+  async function getReviewsByRestaurant(id: number) {
     const res = await baseUse.executeApiAction(getReview.getReviewByRestaurant(id));
     return res.content;
   }
 
-  async function getReviewsByUser(id: string) {
+  async function getReviewsByUser(id: number) {
     const res = await baseUse.executeApiAction(getReview.getReviewByUser(id));
     return res.content;
   }
