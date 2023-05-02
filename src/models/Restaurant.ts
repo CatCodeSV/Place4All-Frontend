@@ -7,9 +7,10 @@ export interface Restaurant extends PDocument {
   address: Address;
   addressId: number;
   descripcion: string;
-  features: Features[];
   phoneNumber: string;
   images: Image[];
+  features: Features[];
+  //favoriteUsers: User[];
   reviews?: {
     reviewsNumber: number;
     reviewsAverage: number;
