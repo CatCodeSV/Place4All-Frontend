@@ -5,18 +5,18 @@ const baseURL = '/Reviews';
 
 async function getReviewByRestaurant(id: number): Promise<Review[]> {
   const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurants`, id);
-  console.log(response.data.data);
-  return response.data.data;
+  console.log(response.data);
+  return response.data;
 }
 
 async function getReviewByUser(id: number): Promise<Review[]> {
   const response = await apiClient.getById<Review[]>(`${baseURL}/Users`, id);
-  return response.data.data;
+  return response.data;
 }
 
 async function postReview(review: Review) {
   const response = await apiClient.post<Review>(baseURL, review);
-  return response.data.data;
+  return response.data;
 }
 
 export default {

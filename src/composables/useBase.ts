@@ -12,8 +12,9 @@ export const useBase = () => {
     const actionResponse = new ActionResponse<T>();
     await actionToExecute
       .then((response: any) => {
+        console.log(response)
         actionResponse.success = true;
-        actionResponse.content = response;
+        actionResponse.content = response.data;
       })
       .catch(error => {
         console.error(hasResponseData(error) ? error.response.data : error.message);

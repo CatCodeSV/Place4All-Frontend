@@ -1,7 +1,7 @@
 import { apiClient } from '@/api/apiClient.m';
 import { User } from '@/models/User';
 
-const baseURL = '/UserProfile';
+const baseURL = '/Users';
 
 export type Login = {
   email: string;
@@ -12,8 +12,8 @@ export type LoginResponse = {
   user: User;
 };
 const login = async (login: Login): Promise<LoginResponse> => {
-  const res = await apiClient.post<LoginResponse>('/Users/authenticate', login);
-  return res.data.data;
+  const res = await apiClient.post<LoginResponse>(`${baseURL}/authenticate`, login);
+  return res.data;
 };
 
 export default { login };
