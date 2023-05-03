@@ -4,10 +4,9 @@ import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
 import { onBeforeMount, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import RestaurantCard from './RestaurantCard.vue';
 
-const { restaurants, setRestaurants, setRestaurant } = useRestaurant();
+const { restaurants, setRestaurants } = useRestaurant();
 const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
@@ -28,8 +27,6 @@ onBeforeMount(async () => {
   loading.value = false;
 });
 const loading = ref(false);
-const route = useRoute();
-const router = useRouter();
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 const selectedFeature = ref(null);
@@ -73,24 +70,10 @@ function setFiltered(filter: any[]) {
         <RestaurantCard :restaurant="restaurant" />
       </v-skeleton-loader>
     </v-col>
-    <v-col cols="12" md="3" sm="6" v-for="(n, index) in 10" :key="index"> </v-col>
   </v-row>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-.images {
-  display: flex;
-}
-#filters-tab {
-  flex: 0 1 auto;
-}
-#features-filter {
-  margin-left: 2rem;
-}
 .span-filtered-results {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: medium;

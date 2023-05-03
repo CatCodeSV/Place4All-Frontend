@@ -7,7 +7,7 @@ import { Restaurant } from '@/models/Restaurant';
 import { Review } from '@/models/Review';
 import { computed, ref } from 'vue';
 
-const { features, setFeatures } = useFeature();
+const { features } = useFeature();
 const { postReview } = useReview();
 const { user } = useUser();
 const props = defineProps<{ dialog: boolean; restaurant: Restaurant; onClose: Function }>();
@@ -26,12 +26,7 @@ async function onSubmit() {
     value: reviewValue.value,
     restaurant: props.restaurant,
     user: user.value!,
-    comments: {
-      title: title.value,
-      comment: comments.value,
-      informationAccuracy: informationAccuracy.value,
-      hasFeatures: moreServices.value,
-    },
+    comment: comments.value,
   };
 
   loading.value = true;
@@ -62,7 +57,7 @@ async function onSubmit() {
         </v-row>
         <v-row>
           <v-col cols="12">
-            <h3 for="">¿Qué tan acertada fue la información?</h3>
+            <h3>¿Qué tan acertada fue la información?</h3>
           </v-col>
           <v-col cols="12">
             <v-rating

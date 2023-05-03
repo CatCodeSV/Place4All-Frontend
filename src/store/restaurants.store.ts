@@ -21,7 +21,7 @@ export const useRestaurantStore = defineStore(
     function getByFeature(features: Features[]) {
       return restaurantsState.value.filter(restaurant => {
         return features.some(feature => {
-          return restaurant.servicio.includes(feature);
+          return restaurant.features.includes(feature);
         });
       });
     }
@@ -38,8 +38,8 @@ export const useRestaurantStore = defineStore(
   }
 );
 
-//Filtro necsidades:
-//Llamar a la función que corresponda al filtro checkeado
-//Obtener el valor del filtro checheado en el caso de las features el id
-//Función que busca los Id de los restaurantes según el id de las necesidades checeadas
-//Hacer for each de la lista de restaurantes y llamar al método setReataurants con Id
+//Filtro necesidades:
+//Llamar a la función que corresponda al filtro checked
+//Obtener el valor del filtro checked en el caso de las features el ID
+//Función que busca los ID de los restaurantes según el ID de las necesidades checked
+//Hacer for each de la lista de restaurantes y llamar al método setRestaurants con Id

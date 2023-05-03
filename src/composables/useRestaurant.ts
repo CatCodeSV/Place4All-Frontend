@@ -34,7 +34,7 @@ export const useRestaurant = () => {
     restaurants: restaurantsState,
     restaurant,
     //! Computed
-    //! Metodos
+    //! Métodos
     addFeatures,
     setRestaurants,
     setRestaurant,

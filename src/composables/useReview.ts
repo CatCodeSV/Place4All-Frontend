@@ -5,9 +5,9 @@ import { useBase } from './useBase';
 export const useReview = () => {
   const baseUse = useBase();
 
-  async function getReviewsByRestaurant(id: number) {
+  async function getReviewsByRestaurant(id: number) : Promise<Review[]> {
     const res = await baseUse.executeApiAction(getReview.getReviewByRestaurant(id));
-    return res.content;
+    return res.content!;
   }
 
   async function getReviewsByUser(id: number) {
@@ -22,7 +22,7 @@ export const useReview = () => {
   return {
     //! Properties
     //! Computed
-    //! Metodos
+    //! Métodos
     getReviewsByRestaurant,
     getReviewsByUser,
     postReview,

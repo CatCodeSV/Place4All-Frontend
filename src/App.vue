@@ -43,10 +43,4 @@ function onOpenDialog() {
 #main-content {
   padding-bottom: 101px;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin-top: auto;
-}
 </style>

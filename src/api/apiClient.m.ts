@@ -5,6 +5,7 @@ interface IdValue {
   id: number;
   value: string;
 }
+
 const injectToken = (config: AxiosRequestConfig): any => {
   try {
     const { token } = useUser();
@@ -59,7 +60,7 @@ class Place4AllHttpClient {
       },
       error => {
         return Promise.reject(error);
-      }
+      },
     );
 
     this.instance = http;
@@ -70,8 +71,9 @@ class Place4AllHttpClient {
     return this.http.get<T, R>(url);
   }
 
-  getAll<T = any, R = AxiosResponse<T[]>>(url: string, urlSufix?: string): any {
-    return this.http.get<T[], R>(`${url}${urlSufix ? urlSufix : ''}`);
+  //T es el tipo de dato que devuelve el método
+  getAll<T = any, R = AxiosResponse<T[]>>(url: string, urlSuffix?: string): any {
+    return this.http.get<T[], R>(`${url}${urlSuffix ? urlSuffix : ''}`);
   }
 
   getIdValues<T = IdValue, R = AxiosResponse<T[]>>(url: string): any {

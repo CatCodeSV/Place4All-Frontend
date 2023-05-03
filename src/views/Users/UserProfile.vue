@@ -2,10 +2,10 @@
 import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { User } from '@/models/User';
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
-const { user, clearStore } = useUser();
+const { user } = useUser();
 
 function goToHome() {
   router.push('/');
@@ -20,10 +20,8 @@ function nameCapitalLetters(user: User) {
   let nameCL = name.slice(0, 1).toUpperCase();
   let surnameCL = surname.slice(0, 1).toUpperCase();
 
-  let result = `${nameCL}${surnameCL}`;
-  return result;
+  return `${nameCL}${surnameCL}`;
 }
-const reservationsDialog = ref(false);
 </script>
 <template>
   <v-card-actions class="mx-auto">
