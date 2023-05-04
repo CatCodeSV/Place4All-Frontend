@@ -23,7 +23,7 @@ const links = ref([
       <v-btn v-for="link in links" :key="link.id" class="mx-4" variant="text">{{ link.title }}</v-btn>
     </div>
     <v-divider></v-divider> -->
-    <div class="pa-4" color="primary">Todos los derechos reservados a Place4All, una compañía de CatCode.</div>
+    <div class="text-footer pa-4" color="primary">Todos los derechos reservados a Place4All, una compañía de CatCode.</div>
   </v-footer>
 </template>
 
@@ -31,7 +31,7 @@ const links = ref([
 .index {
   z-index: 9999999;
 }
-.pa-4{
+.text-footer{
   color: #0B3D91;
 }
 </style>
