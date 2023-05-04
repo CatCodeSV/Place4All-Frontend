@@ -18,12 +18,13 @@ export const useBase = () => {
     const actionResponse = new ActionResponse<T>();
     await actionToExecute
       .then((response: any) => {
-        if (!response.success) handleErrors(response);
+        if (!response.succeeded) handleErrors(response);
         actionResponse.success = true;
         actionResponse.content = response.data;
       })
       .catch(error => {
         console.error(hasResponseData(error) ? error.response.data : error.message);
+        handleErrors(error);
       });
 
     if (actionResponse.success && succeededCallback) {

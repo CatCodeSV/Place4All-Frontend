@@ -20,4 +20,9 @@ async function updateRestaurant(id: number, restaurant: Restaurant) {
   return response.data;
 }
 
-export default { getRestaurants, getRestaurant, updateRestaurant };
+async function getRestaurantsByFeatures(features: number[]) {
+  const response = await apiClient.post<Restaurant>(baseURL + '/Features', { features: features });
+  return response.data;
+}
+
+export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsByFeatures };
