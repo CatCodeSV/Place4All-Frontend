@@ -49,12 +49,12 @@ const show = computed(() => {
         variant="outlined"
         @click:append-inner="visible = !visible"></v-text-field>
 
-      <v-btn :loading="loading" block class="mb-8" color="blue" size="large" variant="tonal" @click="onLogin()">
+      <v-btn :loading="loading" block class="mb-8" color="primary" size="large" variant="flat" @click="onLogin()">
         Iniciar sesión
       </v-btn>
 
       <v-card-text class="text-center">
-        <v-btn variant="text" class="text-blue text-decoration-none" @click="onClose()">
+        <v-btn variant="text" class="text-blue text-decoration-none" color="primary" @click="onClose()">
           Cancelar <v-icon icon="mdi-chevron-right"></v-icon>
         </v-btn>
       </v-card-text>
