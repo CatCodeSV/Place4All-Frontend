@@ -27,6 +27,8 @@ async function onSubmit() {
     restaurant: props.restaurant,
     user: user.value!,
     comment: comments.value,
+    informationAccuracy: informationAccuracy.value,
+    moreServices: moreServices.value,
   };
 
   loading.value = true;
