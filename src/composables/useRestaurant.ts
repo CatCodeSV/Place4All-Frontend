@@ -1,6 +1,7 @@
 import getRestaurant from '@/helpers/getRestaurant';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { useRestaurantStore } from '@/store/restaurants.store';
 import { storeToRefs } from 'pinia';
 import { useBase } from './useBase';
@@ -11,7 +12,7 @@ export const useRestaurant = () => {
   const { restaurantsState, restaurant } = storeToRefs(restaurantStore);
 
   async function setRestaurants() {
-    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: Restaurant[]) =>
+    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: RestaurantSummarized[]) =>
       restaurantStore.setRestaurants(restaurants)
     );
   }
