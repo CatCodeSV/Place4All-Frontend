@@ -1,16 +1,16 @@
-import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useRestaurantStore = defineStore(
   'restaurants',
   () => {
-    const restaurantsState = ref<Restaurant[]>([]);
+    const restaurantsState = ref<RestaurantSummarized[]>([]);
     const restaurant = ref<Restaurant>();
 
     //Siempre que es un ref hay que poner value
-    function setRestaurants(restaurants: Restaurant[]) {
+    function setRestaurants(restaurants: RestaurantSummarized[]) {
       restaurantsState.value = restaurants;
     }
 
@@ -18,19 +18,19 @@ export const useRestaurantStore = defineStore(
       restaurant.value = restaurantSet;
     }
 
-    function getByFeature(features: Features[]) {
+    /* function getByFeature(features: Features[]) {
       return restaurantsState.value.filter(restaurant => {
         return features.some(feature => {
           return restaurant.features.includes(feature);
         });
       });
-    }
+    } */
     return {
       restaurantsState,
       restaurant,
       setRestaurants,
       setRestaurant,
-      getByFeature,
+      /* getByFeature, */
     };
   },
   {
