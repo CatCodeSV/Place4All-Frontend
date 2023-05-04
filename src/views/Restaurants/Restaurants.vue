@@ -2,7 +2,7 @@
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
-import { Restaurant } from '@/models/Restaurant';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 
@@ -30,7 +30,7 @@ const loading = ref(false);
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 const selectedFeature = ref(null);
-const restaurantsToShow = ref<Restaurant[]>();
+const restaurantsToShow = ref<RestaurantSummarized[]>();
 
 function setFiltered(filter: any[]) {
   if (filter.length === 0) {
@@ -38,7 +38,7 @@ function setFiltered(filter: any[]) {
     restaurantsToShow.value = restaurants.value;
     return;
   }
-  restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.features.some(feature => filter.includes(feature.name)));
+  /* restaurantsToShow.value = restaurants.value.filter(restaurant => restaurant.features.some(feature => filter.includes(feature.name))); */
 }
 </script>
 
@@ -67,7 +67,7 @@ function setFiltered(filter: any[]) {
   <v-row class="pa-6">
     <v-col cols="12" md="3" sm="6" v-for="(restaurant, index) in restaurantsToShow" :key="index">
       <v-skeleton-loader transition="scale-transition" :loading="loading" class="mx-auto" max-width="300" type="card">
-        <RestaurantCard :restaurant="restaurant" />
+        <RestaurantCard :RestaurantSummarized="restaurant" />
       </v-skeleton-loader>
     </v-col>
   </v-row>
