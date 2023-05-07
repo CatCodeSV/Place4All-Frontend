@@ -6,7 +6,7 @@ import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 
-const { restaurants, setRestaurants, getRestaurantsQuery } = useRestaurant();
+const { restaurants, setRestaurants, setRestaurantsQuery } = useRestaurant();
 const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
@@ -40,7 +40,7 @@ async function setFiltered() {
     return;
   }
 
-  restaurantsToShow.value = await getRestaurantsQuery(selectedFeature.value);
+  restaurantsToShow.value = await setRestaurantsQuery(selectedFeature.value);
   console.log(restaurantsToShow.value);
 }
 </script>
