@@ -8,11 +8,11 @@ export interface Review extends PDocument {
   restaurant: Restaurant;
   user: User;
   comment: string;
-  informationAcuracy: InformationAcuracy;
-  aditionalFeatures: Features[];
+  informationAccuracy: InformationAccuracy;
+  additionalFeatures: Features[];
 }
 
-export enum InformationAcuracy {
+export enum InformationAccuracy {
   VeryGood = 1,
   Good = 2,
   Bad = 3,

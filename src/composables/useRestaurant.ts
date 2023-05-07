@@ -12,9 +12,15 @@ export const useRestaurant = () => {
   const { restaurantsState, restaurant } = storeToRefs(restaurantStore);
 
   async function setRestaurants() {
-    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: RestaurantSummarized[]) =>
-      restaurantStore.setRestaurants(restaurants)
-    );
+    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: RestaurantSummarized[]) => {
+      restaurantStore.setRestaurants(restaurants);
+    });
+  }
+
+  async function setRestaurantsQuery(query: string) {
+    await baseUse.executeApiAction(getRestaurant.getRestaurantsQuery(query), (restaurants: RestaurantSummarized[]) => {
+      restaurantStore.setRestaurants(restaurants);
+    });
   }
 
   async function setRestaurant(id: number | string) {
@@ -37,7 +43,8 @@ export const useRestaurant = () => {
     //! Computed
     //! Métodos
     addFeatures,
-    setRestaurants,
     setRestaurant,
+    setRestaurants,
+    setRestaurantsQuery,
   };
 };
