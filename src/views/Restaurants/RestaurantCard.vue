@@ -67,7 +67,7 @@ async function goToDetail(restaurant: RestaurantSummarized) {
     <v-divider class="mx-4 mb-1"></v-divider>
 
     <v-card-actions class="v-card-actions">
-      <v-btn prepend-icon="mdi-calendar-clock" color="primary" variant="tonal" rounded="pill" @click="reserve" class="v-btn">
+      <v-btn prepend-icon="mdi-calendar-clock" color="primary" variant="flat" rounded="pill" @click="reserve" class="v-btn">
         Reservar
       </v-btn>
     </v-card-actions>

@@ -111,7 +111,7 @@ const windowWidth = ref(window.innerWidth);
             <v-btn icon="mdi-plus" color="secondary" class="w-80 ml-4" @click="addFeature" />
           </div>
           <div class="d-flex flex-wrap justify-center align-items-center w-100">
-            <v-btn v-for="(feature, index) in restaurant?.features" :key="index" class="ma-1 mx-2">
+            <v-btn v-for="(feature, index) in restaurant?.servicio" :key="index" color="secondary" variant="flat" class="ma-1 mx-2">
               {{ feature.name }}
               <v-tooltip activator="parent" location="top">{{ feature.description }}</v-tooltip>
             </v-btn>
@@ -160,7 +160,7 @@ const windowWidth = ref(window.innerWidth);
           <v-expansion-panel-text class="w-100 bg-white">
             <div class="w-100 d-flex">
               <v-spacer></v-spacer>
-              <v-btn color="primary" append-icon="mdi-plus" @click="reviewsDialog = true">Nueva Review</v-btn>
+              <v-btn color="success" variant="flat" append-icon="mdi-plus" @click="reviewsDialog = true">Nueva Review</v-btn>
               <AddReviewDialog
                 :dialog="reviewsDialog"
                 :restaurant="restaurant!"

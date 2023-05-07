@@ -51,23 +51,26 @@ async function setFiltered() {
       <v-col cols="12" lg="2" sm="6" xs="6">
         <v-select
           clearable
-          color="secondary"
-          :items="features"
-          item-title="name"
-          item-value="id"
+          color="primary"
+          :items="mappedFeatures"
           chips
+          variant="solo"
           label="Necesidades"
           v-model="selectedFeature"
-          multiple
-          validate-on="blur"
-          single-line
-          @update:focused="false"
-          v-on:focusout="setFiltered"
-          hide-no-data />
+          @update:model-value="setFiltered"
+          bg-color="secondary"
+          rounded-pill />
       </v-col>
 
       <v-col cols="12" lg="2" sm="6" xs="6">
-        <v-select color="secondary" clearable :items="['Orden Ascendente', 'Orden Descendente']" label="Valoraciones"></v-select>
+        <v-select
+          clearable
+          :items="['Orden Ascendente', 'Orden Descendente']"
+          label="Valoraciones"
+          variant="solo"
+          bg-color="secondaryYellow"
+          rounded-pill>
+        </v-select>
       </v-col>
     </v-row>
   </div>
@@ -86,8 +89,9 @@ async function setFiltered() {
 <style scoped>
 .span-filtered-results {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /*font-family: "Roboto", sans-serif;*/
   font-size: medium;
-  color: grey;
+  color: #0b3d91;
   margin-left: 4rem;
 }
 </style>
