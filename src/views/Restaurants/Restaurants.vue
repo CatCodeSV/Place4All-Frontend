@@ -40,7 +40,7 @@ async function setFiltered() {
     return;
   }
 
-  restaurantsToShow.value = await setRestaurantsQuery(selectedFeature.value);
+  restaurantsToShow.value = await setRestaurantsByQuery(selectedFeature.value);
   console.log(restaurantsToShow.value);
 }
 </script>

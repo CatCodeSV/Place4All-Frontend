@@ -18,19 +18,16 @@ export const useRestaurantStore = defineStore(
       restaurant.value = restaurantSet;
     }
 
-    /* function getByFeature(features: Features[]) {
-      return restaurantsState.value.filter(restaurant => {
-        return features.some(feature => {
-          return restaurant.features.includes(feature);
-        });
-      });
-    } */
+    function setRestaurantsByQuery(restaurants: RestaurantSummarized[], query: string) {
+      return (restaurantsState.value = restaurants);
+    }
+
     return {
       restaurantsState,
       restaurant,
       setRestaurants,
       setRestaurant,
-      /* getByFeature, */
+      setRestaurantsByQuery,
     };
   },
   {
