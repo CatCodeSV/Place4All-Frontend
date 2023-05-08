@@ -5,15 +5,17 @@ import { Review } from './Review';
 import { User } from './User';
 
 export interface Restaurant extends PDocument {
-  name: string;
   address: Address;
   addressId: number;
-  descripcion: string;
-  phoneNumber: string;
-  images: Image[];
-  features: Features[];
-  reviews: Review[];
+  description: string;
   favoriteUsers: User[];
+  features: Features[];
+  images: Image[];
+  name: string;
+  numberOfReviews: number;
+  phoneNumber: string;
+  rating: number;
+  reviews: Review[];
 }
 
 export interface Image extends PDocument {
