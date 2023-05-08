@@ -4,7 +4,7 @@ import { Review } from '@/models/Review';
 const baseURL = '/Reviews';
 
 async function getReviewByRestaurant(id: number): Promise<Review[]> {
-  const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurants`, id);
+  const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurant`, id);
   console.log(response.data);
   return response.data;
 }
