@@ -3,7 +3,7 @@ export interface RestaurantSummarized {
   name: string;
   descripcion: string;
   phoneNumber: string;
-  images: string;
+  image: string;
   rating: number;
   numberOfReviews: number;
 }

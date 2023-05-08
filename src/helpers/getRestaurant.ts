@@ -6,7 +6,6 @@ const baseURL = '/Restaurants';
 
 async function getRestaurants(): Promise<RestaurantSummarized[]> {
   const response = await apiClient.getAll<RestaurantSummarized>(baseURL);
-  console.log(response.data);
   return response.data;
 }
 
@@ -16,7 +15,7 @@ async function getRestaurant(id: number | string): Promise<Restaurant> {
 }
 
 async function getRestaurantsQuery(query: string): Promise<RestaurantSummarized[]> {
-  const response = await apiClient.getAll<RestaurantSummarized>(baseURL, '?query=${query}');
+  const response = await apiClient.getAll<RestaurantSummarized>(baseURL, `?query=${query}`);
   return response.data;
 }
 
