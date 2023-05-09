@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useFeature } from '@/composables/useFeature';
 import { useReview } from '@/composables/useReview';
-import { useUser } from '@/composables/useUser';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
-import { Review } from '@/models/Review';
+import { InformationAccuracy } from '@/models/Review';
 import { computed, ref } from 'vue';
+import { CreateReview } from '@/helpers/getReview';
 
 const { features } = useFeature();
 const { postReview } = useReview();
-const { user } = useUser();
 const props = defineProps<{ dialog: boolean; restaurant: Restaurant; onClose: Function }>();
 const show = computed(() => {
   return props.dialog;
@@ -22,13 +21,13 @@ const moreServices = ref<Features[]>([]);
 const loading = ref(false);
 
 async function onSubmit() {
-  var review: Review = {
+  var review: CreateReview = {
+    title: title.value,
     value: reviewValue.value,
-    restaurant: props.restaurant,
-    user: user.value!,
+    restaurantId: props.restaurant.id!,
     comment: comments.value,
     informationAccuracy: informationAccuracy.value,
-    moreServices: moreServices.value,
+    additionalFeatures: moreServices.value,
   };
 
   loading.value = true;
@@ -62,16 +61,18 @@ async function onSubmit() {
             <h3>¿Qué tan acertada fue la información?</h3>
           </v-col>
           <v-col cols="12">
-            <v-rating
+            <v-autocomplete
+              clearable
+              chips
+              validate-on="blur"
+              :items="[
+                { title: 'Muy acertada', value: InformationAccuracy.VeryGood },
+                { title: 'Acertada', value: InformationAccuracy.Good },
+                { title: 'Poco acertada', value: InformationAccuracy.Bad },
+                { title: 'Nada acertada', value: InformationAccuracy.VeryGood },
+              ]"
               v-model="informationAccuracy"
-              empty-icon="mdi-circle-outline"
-              full-icon="mdi-circle"
-              half-icon="mdi-circle-half"
-              color="primary"
-              density="compact"
-              half-increments
-              hover
-              size="large" />
+              color="secondary" />
           </v-col>
           <v-col cols="12">
             <h3>¿Hubieron más servicios de los que aparecen en la página?</h3>
@@ -87,8 +88,8 @@ async function onSubmit() {
               item-title="name"
               v-model="moreServices"
               color="secondary"
-              >Nuevo Servicio</v-autocomplete
-            >
+              >Nuevo Servicio
+            </v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>

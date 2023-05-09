@@ -1,16 +1,21 @@
 import { apiClient } from '@/api/apiClient.m';
 import { Restaurant } from '@/models/Restaurant';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 
 const baseURL = '/Restaurants';
 
-async function getRestaurants(): Promise<Restaurant[]> {
-  const response = await apiClient.getAll<Restaurant>(baseURL);
-  console.log(response.data);
+async function getRestaurants(): Promise<RestaurantSummarized[]> {
+  const response = await apiClient.getAll<RestaurantSummarized>(baseURL);
   return response.data;
 }
 
 async function getRestaurant(id: number | string): Promise<Restaurant> {
   const response = await apiClient.getById<Restaurant>(baseURL, id);
+  return response.data;
+}
+
+async function getRestaurantsQuery(query: string): Promise<RestaurantSummarized[]> {
+  const response = await apiClient.getAll<RestaurantSummarized>(baseURL, `?query=${query}`);
   return response.data;
 }
 
@@ -20,9 +25,4 @@ async function updateRestaurant(id: number, restaurant: Restaurant) {
   return response.data;
 }
 
-async function getRestaurantsByFeatures(features: number[]) {
-  const response = await apiClient.post<Restaurant>(baseURL + '/Features', { features: features });
-  return response.data;
-}
-
-export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsByFeatures };
+export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsQuery };

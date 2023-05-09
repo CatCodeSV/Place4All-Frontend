@@ -1,6 +1,7 @@
 import getRestaurant from '@/helpers/getRestaurant';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { useRestaurantStore } from '@/store/restaurants.store';
 import { storeToRefs } from 'pinia';
 import { useBase } from './useBase';
@@ -11,9 +12,15 @@ export const useRestaurant = () => {
   const { restaurantsState, restaurant } = storeToRefs(restaurantStore);
 
   async function setRestaurants() {
-    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: Restaurant[]) =>
-      restaurantStore.setRestaurants(restaurants),
-    );
+    await baseUse.executeApiAction(getRestaurant.getRestaurants(), (restaurants: RestaurantSummarized[]) => {
+      restaurantStore.setRestaurants(restaurants);
+    });
+  }
+
+  async function setRestaurantsQuery(query: string) {
+    await baseUse.executeApiAction(getRestaurant.getRestaurantsQuery(query), (restaurants: RestaurantSummarized[]) => {
+      restaurantStore.setRestaurants(restaurants);
+    });
   }
 
   async function setRestaurant(id: number | string) {
@@ -29,11 +36,6 @@ export const useRestaurant = () => {
     });
   }
 
-  async function getRestaurantsByFeatures(features: number[]) {
-    const res = await baseUse.executeApiAction(getRestaurant.getRestaurantsByFeatures(features));
-    return res.content;
-  }
-
   return {
     //! Properties
     restaurants: restaurantsState,
@@ -41,8 +43,8 @@ export const useRestaurant = () => {
     //! Computed
     //! Métodos
     addFeatures,
-    getRestaurantsByFeatures,
     setRestaurant,
     setRestaurants,
+    setRestaurantsQuery,
   };
 };

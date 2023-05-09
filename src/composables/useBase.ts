@@ -35,10 +35,14 @@ export const useBase = () => {
   }
 
   function hasResponseData(error: any): boolean {
-    return 'response' in error && 'data' in error.response;
+    return 'response' in error && 'data' in error.response && error.response.data !== '';
   }
 
   function handleErrors(error: any) {
+    if (error.response && error.response.status === 401) {
+      showErrorMessage('No estás autorizado para realizar esta acción.');
+      return;
+    }
     showErrorMessage(hasResponseData(error) ? error.response.data : error.message);
   }
 

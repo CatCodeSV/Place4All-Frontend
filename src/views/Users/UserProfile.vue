@@ -15,11 +15,8 @@ function summarizedAddress(address: Address) {
   return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
 }
 function nameCapitalLetters(user: User) {
-  let name = user.name;
-  let surname = user.lastName;
-  let nameCL = name.slice(0, 1).toUpperCase();
-  let surnameCL = surname.slice(0, 1).toUpperCase();
-
+  let nameCL = user.name.slice(0, 1).toUpperCase();
+  let surnameCL = user.lastName.slice(0, 1).toUpperCase();
   return `${nameCL}${surnameCL}`;
 }
 </script>
@@ -35,7 +32,7 @@ function nameCapitalLetters(user: User) {
       <div class="div-personalData">
         <h1 class="my-4 text-center text-h6">{{ user?.name }} {{ user?.lastName }}</h1>
         <div class="d-flex" id="userDetails">
-          <v-avatar class="mx-4 my-4" color="info" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
+          <v-avatar class="mx-4 my-4" color="primaryYellow" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
           <v-row class="mx-2 my-2">
             <v-col>
               <p class="text"><strong>Email</strong></p>

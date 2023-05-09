@@ -43,7 +43,7 @@ class Place4AllHttpClient {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'http://localhost:5005/api',
+      baseURL: 'https://localhost:5021/api',
       /* baseURL: apiUrl, */
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ class Place4AllHttpClient {
       },
       error => {
         return Promise.reject(error);
-      },
+      }
     );
 
     this.instance = http;

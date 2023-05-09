@@ -1,20 +1,21 @@
 import { Address } from './Address';
 import { Features } from './Features';
 import { PDocument } from './PDocument';
+import { Review } from './Review';
+import { User } from './User';
 
 export interface Restaurant extends PDocument {
-  name: string;
   address: Address;
   addressId: number;
-  descripcion: string;
-  phoneNumber: string;
-  images: Image[];
+  description: string;
+  favoriteUsers: User[];
   features: Features[];
-  //favoriteUsers: User[];
-  reviews?: {
-    reviewsNumber: number;
-    reviewsAverage: number;
-  };
+  images: Image[];
+  name: string;
+  numberOfReviews: number;
+  phoneNumber: string;
+  rating: number;
+  reviews: Review[];
 }
 
 export interface Image extends PDocument {
