@@ -1,14 +1,15 @@
 import { Address } from './Address';
-import { PDocument } from './PDocument';
-
-export interface User extends PDocument {
-  name: string;
-  lastName: string;
-  gender: string;
-  age: number;
+export interface User {
   address: Address;
-  hasDisability: boolean;
+  addressId: string;
+  age: number;
   disabilityDegree: number;
   email: string;
-  password: string;
+  gender: string;
+  gsm: string;
+  hasDisability: boolean;
+  id: string;
+  lastName: string;
+  name: string;
+  username: string;
 }

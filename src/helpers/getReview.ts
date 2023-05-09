@@ -1,5 +1,6 @@
 import { apiClient } from '@/api/apiClient.m';
-import { Review } from '@/models/Review';
+import { InformationAccuracy, Review } from '@/models/Review';
+import { Features } from '@/models/Features';
 
 const baseURL = '/Reviews';
 
@@ -14,7 +15,16 @@ async function getReviewByUser(id: number): Promise<Review[]> {
   return response.data;
 }
 
-async function postReview(review: Review) {
+export interface CreateReview {
+  title: string;
+  value: number;
+  comment: string;
+  informationAccuracy: InformationAccuracy;
+  restaurantId: number;
+  additionalFeatures?: Features[];
+}
+
+async function postReview(review: CreateReview) {
   const response = await apiClient.post<Review>(baseURL, review);
   return response.data;
 }
