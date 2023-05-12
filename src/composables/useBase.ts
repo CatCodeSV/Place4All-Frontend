@@ -4,8 +4,7 @@ class ActionResponse<T> {
   public content: T | null = null;
   public success: boolean = false;
 
-  constructor() {
-  }
+  constructor() {}
 }
 
 export const useBase = () => {
@@ -13,7 +12,7 @@ export const useBase = () => {
 
   async function executeApiAction<T = any>(
     actionToExecute: Promise<T>,
-    succeededCallback?: (content: T) => void,
+    succeededCallback?: (content: T) => void
   ): Promise<ActionResponse<T>> {
     const actionResponse = new ActionResponse<T>();
     await actionToExecute
@@ -35,7 +34,8 @@ export const useBase = () => {
   }
 
   function hasResponseData(error: any): boolean {
-    return 'response' in error && 'data' in error.response && error.response.data !== '';
+    const res = 'response' in error && 'data' in error.response && error.response.data !== '';
+    return res;
   }
 
   function handleErrors(error: any) {

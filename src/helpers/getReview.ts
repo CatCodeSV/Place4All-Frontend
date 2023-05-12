@@ -24,7 +24,7 @@ export interface CreateReview {
   additionalFeatures?: Features[];
 }
 
-async function postReview(review: CreateReview) {
+async function postReview(review: CreateReview): Promise<Review> {
   const response = await apiClient.post<Review>(baseURL, review);
   return response.data;
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useFeature } from '@/composables/useFeature';
-import { useReview } from '@/composables/useReview';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
 import { InformationAccuracy } from '@/models/Review';
@@ -8,7 +7,6 @@ import { computed, ref } from 'vue';
 import { CreateReview } from '@/helpers/getReview';
 
 const { features } = useFeature();
-const { postReview } = useReview();
 const props = defineProps<{ dialog: boolean; restaurant: Restaurant; onClose: Function }>();
 const show = computed(() => {
   return props.dialog;
@@ -16,11 +14,12 @@ const show = computed(() => {
 const reviewValue = ref(0);
 const title = ref('');
 const comments = ref('');
-const informationAccuracy = ref(0);
+const informationAccuracy = ref();
 const moreServices = ref<Features[]>([]);
 const loading = ref(false);
 
 async function onSubmit() {
+  loading.value = true;
   var review: CreateReview = {
     title: title.value,
     value: reviewValue.value,
@@ -29,12 +28,11 @@ async function onSubmit() {
     informationAccuracy: informationAccuracy.value,
     additionalFeatures: moreServices.value,
   };
-
-  loading.value = true;
-  await postReview(review);
   loading.value = false;
-  props.onClose;
+  emit('onCreate', review);
 }
+
+const emit = defineEmits<{ (e: 'onCreate', review: CreateReview): void }>();
 </script>
 <template>
   <v-dialog v-model="show" max-width="500px">
