@@ -67,7 +67,7 @@ const emit = defineEmits<{ (e: 'onCreate', review: CreateReview): void }>();
                 { title: 'Muy acertada', value: InformationAccuracy.VeryGood },
                 { title: 'Acertada', value: InformationAccuracy.Good },
                 { title: 'Poco acertada', value: InformationAccuracy.Bad },
-                { title: 'Nada acertada', value: InformationAccuracy.VeryGood },
+                { title: 'Nada acertada', value: InformationAccuracy.VeryBad },
               ]"
               v-model="informationAccuracy"
               color="secondary" />

@@ -57,7 +57,7 @@ function getInformationAccuracy(data: InformationAccuracy) {
   if (data === InformationAccuracy.Bad) return 'Mala';
   if (data === InformationAccuracy.Good) return 'Buena';
   if (data === InformationAccuracy.VeryGood) return 'Muy Buena';
-  if (data === InformationAccuracy.VaryBad) return 'Muy Mala';
+  if (data === InformationAccuracy.VeryBad) return 'Muy Mala';
 }
 
 async function handleCreateReview(review: CreateReview) {
