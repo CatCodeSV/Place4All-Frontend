@@ -22,7 +22,7 @@ export const useUser = () => {
     user,
     //! Computed
     isLogged,
-    //! Metodos
+    //! Métodos
     clearStore: userStore.clearState,
     authenticate,
   };

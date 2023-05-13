@@ -1,19 +1,30 @@
 import { apiClient } from '@/api/apiClient.m';
-import { Review } from '@/models/Review';
+import { InformationAccuracy, Review } from '@/models/Review';
+import { Features } from '@/models/Features';
 
 const baseURL = '/Reviews';
 
-async function getReviewByRestaurant(id: string): Promise<Review[]> {
-  const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurants`, id);
+async function getReviewByRestaurant(id: number): Promise<Review[]> {
+  const response = await apiClient.getById<Review[]>(`${baseURL}/Restaurant`, id);
+  console.log(response.data);
   return response.data;
 }
 
-async function getReviewByUser(id: string): Promise<Review[]> {
+async function getReviewByUser(id: number): Promise<Review[]> {
   const response = await apiClient.getById<Review[]>(`${baseURL}/Users`, id);
   return response.data;
 }
 
-async function postReview(review: Review) {
+export interface CreateReview {
+  title: string;
+  value: number;
+  comment: string;
+  informationAccuracy: InformationAccuracy;
+  restaurantId: number;
+  additionalFeatures?: Features[];
+}
+
+async function postReview(review: CreateReview): Promise<Review> {
   const response = await apiClient.post<Review>(baseURL, review);
   return response.data;
 }

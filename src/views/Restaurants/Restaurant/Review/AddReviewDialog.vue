@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { useFeature } from '@/composables/useFeature';
-import { useReview } from '@/composables/useReview';
-import { useUser } from '@/composables/useUser';
 import { Features } from '@/models/Features';
 import { Restaurant } from '@/models/Restaurant';
-import { Review } from '@/models/Review';
+import { InformationAccuracy } from '@/models/Review';
 import { computed, ref } from 'vue';
+import { CreateReview } from '@/helpers/getReview';
 
-const { features, setFeatures } = useFeature();
-const { postReview } = useReview();
-const { user } = useUser();
+const { features } = useFeature();
 const props = defineProps<{ dialog: boolean; restaurant: Restaurant; onClose: Function }>();
 const show = computed(() => {
   return props.dialog;
@@ -17,28 +14,25 @@ const show = computed(() => {
 const reviewValue = ref(0);
 const title = ref('');
 const comments = ref('');
-const informationAccuracy = ref(0);
+const informationAccuracy = ref();
 const moreServices = ref<Features[]>([]);
 const loading = ref(false);
 
 async function onSubmit() {
-  var review: Review = {
-    value: reviewValue.value,
-    restaurant: props.restaurant,
-    user: user.value!,
-    comments: {
-      title: title.value,
-      comment: comments.value,
-      informationAccuracy: informationAccuracy.value,
-      hasFeatures: moreServices.value,
-    },
-  };
-
   loading.value = true;
-  await postReview(review);
+  var review: CreateReview = {
+    title: title.value,
+    value: reviewValue.value,
+    restaurantId: props.restaurant.id!,
+    comment: comments.value,
+    informationAccuracy: informationAccuracy.value,
+    additionalFeatures: moreServices.value,
+  };
   loading.value = false;
-  props.onClose;
+  emit('onCreate', review);
 }
+
+const emit = defineEmits<{ (e: 'onCreate', review: CreateReview): void }>();
 </script>
 <template>
   <v-dialog v-model="show" max-width="500px">
@@ -62,19 +56,21 @@ async function onSubmit() {
         </v-row>
         <v-row>
           <v-col cols="12">
-            <h3 for="">¿Qué tan acertada fue la información?</h3>
+            <h3>¿Qué tan acertada fue la información?</h3>
           </v-col>
           <v-col cols="12">
-            <v-rating
+            <v-autocomplete
+              clearable
+              chips
+              validate-on="blur"
+              :items="[
+                { title: 'Muy acertada', value: InformationAccuracy.VeryGood },
+                { title: 'Acertada', value: InformationAccuracy.Good },
+                { title: 'Poco acertada', value: InformationAccuracy.Bad },
+                { title: 'Nada acertada', value: InformationAccuracy.VeryBad },
+              ]"
               v-model="informationAccuracy"
-              empty-icon="mdi-circle-outline"
-              full-icon="mdi-circle"
-              half-icon="mdi-circle-half"
-              color="primary"
-              density="compact"
-              half-increments
-              hover
-              size="large" />
+              color="secondary" />
           </v-col>
           <v-col cols="12">
             <h3>¿Hubieron más servicios de los que aparecen en la página?</h3>
@@ -90,8 +86,8 @@ async function onSubmit() {
               item-title="name"
               v-model="moreServices"
               color="secondary"
-              >Nuevo Servicio</v-autocomplete
-            >
+              >Nuevo Servicio
+            </v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>

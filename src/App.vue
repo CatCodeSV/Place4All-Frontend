@@ -1,10 +1,11 @@
 <template>
   <v-layout>
-    <Header @open-dialog="onOpenDialog" />
-    <v-main id="page-container" class="d-flex w-100 flex-column">
-      <div id="main-content">
+    <Header @open-dialog='onOpenDialog' />
+    <v-main id='page-container' class='d-flex w-100 flex-column'>
+      <div id='main-content'>
         <RouterView />
-        <Login :value="dialog" :on-close="() => (dialog = !dialog)" />
+        <Login :value='dialog' :on-close='() => (dialog = !dialog)' />
+        <UserMessageUI />
       </div>
       <!--  <div class="footer">
         <Footer />
@@ -13,12 +14,13 @@
   </v-layout>
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
 import { useUser } from './composables/useUser';
+import UserMessageUI from '@/components/UserMessageUI.vue';
 
 const router = useRouter();
 const { user } = useUser();
@@ -34,7 +36,7 @@ function onOpenDialog() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 #page-container {
   min-height: 100vh;
   position: relative;
@@ -42,11 +44,5 @@ function onOpenDialog() {
 
 #main-content {
   padding-bottom: 101px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin-top: auto;
 }
 </style>

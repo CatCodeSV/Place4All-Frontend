@@ -19,7 +19,7 @@ function buscar() {
     <!--CARD HOME-->
 
     <v-row align="center" align-content="center" justify="center" class="h-100 d-flex my-auto">
-      <v-col cols="12" lg="10" sm="12" class="w-100 h-100 pa-10 pb-15" style="background-image: url('')">
+      <v-col cols="12" lg="10" sm="12" class="w-100 h-100 pa-10 pb-15">
         <!--Tamaño de la card-->
         <v-card image="/necesidades.jpg" :elevation="5" class="mx-auto pa-10 w-100" color="bg-grey-lighten-4">
           <!--Logotipo Place4All-->

@@ -46,10 +46,12 @@ const emits = defineEmits(['openDialog']);
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>
-  <v-navigation-drawer id="profile-nav-drawer"  v-model="profile" temporary location="right" width="224px" height="200px">
+  <v-navigation-drawer id="profile-nav-drawer" v-model="profile" temporary location="right" width="224px" height="200px">
     <v-list density="compact" nav>
       <v-list-item>
-        <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged" color="primary" >Iniciar sesión</v-btn>
+        <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged" color="primary"
+          >Iniciar sesión</v-btn
+        >
         <v-btn id="myProfile-btn" @click="goToUser()" variant="text" color="primary" v-if="isLogged">Mi perfil</v-btn>
       </v-list-item>
       <v-list-item>
