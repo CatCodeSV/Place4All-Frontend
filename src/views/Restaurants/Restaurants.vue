@@ -47,15 +47,31 @@ async function setFiltered() {
 <template>
   <div v-if='!loading' class='d-flex mt-10'>
     <v-row class='px-10'>
-      <v-col cols='12' lg='2' sm='6' xs='6'>
+      <v-col cols='12' lg='2' sm='6' xs='6' id="filters">
         <v-select
           v-model='selectedFeature'
           :items='mappedFeatures'
-          bg-color='secondaryYellow'
+          bg-color='#93A9CE'
+          color='primary'
           chips
           clearable
-          color='primary'
+          multiple
           label='Necesidades'
+          rounded-pill
+          variant='solo'
+          @update:model-value='setFiltered' />
+      </v-col>
+
+      <v-col cols='12' lg='2' sm='6' xs='6' id="filters">
+        <v-select
+          v-model='selectedFeature'
+          :items='mappedFeatures'
+          bg-color='#93A9CE'
+          color='primary'
+          chips
+          clearable
+          multiple
+          label='Menú'
           rounded-pill
           variant='solo'
           @update:model-value='setFiltered' />
@@ -64,7 +80,8 @@ async function setFiltered() {
       <v-col cols='12' lg='2' sm='6' xs='6'>
         <v-select
           :items="['Orden Ascendente', 'Orden Descendente']"
-          bg-color='secondaryYellow'
+          bg-color='#93A9CE'
+          color='primary'
           clearable
           label='Valoraciones'
           rounded-pill
@@ -92,4 +109,9 @@ async function setFiltered() {
   color: #0b3d91;
   margin-left: 4rem;
 }
+
+#filters v-select{
+  border-radius: 20px !important;
+}
+
 </style>
