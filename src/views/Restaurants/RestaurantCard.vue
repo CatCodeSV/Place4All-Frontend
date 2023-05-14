@@ -40,9 +40,25 @@ async function goToDetail(restaurant: RestaurantSummarized) {
     <v-card-text class="v-card-text" @click="goToDetail(restaurant)">
       <v-row align="center" class="mx-0">
         <v-rating :model-value="props.restaurant.rating" color="amber" density="compact" half-increments readonly size="medium" />
-
-        <div class="text-grey ms-4">
+        <div align="left" class="text-grey ms-4">
           {{ props.restaurant.numberOfReviews || 0 }}
+        </div>
+        <v-icon 
+          class="mx-2"
+          icon="mdi-message-text"
+          size="small"
+          color="grey"
+        >
+        </v-icon>
+      </v-row>
+      <v-row align="center" class="mx-1 my-8">
+        <div class="text-grey">
+          {{ props.restaurant.adress}}
+        </div>
+      </v-row>
+      <v-row align="center" class="mx-1 my-8">
+        <div class="text-grey">
+          {{ props.restaurant.descripcion}}
         </div>
       </v-row>
 
