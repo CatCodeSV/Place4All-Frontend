@@ -59,6 +59,7 @@ async function setFiltered() {
           label='Necesidades'
           rounded-pill
           variant='solo'
+          rounded="100"
           @update:model-value='setFiltered' />
       </v-col>
 
