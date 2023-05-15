@@ -43,22 +43,16 @@ async function goToDetail(restaurant: RestaurantSummarized) {
         <div align="left" class="text-grey ms-4">
           {{ props.restaurant.numberOfReviews || 0 }}
         </div>
-        <v-icon 
-          class="mx-2"
-          icon="mdi-message-text"
-          size="small"
-          color="grey"
-        >
-        </v-icon>
+        <v-icon class="mx-2" icon="mdi-message-text" size="small" color="grey"> </v-icon>
       </v-row>
       <v-row align="center" class="mx-1 my-8">
         <div class="text-grey">
-          {{ props.restaurant.adress}}
+          {{ props.restaurant.address }}
         </div>
       </v-row>
       <v-row align="center" class="mx-1 my-8">
         <div class="text-grey">
-          {{ props.restaurant.descripcion}}
+          {{ props.restaurant.description }}
         </div>
       </v-row>
 
