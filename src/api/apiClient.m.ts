@@ -6,6 +6,7 @@ interface IdValue {
   value: string;
 }
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const injectToken = (config: AxiosRequestConfig): any => {
   try {
     const { token } = useUser();
@@ -43,8 +44,7 @@ class Place4AllHttpClient {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'http://localhost:5005/api',
-      /* baseURL: apiUrl, */
+      baseURL: apiUrl,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -60,7 +60,7 @@ class Place4AllHttpClient {
       },
       error => {
         return Promise.reject(error);
-      },
+      }
     );
 
     this.instance = http;

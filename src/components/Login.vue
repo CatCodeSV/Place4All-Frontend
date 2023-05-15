@@ -25,16 +25,10 @@ const show = computed(() => {
 </script>
 <template>
   <v-dialog v-model="show" persistent width="1024">
-    <v-card :loading="loading" class="mx-auto pa-12 pb-8" elevation="8" max-width="448" min-width="35%" rounded="lg">
+    <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" min-width="35%" rounded="lg">
       <div class="text-subtitle-1 text-medium-emphasis">Email</div>
 
-      <v-text-field
-        :loading="loading"
-        v-model="email"
-        density="compact"
-        placeholder="Email"
-        prepend-inner-icon="mdi-email-outline"
-        variant="outlined"></v-text-field>
+      <v-text-field v-model="email" density="compact" placeholder="Email" prepend-inner-icon="mdi-email-outline" variant="outlined" />
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Contraseña</div>
 
@@ -47,7 +41,8 @@ const show = computed(() => {
         placeholder="Contraseña"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
-        @click:append-inner="visible = !visible"></v-text-field>
+        @click:append-inner="visible = !visible"
+        @keydown.enter="onLogin()" />
 
       <v-btn :loading="loading" block class="mb-8" color="primary" size="large" variant="flat" @click="onLogin()">
         Iniciar sesión

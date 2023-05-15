@@ -17,5 +17,5 @@ export enum InformationAccuracy {
   VeryGood = 1,
   Good = 2,
   Bad = 3,
-  VaryBad = 4,
+  VeryBad = 4,
 }
