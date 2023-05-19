@@ -22,9 +22,14 @@ export const useRestaurantStore = defineStore(
       return (restaurantsState.value = restaurants);
     }
 
+    function clearRestaurant() {
+      restaurant.value = undefined;
+    }
+
     return {
       restaurantsState,
       restaurant,
+      clearRestaurant,
       setRestaurants,
       setRestaurant,
       setRestaurantsByQuery,

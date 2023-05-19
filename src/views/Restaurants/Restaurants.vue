@@ -1,4 +1,4 @@
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
@@ -6,7 +6,7 @@ import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 
-const { restaurants, setRestaurants, setRestaurantsQuery } = useRestaurant();
+const { restaurants, setRestaurants, setRestaurantsQuery, setRestaurantsByFeatures } = useRestaurant();
 const { features, setFeatures } = useFeature();
 
 onBeforeMount(async () => {
@@ -30,56 +30,57 @@ const loading = ref(false);
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 
-const selectedFeature = ref([]);
-const restaurantsToShow = ref<RestaurantSummarized[]>();
+const selectedFeature = ref();
+const restaurantsToShow = ref();
 
 async function setFiltered() {
   if (selectedFeature.value.length === 0) {
-    console.log(selectedFeature.value);
     restaurantsToShow.value = restaurants.value;
-    /*restaurantsToShow.value = await setRestaurantsQuery(selectedFeature.value);*/
-    console.log(restaurantsToShow.value);
     return;
   }
+  await setRestaurantsByFeatures(selectedFeature.value);
+  restaurantsToShow.value = restaurants.value;
 }
 </script>
 
 <template>
-  <div v-if='!loading' class='d-flex mt-10'>
-    <v-row class='px-10'>
-      <v-col cols='12' lg='2' sm='6' xs='6'>
+  <div v-if="!loading" class="d-flex mt-10">
+    <v-row class="px-10">
+      <v-col cols="12" lg="2" sm="6" xs="6">
         <v-select
-          v-model='selectedFeature'
-          :items='mappedFeatures'
-          bg-color='secondaryYellow'
+          v-model="selectedFeature"
+          :items="mappedFeatures"
+          bg-color="secondaryYellow"
           chips
           clearable
-          color='primary'
-          label='Necesidades'
+          multiple
+          single-line
+          color="primary"
+          label="Necesidades"
           rounded-pill
-          variant='solo'
-          @update:model-value='setFiltered' />
+          variant="solo"
+          @update:model-value="setFiltered" />
       </v-col>
 
-      <v-col cols='12' lg='2' sm='6' xs='6'>
+      <v-col cols="12" lg="2" sm="6" xs="6">
         <v-select
           :items="['Orden Ascendente', 'Orden Descendente']"
-          bg-color='secondaryYellow'
+          bg-color="secondaryYellow"
           clearable
-          label='Valoraciones'
+          label="Valoraciones"
           rounded-pill
-          variant='solo'>
+          variant="solo">
         </v-select>
       </v-col>
     </v-row>
   </div>
 
-  <span v-if='!loading' class='span-filtered-results mt-6'> {{ restaurantsToShow?.length }} Resultados </span>
-  <v-divider class='my-10' />
-  <v-row class='pa-6'>
-    <v-col v-for='(restaurant, index) in restaurantsToShow' :key='index' cols='12' md='3' sm='6'>
-      <v-skeleton-loader :loading='loading' class='mx-auto' max-width='300' transition='scale-transition' type='card'>
-        <RestaurantCard :restaurant='restaurant' />
+  <span v-if="!loading" class="span-filtered-results mt-6"> {{ restaurantsToShow?.length }} Resultados </span>
+  <v-divider class="my-10" />
+  <v-row class="pa-6">
+    <v-col v-for="(restaurant, index) in restaurantsToShow" :key="index" cols="12" md="3" sm="6">
+      <v-skeleton-loader :loading="loading" class="mx-auto" max-width="300" transition="scale-transition" type="card">
+        <RestaurantCard :restaurant="restaurant" />
       </v-skeleton-loader>
     </v-col>
   </v-row>

@@ -6,13 +6,13 @@ import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
 import { InformationAccuracy, Review } from '@/models/Review';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
 import { Restaurant } from '@/models/Restaurant';
 import { CreateReview } from '@/helpers/getReview';
 
-const { restaurant, addFeatures, setRestaurant } = useRestaurant();
+const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
 const { token, isLogged } = useUser();
 const { getReviewsByRestaurant, postReview } = useReview();
 const { features, setFeatures } = useFeature();
@@ -25,8 +25,11 @@ onBeforeMount(async () => {
   if (restaurant.value === undefined) await setRestaurant(restaurantId[0]);
   if (features.value.length < 1) await setFeatures();
   reviews.value = await getReviewsByRestaurant(restaurant.value!.id!);
-  console.log(restaurant.value);
   loading.value = false;
+});
+
+onUnmounted(() => {
+  clearRestaurant();
 });
 
 function goToListRestaurants() {
