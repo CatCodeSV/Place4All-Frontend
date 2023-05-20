@@ -21,7 +21,11 @@ const customLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
     primary: '#0B3D91',
-    primaryYellow: '#F8D347',
+    'primary-200': '#C9D4E7',
+    'primary-300': '#93A9CE',
+    'primary-800': '#051B40',
+    'primary-900': '#020E20',
+    action: '#F7BC3D',
     secondary: '#87CEEB',
     secondaryYellow: '#F6E8B1',
     background: '#F6F6F6',
