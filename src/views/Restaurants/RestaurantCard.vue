@@ -45,18 +45,16 @@ async function goToDetail(restaurant: RestaurantSummarized) {
         </div>
         <v-icon class="mx-2" icon="mdi-message-text" size="small" color="grey"> </v-icon>
       </v-row>
-      <v-row align="center" class="mx-1 my-8">
-        <div class="text-grey">
+      <v-row align="center" class="mx-1 my-5">
+        <div color="textGrey">
           {{ props.restaurant.address }}
         </div>
       </v-row>
-      <v-row align="center" class="mx-1 my-8">
-        <div class="text-grey">
+      <v-row align="center" class="mx-1 my-1">
+        <div color="textGrey">
           {{ props.restaurant.description }}
         </div>
       </v-row>
-
-      <!-- <div class="mt-4 text-subtitle-1">{{ summarizeAdress(props.restaurant.address) }}</div> -->
     </v-card-text>
 
     <v-divider class="mx-4 mb-1"></v-divider>
