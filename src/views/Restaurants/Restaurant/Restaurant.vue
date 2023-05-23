@@ -14,7 +14,7 @@ import { CreateReview } from '@/helpers/getReview';
 
 const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
 const { token, isLogged } = useUser();
-const { getReviewsByRestaurant, postReview } = useReview();
+const { postReview } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
 const route = useRoute();
@@ -24,8 +24,6 @@ onBeforeMount(async () => {
   const restaurantId = route.params.id;
   if (restaurant.value === undefined) await setRestaurant(restaurantId[0]);
   if (features.value.length < 1) await setFeatures();
-  reviews.value = await getReviewsByRestaurant(restaurant.value!.id!);
-  console.log(restaurant.value);
   loading.value = false;
 });
 
@@ -207,7 +205,7 @@ const windowWidth = ref(window.innerWidth);
             <v-row>
               <v-sheet class="mx-auto bg-white" max-width="100%">
                 <v-slide-group class="pa-4" show-arrows>
-                  <v-slide-group-item v-for="(review, index) in reviews" :key="index">
+                  <v-slide-group-item v-for="(review, index) in restaurant.reviews" :key="index">
                     <v-col cols="12" lg="4" md="6" sm="12">
                       <v-card :border="0" :density="'compact'" :elevation="5" color="transparent" height="250px" outlined>
                         <v-card-item>
