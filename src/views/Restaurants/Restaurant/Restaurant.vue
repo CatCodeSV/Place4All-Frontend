@@ -194,7 +194,7 @@ const windowWidth = ref(window.innerWidth);
                 append-icon="mdi-plus"
                 color="primaryYellow"
                 variant="flat"
-                class="ma-4"
+                class="ma-4 xy-6"
                 @click="reviewsDialog = true"
                 >Nueva Review
               </v-btn>
