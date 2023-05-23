@@ -34,6 +34,7 @@ const customLightTheme: ThemeDefinition = {
     success: '#45A46C',
     warning: '#F96C16',
     info: '#006699',
+    textGrey: '#4E4E4E',
   },
 };
 
