@@ -11,7 +11,7 @@ const props = defineProps<{
 
 function reserve() {
   loading.value = true;
-  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
+  window.open('https://docs.google.com/forms/d/1hrTmrIr93mwSi3WlKONonaK2OtF6QQfgjvPAuDtHKPI/edit?hl=ES', '_blank');
   setTimeout(() => {
     loading.value = false;
   }, 2000);
