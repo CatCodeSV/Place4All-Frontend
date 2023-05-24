@@ -50,6 +50,7 @@ export const useRestaurant = () => {
     //! Computed
     //! Métodos
     addFeatures,
+    clearRestaurant: restaurantStore.clearRestaurant,
     setRestaurant,
     setRestaurants,
     setRestaurantsQuery,
