@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { Gender } from '@/helpers/getUser';
 
 const props = defineProps<{
   value: boolean;
@@ -25,7 +26,7 @@ const show = computed(() => {
 <template>
   <v-dialog v-model="show" persistent width="1024">
     <v-window
-      ><v-window-item value="personalInformaition">
+      ><v-window-item value="personalInformation">
         <v-row>
           <v-col cols="12" md="6"><v-text-field label="Nombre" required /> </v-col>
           <v-col cols="12" md="6"><v-text-field label="Apellido" required /> </v-col>
