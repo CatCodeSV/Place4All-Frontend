@@ -22,6 +22,9 @@ function logOut() {
   goToHome();
   clearStore();
 }
+function goToPr() {
+  router.push('/pr');
+}
 
 const emits = defineEmits(['openDialog']);
 </script>
@@ -33,6 +36,10 @@ const emits = defineEmits(['openDialog']);
     <v-toolbar-items>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain" color="primaryYellow">Restaurantes</v-btn>
     </v-toolbar-items>
+    <!--Luego eliminar pr-->
+    <v-toolbar-nav-icon>
+      <v-btn @click="goToPr()" class="ml-2" variant="plain" color="primaryYellow">profile</v-btn>
+    </v-toolbar-nav-icon>
     <v-spacer></v-spacer>
     <v-btn icon color="primaryYellow">
       <v-icon>mdi-star-outline</v-icon>

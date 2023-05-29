@@ -20,6 +20,12 @@ const routes = [
     name: 'UserProfile',
     component: () => import('@/views/Users/UserProfile.vue'),
   },
+  /**Prueba profile */
+  {
+    path: '/pr',
+    name: 'Pr',
+    component: () => import('@/views/Profile/Components/Profile.vue'),
+  },
 ];
 
 const router = createRouter({
