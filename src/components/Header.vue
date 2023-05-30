@@ -15,15 +15,12 @@ function goToHome() {
 function openNavProfile() {
   profile.value = !profile.value;
 }
-function goToUser() {
-  router.push('/perfil');
-}
 function logOut() {
   goToHome();
   clearStore();
 }
-function goToPr() {
-  router.push('/pr');
+function goToUser() {
+  router.push('/perfil/usuario');
 }
 
 const emits = defineEmits(['openDialog']);
@@ -36,16 +33,13 @@ const emits = defineEmits(['openDialog']);
     <v-toolbar-items>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain" color="primaryYellow">Restaurantes</v-btn>
     </v-toolbar-items>
-    <!--Luego eliminar pr-->
-    <v-toolbar-nav-icon>
-      <v-btn @click="goToPr()" class="ml-2" variant="plain" color="primaryYellow">profile</v-btn>
-    </v-toolbar-nav-icon>
     <v-spacer></v-spacer>
     <v-btn icon color="primaryYellow">
       <v-icon>mdi-star-outline</v-icon>
     </v-btn>
     <v-toolbar-items>
-      <v-btn icon id="profile-btn" @click="openNavProfile()" color="primaryYellow">
+      <v-btn icon id="profile-btn" @click="goToUser()" color="primaryYellow">
+        <!-- <v-btn icon id="profile-btn" @click="openNavProfile()" color="primaryYellow"> -->
         <!-- <v-badge dot color="success" v-if="isLogged"> -->
         <v-icon>mdi-account-outline</v-icon>
         <!-- </v-badge> -->

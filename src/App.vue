@@ -6,7 +6,6 @@
         <RouterView />
         <Login :value="dialog" :on-close="() => (dialog = !dialog)" />
         <UserMessageUI />
-        <router-link to="/pr"></router-link>
       </div>
       <!--  <div class="footer">
         <Footer />
