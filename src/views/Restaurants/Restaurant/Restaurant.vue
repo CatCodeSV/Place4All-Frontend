@@ -3,14 +3,14 @@ import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { useReview } from '@/composables/useReview';
 import { useUser } from '@/composables/useUser';
+import { CreateReview } from '@/helpers/getReview';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
+import { Restaurant } from '@/models/Restaurant';
 import { InformationAccuracy, Review } from '@/models/Review';
 import { onBeforeMount, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
-import { Restaurant } from '@/models/Restaurant';
-import { CreateReview } from '@/helpers/getReview';
 
 const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
 const { token, isLogged } = useUser();
@@ -91,16 +91,7 @@ const windowWidth = ref(window.innerWidth);
     max-width="80%"
     outlined>
     <v-card>
-      <div class="d-flex flex-colum bg-white">
-        <v-img
-          v-for="(image, index) of restaurant.images"
-          v-bind:key="index"
-          :src="getImageUrl(image.link)"
-          cover
-          height="250"
-          width="30%" />
-      </div>
-      <div class="d-flex pa-4 w-100 bg-white flex-wrap">
+      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
         <v-rating
           :model-value="restaurant?.rating || 0"
@@ -119,9 +110,19 @@ const windowWidth = ref(window.innerWidth);
           @click="isEdit = !isEdit" />
         <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reserve"> Reservar </v-btn>
       </div>
-      <v-divider />
-      <div class="d-flex w-100 bg-white">
-        <div v-if="windowWidth > 1200" class="w-25 bg-white pa-4">
+      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap">
+        <!-- <div class="d-flex flex-colum bg-white"> -->
+        <div class="w-75 bg-white pa-4">
+          <v-img
+            v-for="(image, index) of restaurant.images"
+            v-bind:key="index"
+            :src="getImageUrl(image.link)"
+            cover
+            height="250"
+            width="30%" />
+        </div>
+        <!-- </div> -->
+        <div v-if="windowWidth > 1200" class="w-60 bg-white pa-4">
           <div v-if="isEdit" class="d-flex align-items-center justify-space-between">
             <v-autocomplete
               v-model="selectedFeatures"
@@ -144,7 +145,12 @@ const windowWidth = ref(window.innerWidth);
             </v-btn>
           </div>
         </div>
-        <div class="w-75 bg-white">
+      </div>
+
+      <v-divider />
+
+      <div class="d-flex w-100 bg-white">
+        <div class="w-30 bg-white">
           <div class="bg-white mx-auto mb-4 pa-4">
             <v-row>
               <v-col align-self="center" cols="12" md="3" sm="3">
