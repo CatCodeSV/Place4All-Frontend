@@ -110,18 +110,17 @@ const windowWidth = ref(window.innerWidth);
           @click="isEdit = !isEdit" />
         <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reserve"> Reservar </v-btn>
       </div>
-      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap">
-        <!-- <div class="d-flex flex-colum bg-white"> -->
+      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap justify-content-center">
         <div class="w-75 bg-white pa-4">
-          <v-img
-            v-for="(image, index) of restaurant.images"
-            v-bind:key="index"
-            :src="getImageUrl(image.link)"
-            cover
-            height="250"
-            width="30%" />
+          <v-carousel show-arrows="hover" hide-delimiters progress="secondary">
+            <v-carousel-item
+              v-for="(image, index) of restaurant.images"
+              v-bind:key="index"
+              :src="getImageUrl(image.link)"
+              cover
+              max-height="420"></v-carousel-item>
+          </v-carousel>
         </div>
-        <!-- </div> -->
         <div v-if="windowWidth > 1200" class="w-60 bg-white pa-4">
           <div v-if="isEdit" class="d-flex align-items-center justify-space-between">
             <v-autocomplete
@@ -149,35 +148,27 @@ const windowWidth = ref(window.innerWidth);
 
       <v-divider />
 
-      <div class="d-flex w-100 bg-white">
+      <div class="d-flex px-10 py-2 w-100 bg-white justify-start">
         <div class="w-30 bg-white">
-          <div class="bg-white mx-auto mb-4 pa-4">
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text">Teléfono</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">{{ restaurant!.phoneNumber }}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text">Ubicación</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">{{ summarizedAddress(restaurant!.address) }}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text w-100">Descripción</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">
-                  {{ restaurant.description }}
-                </p>
-              </v-col>
-            </v-row>
+          <div class="bg-white mx-auto mb-4">
+            <div class="py-4">
+              <h3>Descripción</h3>
+              <p class="text">
+                {{ restaurant.description }}
+              </p>
+            </div>
+            <div class="d-flex py-4 w-100 bg-white flex-wrap justify-start">
+              <v-icon class="mx-2" icon="mdi-home"></v-icon>
+              <p class="text mx-2">
+                {{ summarizedAddress(restaurant!.address) }}
+              </p>
+            </div>
+            <div class="d-flex py-4 w-100 bg-white flex-wrap justify-start">
+              <v-icon class="mx-2" icon="mdi-phone"></v-icon>
+              <p class="text mx-2">
+                {{ restaurant!.phoneNumber }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
