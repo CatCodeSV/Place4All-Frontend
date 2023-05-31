@@ -17,9 +17,10 @@ export interface CreateUser {
   email: string;
   password: string;
   gender: Gender;
-  age: number;
+  birthDate: string;
   hasDisability: boolean;
   disabilityDegree?: number;
+  disabilityType?: string;
   phoneNumber: string;
   street: string;
   number: number;
