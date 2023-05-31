@@ -5,11 +5,11 @@
         <v-list color="transparent">
           <v-list-item
             prepend-icon="mdi-vuetify"
-            title="Rol: Usuario"
+            title="Rol: Admin"
             style="background-color: lightseagreen; margin-bottom: 5px"></v-list-item>
         </v-list>
         <v-list color="transparent">
-          <v-list-item @click="goToProfileUser()" prepend-icon="mdi-account-box" title="Datos Usuario" disabled></v-list-item>
+          <v-list-item @click="goToProfileUser()" prepend-icon="mdi-account-box" title="Datos Usuario"></v-list-item>
           <v-list-item @click="goToProfileFavorites()" prepend-icon="mdi-star" title="Favoritos"></v-list-item>
           <v-list-item @click="goToProfileReservation()" prepend-icon="mdi-home" title="Reservas"></v-list-item>
           <v-list-item @click="goToProfilePrivacy()" prepend-icon="mdi-gavel" title="Privacidad"></v-list-item>
@@ -24,7 +24,7 @@
       </v-navigation-drawer>
       <v-main style="height: 700px">
         <v-layout class="titulo-pantalla-usuario bg-secondary" style="height: 60px">
-          <h2 class="titulo">Datos de Usuario</h2>
+          <h2 class="titulo">Administrador</h2>
         </v-layout>
 
         <card class="list-text">
@@ -55,25 +55,25 @@
     </v-layout>
   </v-card>
   <!-- <v-card outlined color="transparent" :elevation="2" class="mx-auto mb-10 bg-white" max-width="90%">
-    <div class="block-inferior mx-auto d-flex" id="block-inferior">
-      <div id="personalReservations">
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-title>
-              <template v-slot:default="{}">
-                <v-row no-gutters>
-                  <v-col cols="4" class="d-flex justify-start"> Reservas </v-col>
-                </v-row>
-              </template>
-            </v-expansion-panel-title>
-            <v-expansion-panel-text class="w-100 bg-white">
-              <v-col class="h-100" cols="12" lg="4" md="6" sm="12"> </v-col>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
+      <div class="block-inferior mx-auto d-flex" id="block-inferior">
+        <div id="personalReservations">
+          <v-expansion-panels>
+            <v-expansion-panel>
+              <v-expansion-panel-title>
+                <template v-slot:default="{}">
+                  <v-row no-gutters>
+                    <v-col cols="4" class="d-flex justify-start"> Reservas </v-col>
+                  </v-row>
+                </template>
+              </v-expansion-panel-title>
+              <v-expansion-panel-text class="w-100 bg-white">
+                <v-col class="h-100" cols="12" lg="4" md="6" sm="12"> </v-col>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
       </div>
-    </div>
-  </v-card> -->
+    </v-card> -->
 </template>
 
 <script lang="ts" setup>

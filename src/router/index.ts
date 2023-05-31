@@ -52,6 +52,11 @@ const routes = [
         name: 'user-notification',
         component: () => import('@/views/Profile/Components/ProfileNotifications.vue'),
       } /*perfil avisos*/,
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views/Profile/Components/ProfileAdmin.vue'),
+      } /*perfil Admin*/,
     ],
   },
 ];
