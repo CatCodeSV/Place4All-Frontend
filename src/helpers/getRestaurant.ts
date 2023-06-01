@@ -25,7 +25,6 @@ async function getRestaurantsByFeatures(features: number[]): Promise<RestaurantS
 }
 
 async function updateRestaurant(id: number, restaurant: Restaurant) {
-  console.log(restaurant.features);
   const response = await apiClient.putEntity<Restaurant>(baseURL, id, restaurant);
   return response.data;
 }

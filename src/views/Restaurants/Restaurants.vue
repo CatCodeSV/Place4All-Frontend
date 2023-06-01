@@ -2,7 +2,6 @@
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
-import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 import { useRoute } from 'vue-router';
@@ -27,7 +26,6 @@ onBeforeMount(async () => {
   }
   restaurantsToShow.value = restaurants.value;
   const query = route.query;
-  console.log(query);
   if (!query.search) {
     loading.value = false;
     return;

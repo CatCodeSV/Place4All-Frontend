@@ -29,6 +29,11 @@ export interface CreateUser {
   province: string;
 }
 
+const createUser = async (createUser: CreateUser) => {
+  const res = await apiClient.post(`${baseURL}/Register`, createUser);
+  return res.data;
+};
+
 export enum Gender {
   Male = 1,
   Female = 2,
@@ -36,4 +41,4 @@ export enum Gender {
   Other = 4,
 }
 
-export default { login };
+export default { login, createUser };

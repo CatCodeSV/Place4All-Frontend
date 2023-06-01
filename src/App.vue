@@ -4,8 +4,8 @@
     <v-main id="page-container" class="d-flex w-100 flex-column">
       <div id="main-content">
         <RouterView />
-        <Login :value="loginDialog" :on-close="() => (loginDialog = !loginDialog)" />
-        <Register :value="registerDialog" :on-close="() => (registerDialog = !registerDialog)" />
+        <Login :value="loginDialog" @on-close="() => (loginDialog = !loginDialog)" />
+        <Register :value="registerDialog" @on-close="() => (registerDialog = !registerDialog)" />
         <UserMessageUI />
       </div>
       <!--  <div class="footer">
@@ -34,7 +34,6 @@ function onOpenDialog() {
     router.push('/perfil');
     return;
   }
-  console.log('onOpenDialog');
   loginDialog.value = true;
 }
 
