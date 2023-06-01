@@ -16,7 +16,7 @@ const routes = [
     component: () => import('@/views/Restaurants/Restaurant/Restaurant.vue'),
   },
   /* {
-    path: '/perfil',
+    path: '/perfil1',
     name: 'UserProfile',
     component: () => import('@/views/Users/UserProfile.vue'),
   }, */

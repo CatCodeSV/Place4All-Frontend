@@ -1,9 +1,20 @@
 <script lang="ts" setup>
 import { useUser } from '@/composables/useUser';
+import { Address } from '@/models/Address';
+import { User } from '@/models/User';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const { user } = useUser();
+
+function summarizedAddress(address: Address) {
+  return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
+}
+function nameCapitalLetters(user: User) {
+  let nameCL = user.name.slice(0, 1).toUpperCase();
+  let surnameCL = user.lastName.slice(0, 1).toUpperCase();
+  return `${nameCL}${surnameCL}`;
+}
 
 function goToHome() {
   router.push('/');
@@ -26,35 +37,75 @@ function goToProfileFavorites() {
 </script>
 
 <template>
+  <v-btn style="margin-top: 10px; margin-left: 5px" color="primary" variant="elevated" @click="goToHome()">
+    <v-icon start icon="mdi-arrow-left"></v-icon>
+    Volver
+  </v-btn>
   <v-card>
     <v-layout>
-      <v-navigation-drawer theme="dark">
+      <v-navigation-drawer style="background-color: #eeeeee" floating permanent>
+        <v-list color="transparent">
+          <v-list-item class="bg-primary" prepend-icon="mdi-vuetify" title="Rol: Usuario"> </v-list-item>
+        </v-list>
         <v-list color="transparent">
           <v-list-item
-            prepend-icon="mdi-vuetify"
-            title="Rol: Usuario"
-            style="background-color: lightseagreen; margin-bottom: 5px"></v-list-item>
+            class="text-primary"
+            @click="goToProfileUser()"
+            prepend-icon="mdi-account-box"
+            title="Datos Usuario"></v-list-item>
+          <v-list-item class="text-primary" @click="goToProfileFavorites()" prepend-icon="mdi-star" title="Favoritos"></v-list-item>
+          <v-list-item class="text-primary" @click="goToProfileReservation()" prepend-icon="mdi-home" title="Reservas"></v-list-item>
+          <v-list-item
+            style="border-radius: 0 30px 30px 0"
+            class="bg-secondary"
+            @click="goToProfilePrivacy()"
+            prepend-icon="mdi-gavel"
+            title="Privacidad"
+            disabled></v-list-item>
+          <v-list-item
+            class="text-primary"
+            @click="goToProfileNotification()"
+            prepend-icon="mdi-email-outline"
+            title="Notificaciones"></v-list-item>
         </v-list>
-        <v-list color="transparent">
-          <v-list-item @click="goToProfileUser()" prepend-icon="mdi-account-box" title="Datos Usuario"></v-list-item>
-          <v-list-item @click="goToProfileFavorites()" prepend-icon="mdi-star" title="Favoritos"></v-list-item>
-          <v-list-item @click="goToProfileReservation()" prepend-icon="mdi-home" title="Reservas"></v-list-item>
-          <v-list-item @click="goToProfilePrivacy()" prepend-icon="mdi-gavel" title="Privacidad" disabled></v-list-item>
-          <v-list-item @click="goToProfileNotification()" prepend-icon="mdi-email-outline" title="Notificaciones"></v-list-item>
-          <v-list-item class="text-secondary" @click="goToHome()" prepend-icon="mdi-arrow-left" title="Inicio"></v-list-item>
-        </v-list>
-        <template v-slot:append>
-          <div class="btn-cerrar-sesion pa-3">
-            <v-btn class="bg-error" block> Cerrar sesión </v-btn>
-          </div>
-        </template>
+
+        <div class="btn-cerrar-sesion pa-3">
+          <v-btn class="button bg-primary" block> Cerrar sesión </v-btn>
+        </div>
       </v-navigation-drawer>
-      <v-main style="height: 700px">
-        <v-layout class="titulo-pantalla-usuario bg-secondary" style="height: 60px">
-          <h2 class="titulo">Privacidad</h2>
-        </v-layout>
-        <v-layout class="lista-texto">
-          <v-list-item prepend-icon="mdi-gavel" title="Email: a25660@svalero.com" style="cursor: pointer"></v-list-item>
+      <v-main class="v-main" style="height: 600px">
+        <v-layout class="titulo-pantalla-usuario" style="height: auto">
+          <div class="lista-titulo bg-primary">
+            <p class="titulo">Privacidad</p>
+          </div>
+          <div class="lista-texto">
+            <v-list-item
+              class="email"
+              prepend-icon="mdi-gavel"
+              title="Email: direccion de email"
+              style="cursor: pointer"></v-list-item>
+
+            <div class="text-input">
+              <p class="text"><strong>Nombre: </strong>{{ user?.name }}</p>
+              <input type="text" placeholder="nombre usuario" />
+            </div>
+            <div class="text-input">
+              <p class="text"><strong>Apellido: </strong>{{ user?.lastName }}</p>
+              <input type="text" placeholder="apellido usuario" />
+            </div>
+            <div class="text-input">
+              <p class="text"><strong>Dirección: </strong>{{ user?.address }}</p>
+              <input type="text" placeholder="direccion usuario" />
+            </div>
+            <div class="text-input-select">
+              <p class="text"><strong>Discapacidad: </strong>{{ user?.disabilityDegree }}</p>
+              <v-select
+                :disabled="true"
+                label="Discapacidad"
+                :items="['Nula', 'Leve', 'Moderada', 'Grave', 'Muy Grave']"
+                variant="underlined" />
+            </div>
+          </div>
         </v-layout>
       </v-main>
     </v-layout>
@@ -62,11 +113,70 @@ function goToProfileFavorites() {
 </template>
 
 <style scoped>
+.btn-cerrar-sesion {
+  margin-top: 80%;
+}
+.btn-cerrar-sesion .button {
+  border-radius: 30px;
+}
+.v-layout.titulo-pantalla-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lista-titulo {
+  padding: 12px;
+  padding-left: 50%;
+  padding-right: 50%;
+  margin-top: 7.5px;
+  font-size: unset;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+}
+.text-input {
+  padding-bottom: 20px;
+  display: flex;
+  text-align: center;
+  gap: 10px;
+}
+.text-input.select {
+  padding: 10px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.titulo {
+  font-size: unset;
+}
 #block-superior {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border: solid 1pt;
+}
+.v-layout.lista-texto {
+  margin-top: 10%;
+}
+.columna-datos {
+  border: #ff3333 solid 1pt;
+}
+v-main.v-main {
+  margin: auto;
+  flex: 1 0 auto;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-left: var(--v-layout-left);
+  padding-right: var(--v-layout-right);
+  padding-top: var(--v-layout-top);
+  padding-bottom: var(--v-layout-bottom);
+}
+.v-card.v-theme--customLightTheme.v-card--density-default.v-card--variant-elevated {
+  border-radius: 20px;
+  max-width: 65% !important;
+  margin: auto;
+}
+.v-layout.titulo-pantalla-usuario.bg-secondary {
+  display: flex;
+  flex-direction: column;
 }
 #block-inferior {
   max-width: 100%;
@@ -151,5 +261,12 @@ h2.titulo {
 .lista-texto {
   display: flex;
   justify-content: center;
+  margin-top: 10%;
+  padding: 20px;
+  padding-bottom: 10%;
+  flex-direction: column;
+}
+.email {
+  margin-bottom: 30px;
 }
 </style>

@@ -53,11 +53,58 @@ function goToProfileFavorites() {
 </template>
 
 <style scoped>
+.btn-cerrar-sesion {
+  margin-top: 80%;
+}
+.btn-cerrar-sesion .button {
+  border-radius: 30px;
+}
+.v-layout.titulo-pantalla-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lista-titulo {
+  padding: 12px;
+  padding-left: 50%;
+  padding-right: 50%;
+  margin-top: 7.5px;
+  font-size: unset;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+}
+.titulo {
+  font-size: unset;
+}
 #block-superior {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border: solid 1pt;
+}
+.v-layout.lista-texto {
+  margin-top: 10%;
+}
+.columna-datos {
+  border: #ff3333 solid 1pt;
+}
+v-main.v-main {
+  margin: auto;
+  flex: 1 0 auto;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-left: var(--v-layout-left);
+  padding-right: var(--v-layout-right);
+  padding-top: var(--v-layout-top);
+  padding-bottom: var(--v-layout-bottom);
+}
+.v-card.v-theme--customLightTheme.v-card--density-default.v-card--variant-elevated {
+  border-radius: 20px;
+  max-width: 65% !important;
+  margin: auto;
+}
+.v-layout.titulo-pantalla-usuario.bg-secondary {
+  display: flex;
+  flex-direction: column;
 }
 #block-inferior {
   max-width: 100%;
@@ -65,6 +112,10 @@ function goToProfileFavorites() {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+.lista-texto {
+  margin-top: 20%;
+  padding: 20px;
 }
 .div-personalData {
   flex-direction: row;
@@ -129,12 +180,18 @@ function goToProfileFavorites() {
   width: 70%;
 }
 
-.titulo-favoritos {
+.titulo-pantalla-usuario.bg-secondary {
   display: flex;
   align-items: center;
+  margin-bottom: 50px;
+  justify-content: center;
 }
 h2.titulo {
   text-transform: uppercase;
   /* color: white; */
+}
+.lista-texto {
+  display: flex;
+  justify-content: center;
 }
 </style>

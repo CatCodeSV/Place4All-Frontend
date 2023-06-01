@@ -50,7 +50,7 @@
       <div class="column-datos">
         <div class="div-personalData">
           <div class="d-flex" id="userDetails">
-            <v-avatar class="mx-4 my-4" color="primaryYellow" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
+            <v-avatar class="mx-4 my-4" color="primaryYellow" size="x-large"><!-- {{ nameCapitalLetters(user!) }} --></v-avatar>
             <h1 class="my-4 text-center text-h6">{{ user?.name }} {{ user?.lastName }}</h1>
             <v-row class="my-2">
               <v-col>
@@ -89,7 +89,7 @@
                 <p class="text"><strong>Dirección</strong></p>
               </v-col>
               <v-col>
-                <p class="text">{{ summarizedAddress(user!.address) }}</p>
+                <!-- <p class="text">{{ summarizedAddress(user!.address) }}</p> -->
               </v-col>
             </v-row>
             <v-row class="mx-2 my-0.5">
