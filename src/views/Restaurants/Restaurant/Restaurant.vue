@@ -40,7 +40,7 @@ const selectedFeatures = ref<Features[]>([]);
 const isEdit = ref(false);
 
 function reserve() {
-  window.open('https://docs.google.com/forms/d/1hrTmrIr93mwSi3WlKONonaK2OtF6QQfgjvPAuDtHKPI/edit?hl=ES', '_blank');
+  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
 }
 
 function summarizedAddress(address: Address) {

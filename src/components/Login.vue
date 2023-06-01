@@ -7,7 +7,9 @@ const visible = ref(false);
 //Props for dialog boolean
 const props = defineProps<{
   value: boolean;
-  onClose: Function;
+}>();
+const emit = defineEmits<{
+  (e: 'onClose'): void;
 }>();
 const loading = ref(false);
 const email = ref('');
@@ -17,7 +19,7 @@ async function onLogin() {
   loading.value = true;
   await authenticate({ email: email.value, password: password.value });
   loading.value = false;
-  props.onClose();
+  emit('onClose');
 }
 const show = computed(() => {
   return props.value;
@@ -49,7 +51,7 @@ const show = computed(() => {
       </v-btn>
 
       <v-card-text class="text-center">
-        <v-btn variant="text" class="text-blue text-decoration-none" color="primary" @click="onClose()">
+        <v-btn variant="text" class="text-blue text-decoration-none" color="primary" @click="emit('onClose')">
           Cancelar <v-icon icon="mdi-chevron-right"></v-icon>
         </v-btn>
       </v-card-text>

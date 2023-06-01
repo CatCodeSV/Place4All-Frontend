@@ -2,12 +2,11 @@
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { Features } from '@/models/Features';
-import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 import { useRoute } from 'vue-router';
 
-const { restaurants, setRestaurants, setRestaurantsQuery } = useRestaurant();
+const { restaurants, setRestaurants, setRestaurantsQuery, setRestaurantsByFeatures } = useRestaurant();
 const { features, setFeatures } = useFeature();
 const route = useRoute();
 
@@ -27,7 +26,6 @@ onBeforeMount(async () => {
   }
   restaurantsToShow.value = restaurants.value;
   const query = route.query;
-  console.log(query);
   if (!query.search) {
     loading.value = false;
     return;
@@ -40,17 +38,16 @@ const loading = ref(false);
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
 
-const selectedFeature = ref([]);
-const restaurantsToShow = ref<RestaurantSummarized[]>();
+const selectedFeature = ref();
+const restaurantsToShow = ref();
 
 async function setFiltered() {
   if (selectedFeature.value.length === 0) {
-    console.log(selectedFeature.value);
     restaurantsToShow.value = restaurants.value;
-    /*restaurantsToShow.value = await setRestaurantsQuery(selectedFeature.value);*/
-    console.log(restaurantsToShow.value);
     return;
   }
+  await setRestaurantsByFeatures(selectedFeature.value);
+  restaurantsToShow.value = restaurants.value;
 }
 </script>
 
