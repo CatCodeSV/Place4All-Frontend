@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/perfil',
     name: 'profile-parent' /**Padre */,
-    //component: () => import('@/views/Profile/Profile.vue'),
+    component: () => import('@/views/Profile/Profile.vue'),
     children: [
       /**childern -> perfil/user */
       {

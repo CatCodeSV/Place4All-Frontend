@@ -29,4 +29,16 @@ async function updateRestaurant(id: number, restaurant: Restaurant) {
   return response.data;
 }
 
-export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsQuery, getRestaurantsByFeatures };
+async function getFavoriteRestaurants() {
+  const response = await apiClient.getAll<RestaurantSummarized>(`${baseURL}/User`);
+  return response.data;
+}
+
+export default {
+  getFavoriteRestaurants,
+  getRestaurant,
+  getRestaurants,
+  getRestaurantsByFeatures,
+  getRestaurantsQuery,
+  updateRestaurant,
+};

@@ -2,6 +2,7 @@
 import { useUser } from '@/composables/useUser';
 import { Restaurant } from '@/models/Restaurant';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 function resRestaurant(restaurant: Restaurant) {
   return `${restaurant.name}`;
@@ -9,95 +10,49 @@ function resRestaurant(restaurant: Restaurant) {
 
 const router = useRouter();
 const { user } = useUser();
-
-function goToHome() {
-  router.push('/');
-}
-function goToProfileReservation() {
-  router.push('/perfil/reservas');
-}
-function goToProfilePrivacy() {
-  router.push('/perfil/privacidad');
-}
-function goToProfileNotification() {
-  router.push('/perfil/notificaciones');
-}
-function goToProfileUser() {
-  router.push('/perfil/usuario');
-}
-function goToProfileFavorites() {
-  router.push('/perfil/favoritos');
-}
+const {} = useReservation();
+const reservations = ref([]);
 </script>
 
 <template>
-  <v-btn style="margin-top: 10px; margin-left: 5px" color="primary" variant="elevated" @click="goToHome()">
-    <v-icon start icon="mdi-arrow-left"></v-icon>
-    Volver
-  </v-btn>
-  <v-card>
-    <v-layout>
-      <v-navigation-drawer style="background-color: #eeeeee" floating permanent>
-        <v-list color="transparent">
-          <v-list-item class="bg-primary" prepend-icon="mdi-vuetify" title="Rol: Usuario"> </v-list-item>
+  <v-layout class="titulo-pantalla-usuario" style="height: auto">
+    <div class="lista-titulo bg-primary">
+      <p class="titulo">Reservas</p>
+    </div>
+    <v-layout class="lista-texto">
+      <v-card class="mx-auto">
+        <v-list>
+          <v-list-item-group>
+            <v-list-item v-for="reservation in reservations" :key="reservation.id">
+              <v-list-item-content>
+                <v-list-item-title>{{ resRestaurant(reservation.restaurant) }}</v-list-item-title>
+                <v-list-item-subtitle>{{ reservation.date }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ reservation.time }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ reservation.people }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
-        <v-list color="transparent">
-          <v-list-item
-            class="text-primary"
-            @click="goToProfileUser()"
-            prepend-icon="mdi-account-box"
-            title="Datos Usuario"></v-list-item>
-          <v-list-item class="text-primary" @click="goToProfileFavorites()" prepend-icon="mdi-star" title="Favoritos"></v-list-item>
-          <v-list-item
-            style="border-radius: 0 30px 30px 0"
-            class="bg-secondary text-Yellow"
-            @click="goToProfileReservation()"
-            prepend-icon="mdi-home"
-            title="Reservas"
-            disabled></v-list-item>
-          <v-list-item class="text-primary" @click="goToProfilePrivacy()" prepend-icon="mdi-gavel" title="Privacidad"></v-list-item>
-          <v-list-item
-            class="text-primary"
-            @click="goToProfileNotification()"
-            prepend-icon="mdi-email-outline"
-            title="Notificaciones"></v-list-item>
-        </v-list>
-
-        <div class="btn-cerrar-sesion pa-3">
-          <v-btn class="button bg-primary" block> Cerrar sesión </v-btn>
-        </div>
-      </v-navigation-drawer>
-      <v-main class="v-main" style="height: 600px">
-        <v-layout class="titulo-pantalla-usuario" style="height: auto">
-          <div class="lista-titulo bg-primary">
-            <p class="titulo">Reservas</p>
-          </div>
-          <v-layout class="lista-texto">
-            <v-list-item prepend-icon="mdi-vuetify" title="Reserva: El Granero " style="cursor: pointer">{{
-              resRestaurant
-            }}</v-list-item
-            ><!-- nombre de restaurante / id -->
-            <v-list-item prepend-icon="mdi-vuetify" title="Reserva: Sushi Kaiter" style="cursor: pointer"></v-list-item>
-            <v-list-item prepend-icon="mdi-vuetify" title="Reserva: El cangrejo Loco" style="cursor: pointer"></v-list-item>
-          </v-layout>
-        </v-layout>
-      </v-main>
+      </v-card>
     </v-layout>
-  </v-card>
+  </v-layout>
 </template>
 
 <style scoped>
 .btn-cerrar-sesion {
   margin-top: 80%;
 }
+
 .btn-cerrar-sesion .button {
   border-radius: 30px;
 }
+
 .v-layout.titulo-pantalla-usuario {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .lista-titulo {
   padding: 12px;
   padding-left: 50%;
@@ -107,21 +62,26 @@ function goToProfileFavorites() {
   font-family: 'Roboto';
   text-transform: uppercase;
 }
+
 .titulo {
   font-size: unset;
 }
+
 #block-superior {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border: solid 1pt;
 }
+
 .v-layout.lista-texto {
   margin-top: 10%;
 }
+
 .columna-datos {
   border: #ff3333 solid 1pt;
 }
+
 v-main.v-main {
   margin: auto;
   flex: 1 0 auto;
@@ -131,15 +91,18 @@ v-main.v-main {
   padding-top: var(--v-layout-top);
   padding-bottom: var(--v-layout-bottom);
 }
+
 .v-card.v-theme--customLightTheme.v-card--density-default.v-card--variant-elevated {
   border-radius: 20px;
   max-width: 65% !important;
   margin: auto;
 }
+
 .v-layout.titulo-pantalla-usuario.bg-secondary {
   display: flex;
   flex-direction: column;
 }
+
 #block-inferior {
   max-width: 100%;
   /* flex-direction: row; */
@@ -147,10 +110,12 @@ v-main.v-main {
   justify-content: center;
   align-items: flex-start;
 }
+
 .lista-texto {
   margin-top: 20%;
   padding: 20px;
 }
+
 .div-personalData {
   flex-direction: row;
   justify-content: center;
@@ -159,28 +124,34 @@ v-main.v-main {
   border: solid 1pt;
   width: 100%;
 }
+
 #personalData {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
 }
+
 #personalReservations {
   width: 100%;
 }
+
 #userDetails {
   flex-direction: column;
   align-items: center;
 }
+
 .banner-user {
   background-color: 'primary';
 }
+
 .column-icons {
   width: 15%;
   display: flex;
   flex-direction: column;
   margin: 20px;
 }
+
 .miPanelControl {
   margin-bottom: 10px;
   cursor: pointer;
@@ -189,6 +160,7 @@ v-main.v-main {
   border: solid 1px;
   display: flex;
 }
+
 .miPanelControl-salir {
   padding: 10px;
   margin-top: 20px;
@@ -198,6 +170,7 @@ v-main.v-main {
   color: white;
   margin-top: 75%;
 }
+
 .column-datos {
   display: flex;
   flex-direction: column;
@@ -206,10 +179,12 @@ v-main.v-main {
   margin-left: 40px;
   margin-right: 50px;
 }
+
 .only-icons {
   display: flex;
   flex-direction: column;
 }
+
 .texto-datos {
   width: 70%;
 }
@@ -220,10 +195,12 @@ v-main.v-main {
   margin-bottom: 50px;
   justify-content: center;
 }
+
 h2.titulo {
   text-transform: uppercase;
   /* color: white; */
 }
+
 .lista-texto {
   display: flex;
   justify-content: center;
