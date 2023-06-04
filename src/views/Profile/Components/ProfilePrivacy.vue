@@ -79,12 +79,6 @@ function goToProfileFavorites() {
             <p class="titulo">Privacidad</p>
           </div>
           <div class="lista-texto">
-            <v-list-item
-              class="email"
-              prepend-icon="mdi-gavel"
-              title="Email: direccion de email"
-              style="cursor: pointer"></v-list-item>
-
             <div class="text-input">
               <p class="text"><strong>Nombre: </strong>{{ user?.name }}</p>
               <input type="text" placeholder="nombre usuario" />
@@ -94,13 +88,14 @@ function goToProfileFavorites() {
               <input type="text" placeholder="apellido usuario" />
             </div>
             <div class="text-input">
-              <p class="text"><strong>Dirección: </strong>{{ user?.address }}</p>
-              <input type="text" placeholder="direccion usuario" />
+              <p class="text"><strong>Dirección: </strong> ${{ summarizedAddress }}</p>
+              <!--{{ user?.addressId }}-->
+              <input type="text" placeholder="" />
             </div>
             <div class="text-input-select">
               <p class="text"><strong>Discapacidad: </strong>{{ user?.disabilityDegree }}</p>
               <v-select
-                :disabled="true"
+                :disabled="false"
                 label="Discapacidad"
                 :items="['Nula', 'Leve', 'Moderada', 'Grave', 'Muy Grave']"
                 variant="underlined" />

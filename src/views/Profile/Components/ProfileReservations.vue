@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { useUser } from '@/composables/useUser';
+import { Restaurant } from '@/models/Restaurant';
 import { useRouter } from 'vue-router';
+
+function resRestaurant(restaurant: Restaurant) {
+  return `${restaurant.name}`;
+}
 
 const router = useRouter();
 const { user } = useUser();
@@ -68,7 +73,10 @@ function goToProfileFavorites() {
             <p class="titulo">Reservas</p>
           </div>
           <v-layout class="lista-texto">
-            <v-list-item prepend-icon="mdi-vuetify" title="Reserva: El Granero " style="cursor: pointer"></v-list-item>
+            <v-list-item prepend-icon="mdi-vuetify" title="Reserva: El Granero " style="cursor: pointer">{{
+              resRestaurant
+            }}</v-list-item
+            ><!-- nombre de restaurante / id -->
             <v-list-item prepend-icon="mdi-vuetify" title="Reserva: Sushi Kaiter" style="cursor: pointer"></v-list-item>
             <v-list-item prepend-icon="mdi-vuetify" title="Reserva: El cangrejo Loco" style="cursor: pointer"></v-list-item>
           </v-layout>

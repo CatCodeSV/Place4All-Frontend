@@ -1,3 +1,4 @@
+<!-- PERFIL OLD -->
 <template>
   <v-card-actions class="mx-auto">
     <v-btn color="primary" variant="elevated" @click="goToHome()">
@@ -43,9 +44,7 @@
             </v-dialog> -->
           </v-btn>
         </div>
-        <v-btn class="miPanelControl-salir" prepend-icon="mdi-arrow-left">
-          <p>Salir</p>
-        </v-btn>
+        <v-btn class="miPanelControl-salir" prepend-icon="mdi-arrow-left"> Salir </v-btn>
       </div>
       <div class="column-datos">
         <div class="div-personalData">

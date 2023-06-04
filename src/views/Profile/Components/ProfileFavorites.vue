@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { useUser } from '@/composables/useUser';
+import { Restaurant } from '@/models/Restaurant';
 import { useRouter } from 'vue-router';
+
+function favRestaurant(restaurant: Restaurant) {
+  return `${restaurant.name}`;
+}
 
 const router = useRouter();
 const { user } = useUser();
@@ -68,7 +73,9 @@ function goToProfileFavorites() {
             <p class="titulo">Favoritos</p>
           </div>
           <v-layout class="lista-texto">
-            <v-list-item prepend-icon="mdi-star" title="Luagres de ocio favoritos" style="cursor: pointer"></v-list-item>
+            <v-list-item prepend-icon="mdi-star" title="Luagres de ocio favoritos" style="cursor: pointer">{{
+              favRestaurant
+            }}</v-list-item>
             <v-list-item prepend-icon="mdi-star" title="Luagres de ocio favoritos" style="cursor: pointer"></v-list-item>
             <v-list-item prepend-icon="mdi-star" title="Luagres de ocio favoritos" style="cursor: pointer"></v-list-item>
           </v-layout>

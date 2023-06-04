@@ -34,7 +34,7 @@
         </v-list>
 
         <div class="btn-cerrar-sesion pa-3">
-          <v-btn class="button bg-primary" block> Cerrar sesión </v-btn>
+          <v-btn @click="logOut()" class="button bg-primary" block> Cerrar sesión </v-btn>
         </div>
       </v-navigation-drawer>
       <v-main class="v-main" style="height: 600px">
@@ -46,31 +46,12 @@
             <div class="image-name">
               <v-avatar class="mx-4 my-4" color="primaryYellow" size="x-large"></v-avatar>
               <div class="mx-4 my-4" color="primaryYellow" size="x-large">
+                <h4 class="my-4 text-center text-h6">Nombre {{ user?.name }} Apellido {{ user?.lastName }}</h4>
+                <p class="text"><strong>Id: </strong>{{ user?.id }}</p>
                 <p class="text"><strong>Nombre: </strong>{{ nameCapitalLetters }}</p>
               </div>
             </div>
-
-            <h4 class="my-4 text-center text-h6">Nombre {{ user?.name }} Apellido {{ user?.lastName }}</h4>
-            <div class="text-input">
-              <p class="text"><strong>Nombre: </strong>{{ user?.name }}</p>
-              <input type="text" placeholder="nombre usuario" />
-            </div>
-            <div class="text-input">
-              <p class="text"><strong>Apellido: </strong>{{ user?.lastName }}</p>
-              <input type="text" placeholder="apellido usuario" />
-            </div>
-            <div class="text-input">
-              <p class="text"><strong>Dirección: </strong>{{ user?.address }}</p>
-              <input type="text" placeholder="direccion usuario" />
-            </div>
-            <div class="text-input-select">
-              <p class="text"><strong>Discapacidad: </strong>{{ user?.disabilityDegree }}</p>
-              <v-select
-                :disabled="true"
-                label="Discapacidad"
-                :items="['Nula', 'Leve', 'Moderada', 'Grave', 'Muy Grave']"
-                variant="underlined" />
-            </div>
+            <!--Resto de datos personales en privacidad-->
           </v-layout>
         </v-layout>
       </v-main>
@@ -84,6 +65,7 @@ import { Address } from '@/models/Address';
 import { User } from '@/models/User';
 import { useRouter } from 'vue-router';
 
+const { clearStore } = useUser();
 const router = useRouter();
 const { user } = useUser();
 
@@ -93,6 +75,11 @@ function summarizedAddress(address: Address) {
 function nameCapitalLetters(user: User) {
   let nameCL = user.name.slice(0, 1).toUpperCase();
   let surnameCL = user.lastName.slice(0, 1).toUpperCase();
+  return `${nameCL}${surnameCL}`;
+}
+function nameCap(user: User) {
+  let nameCL = user.name;
+  let surnameCL = user.lastName;
   return `${nameCL}${surnameCL}`;
 }
 
@@ -113,6 +100,11 @@ function goToProfileUser() {
 }
 function goToProfileFavorites() {
   router.push('/perfil/favoritos');
+}
+
+function logOut() {
+  goToHome();
+  clearStore();
 }
 </script>
 
