@@ -8,10 +8,13 @@ const loading = ref(false);
 const props = defineProps<{
   restaurant: RestaurantSummarized;
 }>();
+const emit = defineEmits<{
+  (e: 'reservation', restaurant: RestaurantSummarized): void;
+}>();
 
 function reserve() {
   loading.value = true;
-  window.open('https://docs.google.com/forms/d/1hrTmrIr93mwSi3WlKONonaK2OtF6QQfgjvPAuDtHKPI/edit?hl=ES', '_blank');
+  emit('reservation', props.restaurant);
   setTimeout(() => {
     loading.value = false;
   }, 2000);
