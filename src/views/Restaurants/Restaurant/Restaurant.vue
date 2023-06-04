@@ -3,18 +3,18 @@ import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { useReview } from '@/composables/useReview';
 import { useUser } from '@/composables/useUser';
+import { CreateReview } from '@/helpers/getReview';
 import { Address } from '@/models/Address';
 import { Features } from '@/models/Features';
+import { Restaurant } from '@/models/Restaurant';
 import { InformationAccuracy, Review } from '@/models/Review';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
-import { Restaurant } from '@/models/Restaurant';
-import { CreateReview } from '@/helpers/getReview';
 
-const { restaurant, addFeatures, setRestaurant } = useRestaurant();
+const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
 const { token, isLogged } = useUser();
-const { getReviewsByRestaurant, postReview } = useReview();
+const { postReview } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
 const route = useRoute();
@@ -24,9 +24,11 @@ onBeforeMount(async () => {
   const restaurantId = route.params.id;
   if (restaurant.value === undefined) await setRestaurant(restaurantId[0]);
   if (features.value.length < 1) await setFeatures();
-  reviews.value = await getReviewsByRestaurant(restaurant.value!.id!);
-  console.log(restaurant.value);
   loading.value = false;
+});
+
+onUnmounted(() => {
+  clearRestaurant();
 });
 
 function goToListRestaurants() {
@@ -89,16 +91,7 @@ const windowWidth = ref(window.innerWidth);
     max-width="80%"
     outlined>
     <v-card>
-      <div class="d-flex flex-colum bg-white">
-        <v-img
-          v-for="(image, index) of restaurant.images"
-          v-bind:key="index"
-          :src="getImageUrl(image.link)"
-          cover
-          height="250"
-          width="30%" />
-      </div>
-      <div class="d-flex pa-4 w-100 bg-white flex-wrap">
+      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap">
         <h2 class="align-self-center">{{ restaurant!.name }} |</h2>
         <v-rating
           :model-value="restaurant?.rating || 0"
@@ -117,9 +110,18 @@ const windowWidth = ref(window.innerWidth);
           @click="isEdit = !isEdit" />
         <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reserve"> Reservar </v-btn>
       </div>
-      <v-divider />
-      <div class="d-flex w-100 bg-white">
-        <div v-if="windowWidth > 1200" class="w-25 bg-white pa-4">
+      <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap justify-content-center">
+        <div class="w-75 bg-white pa-4">
+          <v-carousel show-arrows="hover" hide-delimiters progress="secondary">
+            <v-carousel-item
+              v-for="(image, index) of restaurant.images"
+              v-bind:key="index"
+              :src="getImageUrl(image.link)"
+              cover
+              max-height="420"></v-carousel-item>
+          </v-carousel>
+        </div>
+        <div v-if="windowWidth > 1200" class="w-60 bg-white pa-4">
           <div v-if="isEdit" class="d-flex align-items-center justify-space-between">
             <v-autocomplete
               v-model="selectedFeatures"
@@ -142,34 +144,31 @@ const windowWidth = ref(window.innerWidth);
             </v-btn>
           </div>
         </div>
-        <div class="w-75 bg-white">
-          <div class="bg-white mx-auto mb-4 pa-4">
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text">Teléfono</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">{{ restaurant!.phoneNumber }}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text">Ubicación</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">{{ summarizedAddress(restaurant!.address) }}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col align-self="center" cols="12" md="3" sm="3">
-                <h4 class="my-4 text w-100">Descripción</h4>
-              </v-col>
-              <v-col align-self="center" cols="12" md="9" sm="9">
-                <p class="text">
-                  {{ restaurant.description }}
-                </p>
-              </v-col>
-            </v-row>
+      </div>
+
+      <v-divider />
+
+      <div class="d-flex px-10 py-2 w-100 bg-white justify-start">
+        <div class="w-30 bg-white">
+          <div class="bg-white mx-auto mb-4">
+            <div class="py-4">
+              <h3>Descripción</h3>
+              <p class="text">
+                {{ restaurant.description }}
+              </p>
+            </div>
+            <div class="d-flex py-4 w-100 bg-white flex-wrap justify-start">
+              <v-icon class="mx-2" icon="mdi-home"></v-icon>
+              <p class="text mx-2">
+                {{ summarizedAddress(restaurant!.address) }}
+              </p>
+            </div>
+            <div class="d-flex py-4 w-100 bg-white flex-wrap justify-start">
+              <v-icon class="mx-2" icon="mdi-phone"></v-icon>
+              <p class="text mx-2">
+                {{ restaurant!.phoneNumber }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -190,7 +189,7 @@ const windowWidth = ref(window.innerWidth);
                 append-icon="mdi-plus"
                 color="primaryYellow"
                 variant="flat"
-                class="ma-4"
+                class="ma-4 xy-6"
                 @click="reviewsDialog = true"
                 >Nueva Review
               </v-btn>
@@ -203,7 +202,7 @@ const windowWidth = ref(window.innerWidth);
             <v-row>
               <v-sheet class="mx-auto bg-white" max-width="100%">
                 <v-slide-group class="pa-4" show-arrows>
-                  <v-slide-group-item v-for="(review, index) in reviews" :key="index">
+                  <v-slide-group-item v-for="(review, index) in restaurant.reviews" :key="index">
                     <v-col cols="12" lg="4" md="6" sm="12">
                       <v-card :border="0" :density="'compact'" :elevation="5" color="transparent" height="250px" outlined>
                         <v-card-item>

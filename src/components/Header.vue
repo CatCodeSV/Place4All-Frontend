@@ -2,6 +2,7 @@
 import { useUser } from '@/composables/useUser';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 const profile = ref(false);
 const { user, isLogged, clearStore } = useUser();
@@ -9,9 +10,11 @@ const { user, isLogged, clearStore } = useUser();
 function goToRestaurants() {
   router.push('/restaurantes');
 }
+
 function goToHome() {
   router.push('/');
 }
+
 function openNavProfile() {
   profile.value = !profile.value;
 }
@@ -51,9 +54,12 @@ const emits = defineEmits(['openDialog']);
     <v-list density="compact" nav>
       <v-list-item>
         <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged" color="primary"
-          >Iniciar sesión</v-btn
-        >
+          >Iniciar sesión
+        </v-btn>
         <v-btn id="myProfile-btn" @click="goToUser()" variant="text" color="primary" v-if="isLogged">Mi perfil</v-btn>
+      </v-list-item>
+      <v-list-item>
+        <v-btn id="registerSession-btn" @click="emits('openRegisterDialog')" variant="text" v-if="!isLogged"> Registrarse </v-btn>
       </v-list-item>
       <v-list-item>
         <v-btn id="closeSession-btn" @click="logOut()" variant="text" v-if="isLogged">Cerrar sesión</v-btn>

@@ -23,6 +23,12 @@ export const useRestaurant = () => {
     });
   }
 
+  async function setRestaurantsByFeatures(features: number[]) {
+    await baseUse.executeApiAction(getRestaurant.getRestaurantsByFeatures(features), (restaurants: RestaurantSummarized[]) => {
+      restaurantStore.setRestaurants(restaurants);
+    });
+  }
+
   async function setRestaurant(id: number | string) {
     await baseUse.executeApiAction(getRestaurant.getRestaurant(id), (restaurant: Restaurant) => {
       restaurantStore.setRestaurant(restaurant);
@@ -40,11 +46,14 @@ export const useRestaurant = () => {
     //! Properties
     restaurants: restaurantsState,
     restaurant,
+    clearRestaurant: restaurantStore.clearRestaurant,
     //! Computed
     //! Métodos
     addFeatures,
+    clearRestaurant: restaurantStore.clearRestaurant,
     setRestaurant,
     setRestaurants,
     setRestaurantsQuery,
+    setRestaurantsByFeatures,
   };
 };

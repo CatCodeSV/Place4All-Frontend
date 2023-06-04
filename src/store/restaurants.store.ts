@@ -18,13 +18,18 @@ export const useRestaurantStore = defineStore(
       restaurant.value = restaurantSet;
     }
 
-    function setRestaurantsByQuery(restaurants: RestaurantSummarized[], query: string) {
+    function setRestaurantsByQuery(restaurants: RestaurantSummarized[]) {
       return (restaurantsState.value = restaurants);
+    }
+
+    function clearRestaurant() {
+      restaurant.value = undefined;
     }
 
     return {
       restaurantsState,
       restaurant,
+      clearRestaurant,
       setRestaurants,
       setRestaurant,
       setRestaurantsByQuery,

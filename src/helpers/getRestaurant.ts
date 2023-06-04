@@ -19,10 +19,14 @@ async function getRestaurantsQuery(query: string): Promise<RestaurantSummarized[
   return response.data;
 }
 
+async function getRestaurantsByFeatures(features: number[]): Promise<RestaurantSummarized[]> {
+  const response = await apiClient.post<RestaurantSummarized>(`${baseURL}/features`, features);
+  return response.data;
+}
+
 async function updateRestaurant(id: number, restaurant: Restaurant) {
-  console.log(restaurant.features);
   const response = await apiClient.putEntity<Restaurant>(baseURL, id, restaurant);
   return response.data;
 }
 
-export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsQuery };
+export default { getRestaurants, getRestaurant, updateRestaurant, getRestaurantsQuery, getRestaurantsByFeatures };

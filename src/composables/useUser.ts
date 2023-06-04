@@ -1,4 +1,4 @@
-import getUser, { Login } from '@/helpers/getUser';
+import getUser, { CreateUser, Login } from '@/helpers/getUser';
 import { useUserStore } from '@/store/user.store';
 import { storeToRefs } from 'pinia';
 import { useBase } from './useBase';
@@ -16,6 +16,14 @@ export const useUser = () => {
     return response.success;
   }
 
+  async function createUser(createUser: CreateUser) {
+    const response = await baseUse.executeApiAction(getUser.createUser(createUser), res => {
+      userStore.setToken(res.token);
+      userStore.setUser(res.user);
+    });
+    return response.success;
+  }
+
   return {
     //! Properties
     token,
@@ -25,5 +33,6 @@ export const useUser = () => {
     //! Métodos
     clearStore: userStore.clearState,
     authenticate,
+    createUser,
   };
 };
