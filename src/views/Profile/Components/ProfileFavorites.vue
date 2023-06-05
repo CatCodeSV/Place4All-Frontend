@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { useUser } from '@/composables/useUser';
-import { Restaurant } from '@/models/Restaurant';
-import { useRouter } from 'vue-router';
 import { useRestaurant } from '@/composables/useRestaurant';
-import { onBeforeMount, ref } from 'vue';
+import { Restaurant } from '@/models/Restaurant';
 import { RestaurantSummarized } from '@/models/RestaurantSummarized';
+import { onBeforeMount, ref } from 'vue';
 
 function favRestaurant(restaurant: Restaurant) {
   return `${restaurant.name}`;
@@ -19,7 +17,11 @@ const { getFavoriteRestaurants } = useRestaurant();
 </script>
 
 <template>
-  <v-layout class="d-flex w-100 h-100" style="height: auto">
+  <!-- <v-layout class="layout-datos d-flex w-100 h-100" style="height: auto"> -->
+  <v-layout class="titulo-pantalla-usuario" style="height: auto">
+    <div class="lista-titulo bg-primary">
+      <p class="titulo">Favoritos</p>
+    </div>
     <v-layout class="lista-texto" v-if="favoriteRestaurants.length > 0">
       <v-list-item
         v-for="favRestaurant in favoriteRestaurants"
@@ -37,4 +39,70 @@ const { getFavoriteRestaurants } = useRestaurant();
   </v-layout>
 </template>
 
-<style scoped></style>
+<style scoped>
+.lista-titulo {
+  padding: 12px;
+  padding-left: 50%;
+  padding-right: 50%;
+  margin-top: 7.5px;
+  font-size: unset;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  height: 48px;
+  display: none;
+}
+
+.titulo {
+  font-size: unset;
+}
+
+h3.text-h4 {
+  display: flex;
+  justify-content: center;
+}
+h3.text-h4[data-v-37ffa565] {
+  display: flex;
+  justify-content: center;
+  margin: 1%;
+}
+
+@media (max-width: 600px) {
+  .datos-perfil {
+    margin-left: 10% !important;
+  }
+  h3.text-h4[data-v-37ffa565] {
+    display: flex;
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+    justify-content: center;
+    text-align: center;
+    /* padding-top: 5%; */
+    margin: 5%;
+    /* width: 90%; */
+  }
+  .lista-titulo {
+    padding: 12px;
+    padding-left: 30%;
+    padding-right: 50%;
+    margin-top: 7.5px;
+    font-size: unset;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    height: 48px;
+    display: flex;
+  }
+  .v-layout.titulo-pantalla-usuario {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.datos-perfil {
+  display: flex;
+  align-items: center;
+}
+.datos-perfil h4 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+</style>

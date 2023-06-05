@@ -36,10 +36,9 @@ function goToProfileFavorites() {
       <p class="titulo">Notificaciones</p>
     </div>
     <v-layout class="lista-texto">
-      <v-list-item
-        prepend-icon="mdi-email-outline"
-        title="Está suscrito al boletín mensual de novedades"
-        style="cursor: pointer"></v-list-item>
+      <v-list-item prepend-icon="mdi-email-outline" style="cursor: pointer"
+        ><p class="boletin">Está suscrito al boletín mensual de novedades</p>
+      </v-list-item>
     </v-layout>
   </v-layout>
 </template>
@@ -67,6 +66,7 @@ function goToProfileFavorites() {
   font-size: unset;
   font-family: 'Roboto';
   text-transform: uppercase;
+  display: none;
 }
 
 .titulo {
@@ -211,5 +211,32 @@ h2.titulo {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+p.boletin {
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  line-height: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  p.boletin {
+    /* width: 100%; */
+    padding-right: 10%;
+  }
+  p.boletin {
+    font-size: 1rem !important;
+    font-weight: 400;
+    line-height: 1.5rem;
+  }
+  .lista-titulo {
+    padding: 12px;
+    padding-left: 50%;
+    padding-right: 50%;
+    margin-top: 7.5px;
+    font-size: unset;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    display: flex !important;
+  }
 }
 </style>

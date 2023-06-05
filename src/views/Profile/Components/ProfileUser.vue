@@ -30,10 +30,13 @@ function goToHome() {
 </script>
 
 <template>
-  <v-layout class="d-flex flex-column pa-6" style="height: auto">
-    <div class="d-flex flex-column w-100">
+  <v-layout class="titulo-pantalla-usuario layout-datos d-flex flex-column" style="height: auto">
+    <div class="lista-titulo bg-primary">
+      <p class="titulo">Usuario</p>
+    </div>
+    <div class="datos-perfil d-flex flex-column w-75 pa-3">
       <v-avatar class="mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
-      <div class="my-4 w-100">
+      <div class="my-2 w-75">
         <h4 class="my-4 text-h4">{{ user?.userName.toUpperCase() || 'Nombre de usuario' }}</h4>
       </div>
       <div class="lista-texto">
@@ -61,7 +64,7 @@ function goToHome() {
 </template>
 
 <style scoped>
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .v-card.v-theme--customLightTheme.v-card--density-default.v-card--variant-elevated {
     border-radius: 20px;
     max-width: 100% !important;
@@ -75,8 +78,61 @@ function goToHome() {
   .text-icons p {
     display: none;
   }
+  .datos-perfil {
+    margin-left: 19% !important;
+  }
+  .layout-datos {
+    margin-left: -20%;
+  }
+  .lista-texto {
+    width: 85%;
+    margin-left: -10%;
+  }
+  .datos-perfil h4 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: -11%;
+    width: 100%;
+    font-size: 1.7rem !important;
+  }
+  .lista-titulo {
+    /* margin-top: -17px !important; */
+    padding: 12px;
+    padding-left: 40% !important;
+    padding-right: 50%;
+    margin-top: 7.5px;
+    font-size: unset;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    height: auto;
+    width: 100%;
+    display: flex !important;
+  }
+  .text-subtitle-1 {
+    font-size: 0.9rem !important;
+    font-weight: normal;
+    line-height: 1.5rem;
+    letter-spacing: 0.009375em !important;
+    font-family: 'Roboto', sans-serif !important;
+    text-transform: none !important;
+  }
 }
 
+.titulo {
+  font-size: unset;
+}
+.lista-titulo {
+  padding: 12px;
+  padding-left: 50%;
+  padding-right: 50%;
+  margin-top: 7.5px;
+  font-size: unset;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  height: 48px;
+  display: none;
+}
 .v-navigation-drawer__content {
   width: 60px !important;
 }
@@ -95,5 +151,15 @@ v-navigation-drawer__content {
 
 nav#style-card {
   width: 60px !important;
+}
+
+.datos-perfil {
+  display: flex;
+  align-items: center;
+}
+.datos-perfil h4 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 </style>
