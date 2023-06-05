@@ -5,6 +5,7 @@ export enum UserMessageType {
   error = 'ERROR',
   info = 'INFO',
   validation = 'VALIDATION',
+  success = 'SUCCESS',
 }
 
 export interface UserMessage {

@@ -46,7 +46,6 @@ export const useRestaurant = () => {
     //! Properties
     restaurants: restaurantsState,
     restaurant,
-    clearRestaurant: restaurantStore.clearRestaurant,
     //! Computed
     //! Métodos
     addFeatures,
