@@ -19,7 +19,7 @@ const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const gender = ref<Gender>();
-const birthDate = ref('');
+const birthDate = ref<Date>();
 const hasDisability = ref(false);
 const disabilityType = ref();
 const disabilityDegree = ref(0);
@@ -69,7 +69,7 @@ async function onRegister() {
     email: email.value,
     password: password.value,
     gender: gender.value!,
-    birthDate: birthDate.value,
+    birthDate: birthDate.value!,
     hasDisability: hasDisability.value,
     disabilityType: disabilityType.value,
     disabilityDegree: disabilityDegree.value,

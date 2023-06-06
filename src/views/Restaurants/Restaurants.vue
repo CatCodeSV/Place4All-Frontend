@@ -5,10 +5,17 @@ import { Features } from '@/models/Features';
 import { onBeforeMount, ref } from 'vue';
 import RestaurantCard from './RestaurantCard.vue';
 import { useRoute } from 'vue-router';
+import Reservation from '@/components/Reservation.vue';
+import { RestaurantSummarized } from '@/models/RestaurantSummarized';
+import { useUser } from '@/composables/useUser';
+import { useUserMessage } from '@/composables/useUserMessage';
+import { UserMessageType } from '@/store/userMessage.store';
 
 const { restaurants, setRestaurants, setRestaurantsQuery, setRestaurantsByFeatures } = useRestaurant();
 const { features, setFeatures } = useFeature();
 const route = useRoute();
+const { isLogged } = useUser();
+const { storeUserMessage } = useUserMessage();
 
 onBeforeMount(async () => {
   loading.value = true;
@@ -40,6 +47,8 @@ const mappedFeatures = ref();
 
 const selectedFeature = ref();
 const restaurantsToShow = ref();
+const reservationDialog = ref(false);
+const selectedRestaurant = ref();
 
 async function setFiltered() {
   if (selectedFeature.value.length === 0) {
@@ -48,6 +57,11 @@ async function setFiltered() {
   }
   await setRestaurantsByFeatures(selectedFeature.value);
   restaurantsToShow.value = restaurants.value;
+}
+
+function openReservationDialog(restaurant: RestaurantSummarized) {
+  selectedRestaurant.value = restaurant;
+  reservationDialog.value = true;
 }
 </script>
 
@@ -88,10 +102,22 @@ async function setFiltered() {
   <v-row class="pa-6">
     <v-col v-for="(restaurant, index) in restaurantsToShow" :key="index" cols="12" md="3" sm="6">
       <v-skeleton-loader :loading="loading" class="mx-auto" max-width="300" transition="scale-transition" type="card">
-        <RestaurantCard :restaurant="restaurant" />
+        <RestaurantCard
+          :restaurant="restaurant"
+          @reservation="
+            (restaurantSummarized: RestaurantSummarized) =>
+              isLogged
+                ? openReservationDialog(restaurantSummarized)
+                : storeUserMessage(UserMessageType.info, 'Debes estar loggeado para hacer una reserva.')
+          " />
       </v-skeleton-loader>
     </v-col>
   </v-row>
+  <Reservation
+    @close="reservationDialog = false"
+    v-if="reservationDialog"
+    :restaurant="selectedRestaurant"
+    :value="reservationDialog" />
 </template>
 
 <style scoped>
