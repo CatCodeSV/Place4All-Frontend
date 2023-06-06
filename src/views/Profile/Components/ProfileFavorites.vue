@@ -33,8 +33,9 @@ const { getFavoriteRestaurants } = useRestaurant();
       </v-list-item>
       <v-list-item prepend-icon="mdi-star" title="Luagres de ocio favoritos" style="cursor: pointer">{{ favRestaurant }} </v-list-item>
     </v-layout>
-    <div v-if="favoriteRestaurants.length === 0" class="w-100 h-100 justify-center align-center">
-      <h3 class="text-h4">¡Añade restaurantes a tu lista de favoritos!</h3>
+
+    <div v-if="favoriteRestaurants.length === 0" class="lista-texto w-100 h-100 justify-center align-center">
+      <h3 class="text-h4">No tienes favoritos</h3>
     </div>
   </v-layout>
 </template>
@@ -48,37 +49,51 @@ const { getFavoriteRestaurants } = useRestaurant();
   font-size: unset;
   font-family: 'Roboto';
   text-transform: uppercase;
-  height: 48px;
-  display: none;
+  display: flex;
+  justify-content: center;
+}
+.lista-texto {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .titulo {
   font-size: unset;
 }
-
 h3.text-h4 {
+  display: none;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  justify-content: center;
+  text-align: center;
+  font-weight: 400;
   display: flex;
   justify-content: center;
-}
-h3.text-h4[data-v-37ffa565] {
-  display: flex;
-  justify-content: center;
-  margin: 1%;
+  margin-top: 10%;
+  padding: 20px;
+  line-height: 2.5rem !important;
 }
 
 @media (max-width: 600px) {
   .datos-perfil {
     margin-left: 10% !important;
   }
-  h3.text-h4[data-v-37ffa565] {
-    display: flex;
-    font-size: 1rem !important;
-    line-height: 1.5rem !important;
+
+  h3.text-h4 {
+    display: none;
     justify-content: center;
-    text-align: center;
-    /* padding-top: 5%; */
-    margin: 5%;
-    /* width: 90%; */
+  }
+  h3.text-h4 {
+    display: flex;
+    word-break: normal;
+    word-wrap: break-word;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.009375em;
+    line-height: 1.5rem;
+    justify-content: center;
+    margin-top: 30%;
   }
   .lista-titulo {
     padding: 12px;
@@ -104,5 +119,10 @@ h3.text-h4[data-v-37ffa565] {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.titulo-pantalla-usuario {
+  display: flex;
+  flex-direction: column;
+  /* margin: 20%; */
 }
 </style>

@@ -37,7 +37,7 @@ function goToProfileFavorites() {
     </div>
     <v-layout class="lista-texto">
       <v-list-item prepend-icon="mdi-email-outline" style="cursor: pointer"
-        ><p class="boletin">Está suscrito al boletín mensual de novedades</p>
+        ><p class="boletin">Estás suscrito al boletín mensual de novedades</p>
       </v-list-item>
     </v-layout>
   </v-layout>
@@ -57,6 +57,15 @@ function goToProfileFavorites() {
   flex-direction: column;
   align-items: center;
 }
+.lista-titulo {
+  padding: 12px;
+  padding-left: 50%;
+  padding-right: 50%;
+  margin-top: 7.5px;
+  font-size: unset;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+}
 
 .lista-titulo {
   padding: 12px;
@@ -66,7 +75,6 @@ function goToProfileFavorites() {
   font-size: unset;
   font-family: 'Roboto';
   text-transform: uppercase;
-  display: none;
 }
 
 .titulo {
@@ -213,7 +221,6 @@ h2.titulo {
   flex-direction: column;
 }
 p.boletin {
-  font-size: 1.5rem !important;
   font-weight: 400;
   line-height: 2.5rem;
 }
@@ -237,6 +244,10 @@ p.boletin {
     font-family: 'Roboto';
     text-transform: uppercase;
     display: flex !important;
+  }
+  .lista-texto {
+    margin-top: 30% !important;
+    padding: 20px;
   }
 }
 </style>

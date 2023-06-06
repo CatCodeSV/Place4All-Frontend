@@ -34,36 +34,89 @@ function goToHome() {
     <div class="lista-titulo bg-primary">
       <p class="titulo">Usuario</p>
     </div>
+
     <div class="datos-perfil d-flex flex-column w-75 pa-3">
-      <v-avatar class="mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
+      <!-- <v-avatar class="mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
       <div class="my-2 w-75">
         <h4 class="my-4 text-h4">{{ user?.userName.toUpperCase() || 'Nombre de usuario' }}</h4>
-      </div>
-      <div class="lista-texto">
-        <p class="text-subtitle-1"><strong>Nombre: </strong>{{ user?.name }}</p>
-        <p class="text-subtitle-1"><strong>Apellido: </strong>{{ user?.lastName }}</p>
-        <p class="text-subtitle-1"><strong>Correo electrónico: </strong>{{ user?.email }}</p>
-        <p class="text-subtitle-1">
-          <strong>Fecha de nacimiento: </strong>
-          {{
-            user?.birthDate
-              ? new Date(user?.birthDate).toLocaleDateString('es', {
-                  dateStyle: 'long',
-                })
-              : 'No especificada'
-          }}
-        </p>
-        <p class="text-subtitle-1"><strong>Género:</strong> {{ 'No especificado' }}</p>
-        <p class="text-subtitle-1"><strong>Dirección: </strong> {{ summarizedAddress(user?.address) }}</p>
-        <p class="text-subtitle-1"><strong>Discapacidad: </strong>{{ user?.hasDisability ? 'Sí' : 'No tiene discapacidad' }}</p>
-        <p class="text-subtitle-1" v-if="user?.hasDisability"><strong>Tipo de discapacidad: </strong>{{ user?.disabilityType }}</p>
-        <p class="text-subtitle-1" v-if="user?.hasDisability"><strong>Grado de discapacidad: </strong>{{ user?.disabilityDegree }}</p>
-      </div>
+      </div> -->
+
+      <v-avatar class="avatar mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
+
+      <v-card class="card-perfil mx-auto" width="600">
+        <template v-slot:title>
+          <h4 class="card-titulo my-4 text-h4">Bienvenido</h4>
+        </template>
+
+        <v-card-text>
+          <div class="lista-texto">
+            <div class="user-email">
+              <p class="text-subtitle-1"><strong>Usuario: </strong>{{ user?.userName.toUpperCase() || 'Nombre de usuario' }}</p>
+              <p class="text-subtitle-1"><strong>Correo electrónico: </strong>{{ user?.email }}</p>
+            </div>
+            <hr />
+            <div class="discapacidad bg-secondaryYellow">
+              <p class="text-subtitle-1"><strong>Discapacidad: </strong>{{ user?.hasDisability ? 'Sí' : 'No tiene discapacidad' }}</p>
+              <p class="text-subtitle-1" v-if="user?.hasDisability">
+                <strong>Tipo de discapacidad: </strong>{{ user?.disabilityType }}
+              </p>
+              <p class="text-subtitle-1" v-if="user?.hasDisability">
+                <strong>Grado de discapacidad: </strong>{{ user?.disabilityDegree }}
+              </p>
+            </div>
+            <hr />
+            <div class="nombre-apellido">
+              <p class="text-subtitle-1"><strong>Nombre: </strong>{{ user?.name }}</p>
+              <p class="text-subtitle-1"><strong>Apellido: </strong>{{ user?.lastName }}</p>
+              <p class="text-subtitle-1"><strong>Género:</strong> {{ 'No especificado' }}</p>
+              <p class="text-subtitle-1">
+                <strong>Fecha de nacimiento: </strong>
+                {{
+                  user?.birthDate
+                    ? new Date(user?.birthDate).toLocaleDateString('es', {
+                        dateStyle: 'long',
+                      })
+                    : 'No especificada'
+                }}
+              </p>
+              <p class="text-subtitle-1"><strong>Dirección: </strong> {{ summarizedAddress(user?.address) }}</p>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
     </div>
   </v-layout>
 </template>
 
 <style scoped>
+hr {
+  border: solid 0px;
+}
+.datos-perfil {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+}
+.user-email {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.lista-texto.discapacidad {
+  display: flex;
+  justify-content: center;
+}
+.nombre-apellido {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.card-perfil {
+  padding: 10px;
+}
+
 @media (max-width: 600px) {
   .v-card.v-theme--customLightTheme.v-card--density-default.v-card--variant-elevated {
     border-radius: 20px;
@@ -79,13 +132,13 @@ function goToHome() {
     display: none;
   }
   .datos-perfil {
-    margin-left: 19% !important;
+    margin-left: 23% !important;
   }
   .layout-datos {
     margin-left: -20%;
   }
   .lista-texto {
-    width: 85%;
+    width: 100%;
     margin-left: -10%;
   }
   .datos-perfil h4 {
@@ -117,6 +170,26 @@ function goToHome() {
     font-family: 'Roboto', sans-serif !important;
     text-transform: none !important;
   }
+  .datos-perfil {
+    display: flex;
+    align-items: center;
+    width: 75% !important;
+  }
+  h4.card-titulo {
+    display: none !important;
+  }
+  p.text-subtitle-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-email {
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .nombre-apellido {
+    margin-top: 10px;
+  }
 }
 
 .titulo {
@@ -130,8 +203,8 @@ function goToHome() {
   font-size: unset;
   font-family: 'Roboto';
   text-transform: uppercase;
-  height: 48px;
-  display: none;
+  display: flex;
+  justify-content: center;
 }
 .v-navigation-drawer__content {
   width: 60px !important;

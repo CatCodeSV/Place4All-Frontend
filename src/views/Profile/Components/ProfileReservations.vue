@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useUser } from '@/composables/useUser';
-import { Restaurant } from '@/models/Restaurant';
-import { useRouter } from 'vue-router';
-import { onBeforeMount, ref } from 'vue';
 import { useReservation } from '@/composables/useReservation';
+import { useUser } from '@/composables/useUser';
 import { Reservation } from '@/models/Reservation';
+import { Restaurant } from '@/models/Restaurant';
+import { onBeforeMount, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 function resRestaurant(restaurant: Restaurant) {
   return `${restaurant.name}`;
@@ -35,18 +35,30 @@ const reservations = ref<Reservation[]>([]);
           <v-list-item-subtitle>{{ reservation.people }}</v-list-item-subtitle>
         </v-list-item>
       </v-list>
-      <v-list v-else>
-        <v-list-item>
-          <v-list-item-title>No tienes reservas</v-list-item-title>
-        </v-list-item>
-      </v-list>
     </v-layout>
+    <div class="lista-texto w-100 h-100 justify-center align-center">
+      <h3 class="text-h4">No tienes reservas</h3>
+    </div>
   </v-layout>
 </template>
 
 <style scoped>
 .btn-cerrar-sesion {
   margin-top: 80%;
+}
+
+h3.text-h4 {
+  display: none;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  justify-content: center;
+  text-align: center;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  padding: 20px;
+  line-height: 2.5rem !important;
 }
 
 .btn-cerrar-sesion .button {
@@ -78,10 +90,6 @@ const reservations = ref<Reservation[]>([]);
   justify-content: space-between;
   align-items: center;
   border: solid 1pt;
-}
-
-.v-layout.lista-texto {
-  margin-top: 10%;
 }
 
 .columna-datos {
@@ -118,8 +126,9 @@ v-main.v-main {
 }
 
 .lista-texto {
-  margin-top: 20%;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .div-personalData {
@@ -211,5 +220,38 @@ h2.titulo {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .datos-perfil {
+    margin-left: 10% !important;
+  }
+
+  h3.text-h4 {
+    display: none;
+    justify-content: center;
+  }
+  h3.text-h4 {
+    display: flex;
+    word-break: normal;
+    word-wrap: break-word;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.009375em;
+    line-height: 1.5rem;
+    justify-content: center;
+    margin-top: 30%;
+  }
+  .lista-titulo {
+    padding: 12px;
+    padding-left: 30%;
+    padding-right: 50%;
+    margin-top: 7.5px;
+    font-size: unset;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    height: 48px;
+    display: flex;
+  }
 }
 </style>
