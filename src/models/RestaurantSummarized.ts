@@ -1,3 +1,5 @@
+import { Features } from '@/models/Features';
+
 export interface RestaurantSummarized {
   id: number;
   name: string;
@@ -7,4 +9,5 @@ export interface RestaurantSummarized {
   address: string;
   rating: number;
   numberOfReviews: number;
+  features: Features[];
 }

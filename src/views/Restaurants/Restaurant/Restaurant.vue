@@ -11,9 +11,10 @@ import { InformationAccuracy, Review } from '@/models/Review';
 import { onBeforeMount, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
+import Reservation from '@/components/Reservation.vue';
 
 const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
-const { token, isLogged } = useUser();
+const { isLogged } = useUser();
 const { postReview } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
@@ -38,10 +39,7 @@ function goToListRestaurants() {
 const loading = ref(false);
 const selectedFeatures = ref<Features[]>([]);
 const isEdit = ref(false);
-
-function reserve() {
-  window.open('https://forms.gle/Mp3PDwL9c6tbWjTq9', '_blank');
-}
+const reservationDialog = ref(false);
 
 function summarizedAddress(address: Address) {
   return `${address.street} ${address.number}, ${address.zipCode}. ${address.city}`;
@@ -102,13 +100,10 @@ const windowWidth = ref(window.innerWidth);
           readonly
           size="medium" />
         <v-spacer />
-        <v-btn
-          v-if="token !== '' || token === undefined"
-          class="w-80 my-3 mr-4"
-          color="secondary"
-          icon="mdi-pencil"
-          @click="isEdit = !isEdit" />
-        <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reserve"> Reservar </v-btn>
+        <v-btn v-if="isLogged" class="w-80 my-3 mr-4" color="secondary" icon="mdi-pencil" @click="isEdit = !isEdit" />
+        <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reservationDialog = true">
+          Reservar
+        </v-btn>
       </div>
       <div class="d-flex px-6 py-2 w-100 bg-white flex-wrap justify-content-center">
         <div class="w-75 bg-white pa-4">
@@ -138,10 +133,16 @@ const windowWidth = ref(window.innerWidth);
             <v-btn class="w-80 ml-4" color="secondary" icon="mdi-plus" @click="addFeature" />
           </div>
           <div class="d-flex flex-column justify-start align-items-start w-100">
-            <v-btn v-for="(feature, index) in restaurant?.features" :key="index" class="ma-1 mx-2" color="secondary" variant="flat">
+            <v-chip
+              prepend-icon="mdi-information"
+              v-for="(feature, index) of restaurant.features"
+              :key="index"
+              class="mx-2 my-2 text-primary"
+              size="x-large"
+              color="primary">
               {{ feature.name }}
               <v-tooltip activator="parent" location="top">{{ feature.description }}</v-tooltip>
-            </v-btn>
+            </v-chip>
           </div>
         </div>
       </div>
@@ -238,4 +239,9 @@ const windowWidth = ref(window.innerWidth);
       </v-expansion-panels>
     </v-card>
   </v-card>
+  <Reservation
+    @close="reservationDialog = false"
+    v-if="reservationDialog"
+    :restaurant="restaurant as Restaurant"
+    :value="reservationDialog" />
 </template>
