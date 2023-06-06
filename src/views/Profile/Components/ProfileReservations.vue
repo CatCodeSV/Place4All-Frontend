@@ -2,16 +2,24 @@
 import { useUser } from '@/composables/useUser';
 import { Restaurant } from '@/models/Restaurant';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { useReservation } from '@/composables/useReservation';
+import { Reservation } from '@/models/Reservation';
 
 function resRestaurant(restaurant: Restaurant) {
   return `${restaurant.name}`;
 }
 
+onBeforeMount(async () => {
+  if (user.value) {
+    reservations.value = await getUserReservations();
+  }
+});
+
 const router = useRouter();
 const { user } = useUser();
-const {} = useReservation();
-const reservations = ref([]);
+const { getUserReservations } = useReservation();
+const reservations = ref<Reservation[]>([]);
 </script>
 
 <template>
@@ -20,20 +28,18 @@ const reservations = ref([]);
       <p class="titulo">Reservas</p>
     </div>
     <v-layout class="lista-texto">
-      <v-card class="mx-auto">
-        <v-list>
-          <v-list-item-group>
-            <v-list-item v-for="reservation in reservations" :key="reservation.id">
-              <v-list-item-content>
-                <v-list-item-title>{{ resRestaurant(reservation.restaurant) }}</v-list-item-title>
-                <v-list-item-subtitle>{{ reservation.date }}</v-list-item-subtitle>
-                <v-list-item-subtitle>{{ reservation.time }}</v-list-item-subtitle>
-                <v-list-item-subtitle>{{ reservation.people }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-card>
+      <v-list v-if="reservations.length > 0">
+        <v-list-item v-for="reservation in reservations" :key="reservation.id">
+          <v-list-item-title>{{ reservation.restaurantId }}</v-list-item-title>
+          <v-list-item-subtitle>{{ reservation.date }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ reservation.people }}</v-list-item-subtitle>
+        </v-list-item>
+      </v-list>
+      <v-list v-else>
+        <v-list-item>
+          <v-list-item-title>No tienes reservas</v-list-item-title>
+        </v-list-item>
+      </v-list>
     </v-layout>
   </v-layout>
 </template>

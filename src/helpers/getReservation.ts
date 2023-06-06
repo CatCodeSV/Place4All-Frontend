@@ -8,6 +8,11 @@ async function createReservation(createReservation: CreateReservation) {
   return response.data;
 }
 
+async function getUserReservations() {
+  const response = await apiClient.get<Reservation[]>(`${baseURL}/user`);
+  return response.data;
+}
+
 export type CreateReservation = {
   specialInstructions: string;
   people: number;
@@ -18,4 +23,5 @@ export type CreateReservation = {
 
 export default {
   createReservation,
+  getUserReservations,
 };
