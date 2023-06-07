@@ -1,4 +1,3 @@
-<!-- LINKS ANIDADOS -->
 <script lang="ts" setup>
 import { useUser } from '@/composables/useUser';
 import { Address } from '@/models/Address';
@@ -110,12 +109,6 @@ function goToProfileFavorites() {
   display: none;
 }
 .btn-cerrar-sesion.pa-3 {
-  display: flex;
-}
-.v-list-item-title {
-  display: flex;
-}
-.v-list-item__content {
   display: flex;
 }
 main.v-main {

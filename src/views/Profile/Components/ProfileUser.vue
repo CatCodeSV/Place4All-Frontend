@@ -36,11 +36,6 @@ function goToHome() {
     </div>
 
     <div class="datos-perfil d-flex flex-column w-75 pa-3">
-      <!-- <v-avatar class="mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
-      <div class="my-2 w-75">
-        <h4 class="my-4 text-h4">{{ user?.userName.toUpperCase() || 'Nombre de usuario' }}</h4>
-      </div> -->
-
       <v-avatar class="avatar mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
 
       <v-card class="card-perfil mx-auto" width="600">
@@ -150,7 +145,6 @@ hr {
     font-size: 1.7rem !important;
   }
   .lista-titulo {
-    /* margin-top: -17px !important; */
     padding: 12px;
     padding-left: 40% !important;
     padding-right: 50%;

@@ -42,7 +42,6 @@ const emits = defineEmits(['openDialog']);
     </v-btn>
     <v-toolbar-items>
       <v-btn icon id="profile-btn" @click="openNavProfile()" color="primaryYellow">
-        <!-- <v-badge dot color="success" v-if="isLogged"> -->
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
     </v-toolbar-items>
