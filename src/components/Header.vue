@@ -26,7 +26,7 @@ function goToUser() {
   router.push('/perfil/usuario');
 }
 
-const emits = defineEmits(['openDialog']);
+const emits = defineEmits(['openDialog', 'openRegisterDialog']);
 </script>
 <template>
   <v-app-bar color="primary">

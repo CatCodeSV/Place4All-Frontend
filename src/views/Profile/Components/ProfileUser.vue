@@ -36,7 +36,7 @@ function goToHome() {
     </div>
 
     <div class="datos-perfil d-flex flex-column w-75 pa-3">
-      <v-avatar class="avatar mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user) }}</v-avatar>
+      <v-avatar class="avatar mx-4 my-4" color="secondaryYellow" size="x-large">{{ nameCapitalLetters(user!) }}</v-avatar>
 
       <v-card class="card-perfil mx-auto" width="600">
         <template v-slot:title>
@@ -46,35 +46,35 @@ function goToHome() {
         <v-card-text>
           <div class="lista-texto">
             <div class="user-email">
-              <p class="text-subtitle-1"><strong>Usuario: </strong>{{ user?.userName.toUpperCase() || 'Nombre de usuario' }}</p>
-              <p class="text-subtitle-1"><strong>Correo electrónico: </strong>{{ user?.email }}</p>
+              <p class="text-subtitle-1"><strong>Usuario: </strong>{{ user!.userName.toUpperCase() || 'Nombre de usuario' }}</p>
+              <p class="text-subtitle-1"><strong>Correo electrónico: </strong>{{ user!.email }}</p>
             </div>
             <hr />
             <div class="discapacidad bg-secondaryYellow">
-              <p class="text-subtitle-1"><strong>Discapacidad: </strong>{{ user?.hasDisability ? 'Sí' : 'No tiene discapacidad' }}</p>
-              <p class="text-subtitle-1" v-if="user?.hasDisability">
-                <strong>Tipo de discapacidad: </strong>{{ user?.disabilityType }}
+              <p class="text-subtitle-1"><strong>Discapacidad: </strong>{{ user!.hasDisability ? 'Sí' : 'No tiene discapacidad' }}</p>
+              <p class="text-subtitle-1" v-if="user!.hasDisability">
+                <strong>Tipo de discapacidad: </strong>{{ user!.disabilityType }}
               </p>
-              <p class="text-subtitle-1" v-if="user?.hasDisability">
-                <strong>Grado de discapacidad: </strong>{{ user?.disabilityDegree }}
+              <p class="text-subtitle-1" v-if="user!.hasDisability">
+                <strong>Grado de discapacidad: </strong>{{ user!.disabilityDegree }}
               </p>
             </div>
             <hr />
             <div class="nombre-apellido">
-              <p class="text-subtitle-1"><strong>Nombre: </strong>{{ user?.name }}</p>
-              <p class="text-subtitle-1"><strong>Apellido: </strong>{{ user?.lastName }}</p>
+              <p class="text-subtitle-1"><strong>Nombre: </strong>{{ user!.name }}</p>
+              <p class="text-subtitle-1"><strong>Apellido: </strong>{{ user!.lastName }}</p>
               <p class="text-subtitle-1"><strong>Género:</strong> {{ 'No especificado' }}</p>
               <p class="text-subtitle-1">
                 <strong>Fecha de nacimiento: </strong>
                 {{
-                  user?.birthDate
-                    ? new Date(user?.birthDate).toLocaleDateString('es', {
+                  user!.birthDate
+                    ? new Date(user!.birthDate).toLocaleDateString('es', {
                         dateStyle: 'long',
                       })
                     : 'No especificada'
                 }}
               </p>
-              <p class="text-subtitle-1"><strong>Dirección: </strong> {{ summarizedAddress(user?.address) }}</p>
+              <p class="text-subtitle-1"><strong>Dirección: </strong> {{ summarizedAddress(user!.address) }}</p>
             </div>
           </div>
         </v-card-text>
