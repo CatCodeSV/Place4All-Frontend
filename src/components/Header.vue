@@ -18,17 +18,15 @@ function goToHome() {
 function openNavProfile() {
   profile.value = !profile.value;
 }
-
-function goToUser() {
-  router.push('/perfil');
-}
-
 function logOut() {
   goToHome();
   clearStore();
 }
+function goToUser() {
+  router.push('/perfil/usuario');
+}
 
-const emits = defineEmits(['openDialog', 'openRegisterDialog']);
+const emits = defineEmits(['openDialog']);
 </script>
 <template>
   <v-app-bar color="primary">
@@ -44,10 +42,7 @@ const emits = defineEmits(['openDialog', 'openRegisterDialog']);
     </v-btn>
     <v-toolbar-items>
       <v-btn icon id="profile-btn" @click="openNavProfile()" color="primaryYellow">
-        <!-- <v-badge dot color="success" v-if="isLogged"> -->
         <v-icon>mdi-account-outline</v-icon>
-        <!-- </v-badge> -->
-        <!-- TODO: Badge no funciona del todo bien, preguntar -->
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>

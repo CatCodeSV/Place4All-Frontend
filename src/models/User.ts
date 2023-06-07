@@ -1,9 +1,12 @@
 import { Address } from './Address';
+import { DisabilityType } from '@/enums/disabilityType';
+
 export interface User {
   address: Address;
   addressId: string;
-  age: number;
+  birthDate: Date;
   disabilityDegree: number;
+  disabilityType: DisabilityType;
   email: string;
   gender: string;
   gsm: string;
@@ -11,5 +14,5 @@ export interface User {
   id: string;
   lastName: string;
   name: string;
-  username: string;
+  userName: string;
 }

@@ -42,17 +42,22 @@ export const useRestaurant = () => {
     });
   }
 
+  async function getFavoriteRestaurants() {
+    return (await baseUse.executeApiAction(getRestaurant.getFavoriteRestaurants())).content;
+  }
+
   return {
     //! Properties
-    restaurants: restaurantsState,
     restaurant,
+    restaurants: restaurantsState,
     //! Computed
     //! Métodos
     addFeatures,
     clearRestaurant: restaurantStore.clearRestaurant,
+    getFavoriteRestaurants,
     setRestaurant,
     setRestaurants,
-    setRestaurantsQuery,
     setRestaurantsByFeatures,
+    setRestaurantsQuery,
   };
 };

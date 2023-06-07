@@ -9,10 +9,16 @@ export const useReservation = () => {
     return res.content!;
   }
 
+  async function getUserReservations() {
+    const res = await baseUse.executeApiAction(getReservation.getUserReservations());
+    return res.content!;
+  }
+
   return {
     //! Properties
     //! Computed
     //! Métodos
     postReservation,
+    getUserReservations,
   };
 };

@@ -17,8 +17,35 @@ const routes = [
   },
   {
     path: '/perfil',
-    name: 'UserProfile',
-    component: () => import('@/views/Users/UserProfile.vue'),
+    name: 'profile-parent',
+    component: () => import('@/views/Profile/Profile.vue'),
+    children: [
+      {
+        path: 'usuario',
+        name: 'user',
+        component: () => import('@/views/Profile/Components/ProfileUser.vue'),
+      },
+      {
+        path: 'favoritos',
+        name: 'user-favorites',
+        component: () => import('@/views/Profile/Components/ProfileFavorites.vue'),
+      },
+      {
+        path: 'reservas',
+        name: 'user-reservations',
+        component: () => import('@/views/Profile/Components/ProfileReservations.vue'),
+      },
+      {
+        path: 'privacidad',
+        name: 'user-privacy',
+        component: () => import('@/views/Profile/Components/ProfilePrivacy.vue'),
+      },
+      {
+        path: 'notificaciones',
+        name: 'user-notification',
+        component: () => import('@/views/Profile/Components/ProfileNotifications.vue'),
+      },
+    ],
   },
 ];
 
