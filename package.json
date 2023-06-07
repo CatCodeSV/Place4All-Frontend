@@ -27,7 +27,7 @@
     "@vue/eslint-config-typescript": "^11.0.0",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "sass": "^1.58.3",
@@ -37,6 +37,6 @@
     "vue-tsc": "^1.0.9"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.js": ["prettier --write", "git add"]
   }
 }
