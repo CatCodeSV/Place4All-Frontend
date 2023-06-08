@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@gtm-support/vue-gtm": "^2.0.0",
     "@mdi/font": "7.0.96",
     "axios": "^1.3.4",
     "mongodb": "^5.1.0",
