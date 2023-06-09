@@ -47,6 +47,12 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/admin',
+    name: 'AdminPanel',
+    component: () => import('@/views/Admin/AdminPanel.vue'),
+    children: [],
+  },
 ];
 
 const router = createRouter({
