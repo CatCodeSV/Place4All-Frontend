@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
@@ -9,6 +9,10 @@ const drawer = ref(true);
 
 function goToRestaurantAdmin() {
   router.push('/admin/restaurantes');
+}
+
+function goToUsersAdmin() {
+  router.push('/admin/usuarios');
 }
 </script>
 
@@ -42,7 +46,7 @@ function goToRestaurantAdmin() {
               value="reservation"
               active-color="primary"
               class="text-primary"
-              @click=""
+              @click="goToUsersAdmin()"
               prepend-icon="mdi-account-group"
               title="Usuarios" />
             <v-list-item

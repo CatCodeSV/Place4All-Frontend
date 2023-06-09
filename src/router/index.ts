@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import RestaurantsPanel from '@/views/Admin/Restaurants/RestaurantsPanel.vue';
+import UsersPanel from '@/views/Admin/Users/UsersPanel.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
         path: 'restaurantes',
         name: 'admin-restaurants',
         component: RestaurantsPanel,
+      },
+      {
+        path: 'usuarios',
+        name: 'admin-users',
+        component: UsersPanel,
       },
     ],
   },
