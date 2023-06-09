@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import RestaurantsPanel from '@/views/Admin/Restaurants/RestaurantsPanel.vue';
 
 const routes = [
   {
@@ -51,7 +52,13 @@ const routes = [
     path: '/admin',
     name: 'AdminPanel',
     component: () => import('@/views/Admin/AdminPanel.vue'),
-    children: [],
+    children: [
+      {
+        path: 'restaurantes',
+        name: 'admin-restaurants',
+        component: RestaurantsPanel,
+      },
+    ],
   },
 ];
 
