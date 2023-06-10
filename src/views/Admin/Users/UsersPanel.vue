@@ -6,8 +6,11 @@ import { VDataTableVirtual } from 'vuetify/labs/VDataTable';
 import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
 import { useUserMessage } from '@/composables/useUserMessage';
 import { UserMessageType } from '@/store/userMessage.store';
+import EditUserDialog from '@/views/Admin/Users/Components/EditUserDialog.vue';
+import { ViewMode } from '@/enums/ViewMode';
+import { EditUser } from '@/helpers/getAdministrator';
 
-const { getAllUsers, deleteUser } = useAdministrator();
+const { getAllUsers, deleteUser, editUser } = useAdministrator();
 const { showConfirmationDialog } = useConfirmationDialog();
 const { storeUserMessage } = useUserMessage();
 
@@ -16,6 +19,7 @@ onBeforeMount(async () => {
 });
 
 const users = ref<User[]>([]);
+const editUserDialog = ref<InstanceType<typeof EditUserDialog> | null>(null);
 const headers = ref([
   {
     title: 'Id',
@@ -42,8 +46,23 @@ const headers = ref([
 ]);
 const itemsPerPage = 5;
 
-function editItem(item: any) {
-  console.log(item);
+async function editItem(item: User) {
+  var res = await editUser(item.id!, {
+    name: item.name,
+    hasDisability: item.hasDisability,
+    disabilityDegree: item.disabilityDegree,
+    birthDate: item.birthDate,
+    disabilityType: item.disabilityType,
+    gender: item.gender,
+    lastName: item.lastName,
+    userName: item.userName,
+  } as EditUser);
+  if (res.success) {
+    storeUserMessage(UserMessageType.success, `El usuario ${item.name} ha sido editado correctamente`);
+    users.value = await getAllUsers();
+    return;
+  }
+  storeUserMessage(UserMessageType.error, `El usuario ${item.name} no ha podido ser editado`);
 }
 
 function deleteItem(item: User) {
@@ -72,13 +91,16 @@ function deleteItem(item: User) {
         class="elevation-4 rounded mx-auto">
         <template v-slot:item.actions="{ item }">
           <div class="d-flex w-100 justify-lg-space-around">
-            <v-icon size="small" color="primary" class="me-2" @click="editItem(item.raw)"> mdi-pencil-outline</v-icon>
+            <v-icon size="small" color="primary" class="me-2" @click="editUserDialog?.show(item.raw as User, ViewMode.Edit)">
+              mdi-pencil-outline
+            </v-icon>
             <v-icon color="primary" size="small" @click="deleteItem(item.raw as User)"> mdi-delete-outline</v-icon>
           </div>
         </template>
       </v-data-table-virtual>
     </div>
   </div>
+  <EditUserDialog ref="editUserDialog" @on-accept="(x, y) => editItem(y)" />
 </template>
 
 <style scoped></style>

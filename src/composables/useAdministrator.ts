@@ -1,5 +1,5 @@
 import { useBase } from '@/composables/useBase';
-import getAdministrator, { EditRestaurant } from '@/helpers/getAdministrator';
+import getAdministrator, { EditRestaurant, EditUser } from '@/helpers/getAdministrator';
 import { Restaurant } from '@/models/Restaurant';
 import { User } from '@/models/User';
 import { ActionResponse } from '@/composables/ActionResponse';
@@ -28,10 +28,15 @@ export const useAdministrator = () => {
     return await baseUse.executeApiAction(getAdministrator.deleteUser(userId));
   }
 
+  async function editUser(userId: string, user: EditUser): Promise<ActionResponse<User>> {
+    return await baseUse.executeApiAction(getAdministrator.editUser(userId, user));
+  }
+
   return {
     deleteUser,
     deleteRestaurant,
     editRestaurant,
+    editUser,
     getFullRestaurants,
     getAllUsers,
   };

@@ -1,5 +1,6 @@
 import { Address } from './Address';
 import { DisabilityType } from '@/enums/disabilityType';
+import { Gender } from '@/helpers/getUser';
 
 export interface User {
   address: Address;
@@ -8,7 +9,7 @@ export interface User {
   disabilityDegree: number;
   disabilityType: DisabilityType;
   email: string;
-  gender: string;
+  gender: Gender;
   gsm: string;
   hasDisability: boolean;
   id: string;

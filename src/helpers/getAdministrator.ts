@@ -1,6 +1,8 @@
 import { apiClient } from '@/api/apiClient.m';
 import { Restaurant } from '@/models/Restaurant';
 import { User } from '@/models/User';
+import { Gender } from '@/helpers/getUser';
+import { DisabilityType } from '@/enums/disabilityType';
 
 const baseURL = '/Administrator';
 
@@ -35,10 +37,27 @@ async function deleteUser(userId: string) {
   return res.data;
 }
 
+async function editUser(userId: string, user: EditUser) {
+  const res = await apiClient.put(`${baseURL}/User/${userId}`, user);
+  return res.data;
+}
+
+export interface EditUser {
+  name: string;
+  lastName: string;
+  gender: Gender;
+  birthDate: Date;
+  hasDisability: boolean;
+  disabilityType: DisabilityType;
+  disabilityDegree: number;
+  userName: string;
+}
+
 export default {
   deleteRestaurant,
   deleteUser,
   editRestaurant,
+  editUser,
   getFullRestaurants,
   getAllUsers,
 };
