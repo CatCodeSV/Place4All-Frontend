@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const profile = ref(false);
-const { isLogged, clearStore } = useUser();
+const { isLogged, clearStore, isAdmin } = useUser();
 
 function goToRestaurants() {
   router.push('/restaurantes');
@@ -37,7 +37,6 @@ const emits = defineEmits(['openDialog', 'openRegisterDialog']);
 <template>
   <v-app-bar color="primary">
     <v-btn @click="goToHome()" color="primaryYellow">Place4All</v-btn>
-
     <v-toolbar-items>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain" color="primaryYellow">Restaurantes</v-btn>
     </v-toolbar-items>
@@ -61,7 +60,7 @@ const emits = defineEmits(['openDialog', 'openRegisterDialog']);
       <v-list-item v-if="isLogged">
         <v-btn id="myProfile-btn" @click="goToUser()" variant="text" color="primary">Mi perfil</v-btn>
       </v-list-item>
-      <v-list-item v-if="isLogged">
+      <v-list-item v-if="isLogged && isAdmin">
         <v-btn id="myProfile-btn" @click="goToAdmin()" variant="text" color="primary">Panel Admin</v-btn>
       </v-list-item>
       <v-list-item v-if="!isLogged">

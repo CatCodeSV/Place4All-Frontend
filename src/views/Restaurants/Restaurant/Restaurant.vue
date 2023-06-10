@@ -14,7 +14,7 @@ import AddReviewDialog from './Review/AddReviewDialog.vue';
 import Reservation from '@/components/Reservation.vue';
 
 const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
-const { isLogged } = useUser();
+const { isLogged, isAdmin } = useUser();
 const { postReview } = useReview();
 const { features, setFeatures } = useFeature();
 const router = useRouter();
@@ -100,7 +100,7 @@ const windowWidth = ref(window.innerWidth);
           readonly
           size="medium" />
         <v-spacer />
-        <v-btn v-if="isLogged" class="w-80 my-3 mr-4" color="secondary" icon="mdi-pencil" @click="isEdit = !isEdit" />
+        <v-btn v-if="isAdmin" class="w-80 my-3 mr-4" color="secondary" icon="mdi-pencil" @click="isEdit = !isEdit" />
         <v-btn class="w-80 my-4" color="primary" prepend-icon="mdi-calendar-clock" rounded="pill" @click="reservationDialog = true">
           Reservar
         </v-btn>

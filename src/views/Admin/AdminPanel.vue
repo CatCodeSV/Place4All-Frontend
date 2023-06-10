@@ -55,6 +55,7 @@ function goToFeaturesAdmin() {
               title="Usuarios" />
             <v-list-item
               value="notification"
+              disabled
               active-color="primary"
               class="text-primary"
               @click="goToAndUnrail(() => goToFeaturesAdmin())"

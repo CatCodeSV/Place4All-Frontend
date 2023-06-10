@@ -1,21 +1,3 @@
-<template>
-  <v-layout>
-    <Header @open-dialog="onOpenDialog" @open-register-dialog="onOpenRegisterDialog" />
-    <ConfirmationDialog ref="confirmationDialog" />
-    <v-main id="page-container" class="d-flex w-100 flex-column">
-      <div id="main-content">
-        <RouterView />
-        <Login :value="loginDialog" @on-close="() => (loginDialog = !loginDialog)" />
-        <Register :value="registerDialog" @on-close="() => (registerDialog = !registerDialog)" />
-        <UserMessageUI />
-      </div>
-      <!--  <div class="footer">
-        <Footer />
-      </div> -->
-    </v-main>
-  </v-layout>
-</template>
-
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -50,6 +32,23 @@ function onOpenRegisterDialog() {
   registerDialog.value = true;
 }
 </script>
+<template>
+  <v-layout>
+    <Header @open-dialog="onOpenDialog" @open-register-dialog="onOpenRegisterDialog" />
+    <ConfirmationDialog ref="confirmationDialog" />
+    <v-main id="page-container" class="d-flex w-100 flex-column">
+      <div id="main-content">
+        <RouterView />
+        <Login :value="loginDialog" @on-close="() => (loginDialog = !loginDialog)" />
+        <Register :value="registerDialog" @on-close="() => (registerDialog = !registerDialog)" />
+        <UserMessageUI />
+      </div>
+      <!--  <div class="footer">
+        <Footer />
+      </div> -->
+    </v-main>
+  </v-layout>
+</template>
 
 <style lang="scss" scoped>
 #page-container {
