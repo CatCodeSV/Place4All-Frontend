@@ -3,14 +3,21 @@ import { VDataTableVirtual } from 'vuetify/labs/VDataTable';
 import { useAdministrator } from '@/composables/useAdministrator';
 import { onBeforeMount, ref } from 'vue';
 import { Restaurant } from '@/models/Restaurant';
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
+import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
+import { useUserMessage } from '@/composables/useUserMessage';
+import { UserMessageType } from '@/store/userMessage.store';
+import { ActionResponse } from '@/composables/ActionResponse';
 
-const { getFullRestaurants } = useAdministrator();
+const { getFullRestaurants, deleteRestaurant } = useAdministrator();
+const { showConfirmationDialog } = useConfirmationDialog();
+const { storeUserMessage } = useUserMessage();
 
 onBeforeMount(async () => {
-  restaurants.value = await getFullRestaurants();
+  adminRestaurants.value = await getFullRestaurants();
 });
 
-const restaurants = ref<Restaurant[]>([]);
+const adminRestaurants = ref<Restaurant[]>([]);
 const headers = ref([
   {
     title: 'Id',
@@ -33,8 +40,19 @@ function editItem(item: any) {
   console.log(item);
 }
 
-function deleteItem(item: any) {
-  console.log(item);
+function deleteItem(restaurant: Restaurant) {
+  showConfirmationDialog(
+    `¿Estás seguro de que quieres eliminar el restaurante ${restaurant.name} con id ${restaurant.id}?`,
+    async () => {
+      let result: ActionResponse<Restaurant> = await deleteRestaurant(restaurant.id!);
+      if (result.success) {
+        adminRestaurants.value = adminRestaurants.value.filter(r => r.id !== restaurant.id!);
+        storeUserMessage(UserMessageType.success, `El restaurante ${restaurant.name} ha sido eliminado correctamente`);
+        return;
+      }
+      storeUserMessage(UserMessageType.error, `El restaurante ${restaurant.name} no ha podido ser eliminado`);
+    }
+  );
 }
 </script>
 
@@ -46,18 +64,19 @@ function deleteItem(item: any) {
         :height="500"
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
-        :items="restaurants"
+        :items="adminRestaurants"
         item-value="name"
         class="elevation-4 rounded mx-auto">
         <template v-slot:item.actions="{ item }">
           <div class="d-flex w-100 justify-lg-space-around">
             <v-icon size="small" color="primary" class="me-2" @click="editItem(item.raw)"> mdi-pencil-outline</v-icon>
-            <v-icon color="primary" size="small" @click="deleteItem(item.raw)"> mdi-delete-outline</v-icon>
+            <v-icon color="primary" size="small" @click="deleteItem(item.raw as Restaurant)"> mdi-delete-outline </v-icon>
           </div>
         </template>
       </v-data-table-virtual>
     </div>
   </div>
+  <ConfirmationDialog value="confirmationDialog" entity="" />
 </template>
 
 <style scoped></style>

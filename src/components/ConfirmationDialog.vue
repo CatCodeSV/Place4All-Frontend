@@ -1,30 +1,40 @@
 <script setup lang="ts">
-import { Restaurant } from '@/models/Restaurant';
-import { User } from '@/models/User';
-import { computed } from 'vue';
+import { ref } from 'vue';
 
-const props = defineProps<{
-  restaurant: Restaurant | User;
-  value: boolean;
-}>();
+let onConfirmInternal: () => Promise<void> | void = () => Promise.resolve<void>(undefined);
+let dialog = ref(false);
+let messageInternal = ref<string>();
+let elementsToIncludeInternal = ref<string[]>([]);
 
-const show = computed(() => {
-  return props.value;
-});
+function show(message: string, onConfirm: () => Promise<void> | void, elementsToInclude?: string[]) {
+  messageInternal.value = message;
+  elementsToIncludeInternal.value = elementsToInclude ?? [];
+  onConfirmInternal = onConfirm;
+  dialog.value = true;
+}
 
-const emit = defineEmits<{
-  (e: 'close'): void;
-}>();
+async function onConfirmAction() {
+  dialog.value = false;
+  await onConfirmInternal();
+}
+
+defineExpose({ show });
 </script>
-
 <template>
-  <v-dialog v-model="show" class="pa-6" close-on-back persistent width="auto">
+  <v-dialog v-model="dialog" :max-width="'500px'">
     <v-card>
-      <v-card-text> ¿Estás seguro de eliminar este restaurante / usuario? </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="warning" block @click="emit('close')"> Cancelar </v-btn>
-        <v-btn color="success" block @click="emit('close')"> Aceptar </v-btn>
+      <v-card-text class="d-flex justify-center align-center flex-column">
+        {{ messageInternal }}
+      </v-card-text>
+      <v-card-actions class="d-flex justify-center">
+        <div class="d-flex align-center pa-0">
+          <div class="mr-9">
+            <v-btn color="warning" @click="() => (dialog = false)"> Cancelar</v-btn>
+          </div>
+          <div class="d-flex align-center pa-0">
+            <v-btn color="success" @click="onConfirmAction"> Aceptar</v-btn>
+          </div>
+        </div>
       </v-card-actions>
     </v-card>
   </v-dialog>
