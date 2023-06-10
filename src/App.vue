@@ -35,7 +35,7 @@ const registerDialog = ref(false);
 const confirmationDialog = ref<InstanceType<typeof ConfirmationDialog> | null>();
 
 onMounted(() => {
-  setConfirmationDialog(confirmationDialog?.value);
+  setConfirmationDialog(confirmationDialog?.value!);
 });
 
 function onOpenDialog() {
