@@ -8,7 +8,8 @@ export const useAdministrator = () => {
   const baseUse = useBase();
 
   async function getFullRestaurants(): Promise<Restaurant[]> {
-    return (await baseUse.executeApiAction(getAdministrator.getFullRestaurants())).content!;
+    const res = await baseUse.executeApiAction(getAdministrator.getFullRestaurants());
+    return res.content!;
   }
 
   async function deleteRestaurant(restaurantId: number): Promise<ActionResponse<Restaurant>> {
@@ -19,7 +20,12 @@ export const useAdministrator = () => {
     return (await baseUse.executeApiAction(getAdministrator.getAllUsers())).content!;
   }
 
+  async function deleteUser(userId: string): Promise<ActionResponse<User>> {
+    return await baseUse.executeApiAction(getAdministrator.deleteUser(userId));
+  }
+
   return {
+    deleteUser,
     deleteRestaurant,
     getFullRestaurants,
     getAllUsers,

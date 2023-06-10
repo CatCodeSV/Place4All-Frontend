@@ -16,9 +16,6 @@ export interface Restaurant extends PDocument {
   phoneNumber: string;
   rating: number;
   reviews: Review[];
-  creator: string;
-  createDate: Date;
-  updateDate: Date;
 }
 
 export interface Image extends PDocument {

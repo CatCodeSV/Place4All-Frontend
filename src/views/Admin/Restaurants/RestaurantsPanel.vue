@@ -26,7 +26,7 @@ const headers = ref([
   },
   { title: 'Nombre', key: 'name', sortable: true },
   { title: 'Creador', key: 'creator', sortable: true },
-  { title: 'Fecha de creación', key: 'creationDate', sortable: true },
+  { title: 'Fecha de creación', key: 'createDate', sortable: true },
   {
     title: 'Fecha de modificación',
     key: 'updateDate',

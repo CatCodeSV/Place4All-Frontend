@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const profile = ref(false);
-const { user, isLogged, clearStore } = useUser();
+const { isLogged, clearStore } = useUser();
 
 function goToRestaurants() {
   router.push('/restaurantes');
@@ -29,7 +29,7 @@ function goToUser() {
 }
 
 function goToAdmin() {
-  router.push('/admin');
+  router.push('/admin/restaurantes');
 }
 
 const emits = defineEmits(['openDialog', 'openRegisterDialog']);

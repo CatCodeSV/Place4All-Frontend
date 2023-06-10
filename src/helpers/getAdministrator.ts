@@ -19,8 +19,14 @@ async function getAllUsers(): Promise<User[]> {
   return response.data;
 }
 
+async function deleteUser(userId: string) {
+  const res = await apiClient.deleteById(`${baseURL}/User`, userId);
+  return res.data;
+}
+
 export default {
   deleteRestaurant,
+  deleteUser,
   getFullRestaurants,
   getAllUsers,
 };
