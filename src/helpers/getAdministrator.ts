@@ -14,6 +14,17 @@ async function deleteRestaurant(restaurantId: number) {
   return res.data;
 }
 
+async function editRestaurant(restaurantId: number, restaurant: EditRestaurant) {
+  const res = await apiClient.put(`${baseURL}/Restaurant/${restaurantId}`, restaurant);
+  return res.data;
+}
+
+export interface EditRestaurant {
+  name: string;
+  description: string;
+  phoneNumber: string;
+}
+
 async function getAllUsers(): Promise<User[]> {
   const response = await apiClient.getAll<User>(`${baseURL}/Users`);
   return response.data;
@@ -27,6 +38,7 @@ async function deleteUser(userId: string) {
 export default {
   deleteRestaurant,
   deleteUser,
+  editRestaurant,
   getFullRestaurants,
   getAllUsers,
 };

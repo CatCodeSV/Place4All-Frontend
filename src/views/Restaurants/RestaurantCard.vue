@@ -2,6 +2,7 @@
 import { RestaurantSummarized } from '@/models/RestaurantSummarized';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { Address } from '@/models/Address';
 
 const router = useRouter();
 const loading = ref(false);
@@ -25,7 +26,11 @@ function getImageUrl(image: string) {
 }
 
 async function goToDetail(restaurant: RestaurantSummarized) {
-  router.push('/restaurantes/' + restaurant.id);
+  await router.push('/restaurantes/' + restaurant.id);
+}
+
+function formatAddress(address: Address) {
+  return `${address.street} ${address.number}, ${address.city}, ${address.zipCode}`;
 }
 </script>
 

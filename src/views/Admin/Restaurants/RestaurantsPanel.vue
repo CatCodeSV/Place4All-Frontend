@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { VDataTableVirtual } from 'vuetify/labs/VDataTable';
 import { useAdministrator } from '@/composables/useAdministrator';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, onUpdated, ref } from 'vue';
 import { Restaurant } from '@/models/Restaurant';
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
 import { useUserMessage } from '@/composables/useUserMessage';
 import { UserMessageType } from '@/store/userMessage.store';
 import { ActionResponse } from '@/composables/ActionResponse';
+import EditRestaurantDialog from '@/views/Admin/Restaurants/Components/EditRestaurantDialog.vue';
+import { EditRestaurant } from '@/helpers/getAdministrator';
+import { ViewMode } from '@/enums/ViewMode';
+import { useRestaurant } from '@/composables/useRestaurant';
 
-const { getFullRestaurants, deleteRestaurant } = useAdministrator();
+const { getFullRestaurants, deleteRestaurant, editRestaurant } = useAdministrator();
 const { showConfirmationDialog } = useConfirmationDialog();
 const { storeUserMessage } = useUserMessage();
+const { setRestaurants } = useRestaurant();
+const restaurantEditDialog = ref<InstanceType<typeof EditRestaurantDialog> | null>(null);
 
 onBeforeMount(async () => {
   adminRestaurants.value = await getFullRestaurants();
@@ -36,8 +42,22 @@ const headers = ref([
 ]);
 const itemsPerPage = 5;
 
-function editItem(item: any) {
-  console.log(item);
+function createRestaurant(restaurant: Restaurant) {
+  console.log(restaurant);
+}
+
+async function editItem(item: Restaurant) {
+  const res = await editRestaurant(item.id!, {
+    name: item.name,
+    phoneNumber: item.phoneNumber,
+    description: item.description,
+  } as EditRestaurant);
+  if (res.success) {
+    storeUserMessage(UserMessageType.success, `El restaurante ${item.name} ha sido editado correctamente`);
+    await setRestaurants();
+    return;
+  }
+  storeUserMessage(UserMessageType.error, `El restaurante ${item.name} no ha podido ser editado`);
 }
 
 function deleteItem(restaurant: Restaurant) {
@@ -69,14 +89,22 @@ function deleteItem(restaurant: Restaurant) {
         class="elevation-4 rounded mx-auto">
         <template v-slot:item.actions="{ item }">
           <div class="d-flex w-100 justify-lg-space-around">
-            <v-icon size="small" color="primary" class="me-2" @click="editItem(item.raw)"> mdi-pencil-outline</v-icon>
+            <v-icon
+              size="small"
+              color="primary"
+              class="me-2"
+              @click="restaurantEditDialog?.show(item.raw as Restaurant, ViewMode.Edit)">
+              mdi-pencil-outline
+            </v-icon>
             <v-icon color="primary" size="small" @click="deleteItem(item.raw as Restaurant)"> mdi-delete-outline </v-icon>
           </div>
         </template>
       </v-data-table-virtual>
     </div>
   </div>
-  <ConfirmationDialog value="confirmationDialog" entity="" />
+  <EditRestaurantDialog
+    ref="restaurantEditDialog"
+    @on-accept="(viewMode, restaurant) => (viewMode == ViewMode.Edit ? editItem(restaurant) : createRestaurant(restaurant))" />
 </template>
 
 <style scoped></style>
