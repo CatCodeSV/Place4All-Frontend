@@ -15,11 +15,14 @@ const { showConfirmationDialog } = useConfirmationDialog();
 const { storeUserMessage } = useUserMessage();
 
 onBeforeMount(async () => {
+  loading.value = true;
   users.value = await getAllUsers();
+  loading.value = false;
 });
 
 const users = ref<User[]>([]);
 const editUserDialog = ref<InstanceType<typeof EditUserDialog> | null>(null);
+const loading = ref(false);
 const headers = ref([
   {
     title: 'Id',
@@ -47,7 +50,8 @@ const headers = ref([
 const itemsPerPage = 5;
 
 async function editItem(item: User) {
-  var res = await editUser(item.id!, {
+  loading.value = true;
+  const res = await editUser(item.id!, {
     name: item.name,
     hasDisability: item.hasDisability,
     disabilityDegree: item.disabilityDegree,
@@ -60,19 +64,24 @@ async function editItem(item: User) {
   if (res.success) {
     storeUserMessage(UserMessageType.success, `El usuario ${item.name} ha sido editado correctamente`);
     users.value = await getAllUsers();
+    loading.value = false;
     return;
   }
+  loading.value = false;
   storeUserMessage(UserMessageType.error, `El usuario ${item.name} no ha podido ser editado`);
 }
 
 function deleteItem(item: User) {
   showConfirmationDialog(`¿Estás seguro de que quieres eliminar al usuario ${item.name}?`, async () => {
+    loading.value = true;
     let result = await deleteUser(item.id!);
     if (result.success) {
       users.value = users.value.filter(r => r.id !== item.id!);
+      loading.value = false;
       storeUserMessage(UserMessageType.success, `El usuario ${item.name} ha sido eliminado correctamente`);
       return;
     }
+    loading.value = false;
     storeUserMessage(UserMessageType.error, `El usuario ${item.name} no ha podido ser eliminado`);
   });
 }
@@ -83,6 +92,7 @@ function deleteItem(item: User) {
     <h3 class="text-h3 mb-5 text-primary">Usuarios</h3>
     <div class="mx-auto w-100">
       <v-data-table-virtual
+        v-if="!loading"
         :height="500"
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -98,6 +108,7 @@ function deleteItem(item: User) {
           </div>
         </template>
       </v-data-table-virtual>
+      <v-progress-linear v-else indeterminate color="primary" class="mt-5" />
     </div>
   </div>
   <EditUserDialog ref="editUserDialog" @on-accept="(x, y) => editItem(y)" />

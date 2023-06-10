@@ -7,8 +7,8 @@ const router = useRouter();
 const rail = ref(true);
 const drawer = ref(true);
 
-function goToAndUnrail(goTo: Function) {
-  rail.value = !rail.value;
+async function goToAndUnrail(goTo: Function) {
+  rail.value = true;
   setTimeout(() => {
     goTo();
   }, 100);
@@ -34,7 +34,7 @@ function goToFeaturesAdmin() {
         <v-app-bar app color="primary-200" dark class="elevation-0">
           <v-toolbar-title>Panel de administración</v-toolbar-title>
         </v-app-bar>
-        <v-navigation-drawer permanent v-model="drawer" :rail="rail" @click="rail = false">
+        <v-navigation-drawer permanent v-model="drawer" expand-on-hover :rail="rail" @click="rail = true">
           <template v-slot:append>
             <v-btn variant="text" :icon="rail ? 'mdi-chevron-right' : 'mdi-chevron-left'" @click.stop="rail = !rail"></v-btn>
           </template>
