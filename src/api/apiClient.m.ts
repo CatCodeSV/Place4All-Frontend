@@ -100,7 +100,7 @@ class Place4AllHttpClient {
     return this.put<T, R>(`${url}/${entityId}`, data);
   }
 
-  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: number): any {
+  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: number | string): any {
     return this.http.delete<T, R>(`${url}/${id}`);
   }
 

@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const profile = ref(false);
-const { user, isLogged, clearStore } = useUser();
+const { isLogged, clearStore, isAdmin } = useUser();
 
 function goToRestaurants() {
   router.push('/restaurantes');
@@ -18,21 +18,25 @@ function goToHome() {
 function openNavProfile() {
   profile.value = !profile.value;
 }
+
 function logOut() {
   goToHome();
   clearStore();
 }
+
 function goToUser() {
   router.push('/perfil/usuario');
+}
+
+function goToAdmin() {
+  router.push('/admin/restaurantes');
 }
 
 const emits = defineEmits(['openDialog', 'openRegisterDialog']);
 </script>
 <template>
   <v-app-bar color="primary">
-    <v-toolbar-nav-icon>
-      <v-btn @click="goToHome()" color="primaryYellow">Place4All</v-btn>
-    </v-toolbar-nav-icon>
+    <v-btn @click="goToHome()" color="primaryYellow">Place4All</v-btn>
     <v-toolbar-items>
       <v-btn @click="goToRestaurants()" class="ml-2" variant="plain" color="primaryYellow">Restaurantes</v-btn>
     </v-toolbar-items>
@@ -52,13 +56,18 @@ const emits = defineEmits(['openDialog', 'openRegisterDialog']);
         <v-btn id="loginSession-btn" @click="emits('openDialog')" variant="text" v-if="!isLogged" color="primary"
           >Iniciar sesión
         </v-btn>
-        <v-btn id="myProfile-btn" @click="goToUser()" variant="text" color="primary" v-if="isLogged">Mi perfil</v-btn>
       </v-list-item>
-      <v-list-item>
-        <v-btn id="registerSession-btn" @click="emits('openRegisterDialog')" variant="text" v-if="!isLogged"> Registrarse </v-btn>
+      <v-list-item v-if="isLogged">
+        <v-btn id="myProfile-btn" @click="goToUser()" variant="text" color="primary">Mi perfil</v-btn>
       </v-list-item>
-      <v-list-item>
-        <v-btn id="closeSession-btn" @click="logOut()" variant="text" v-if="isLogged">Cerrar sesión</v-btn>
+      <v-list-item v-if="isLogged && isAdmin">
+        <v-btn id="myProfile-btn" @click="goToAdmin()" variant="text" color="primary">Panel Admin</v-btn>
+      </v-list-item>
+      <v-list-item v-if="!isLogged">
+        <v-btn id="registerSession-btn" @click="emits('openRegisterDialog')" variant="text"> Registrarse</v-btn>
+      </v-list-item>
+      <v-list-item v-if="isLogged">
+        <v-btn id="closeSession-btn" @click="logOut()" variant="text">Cerrar sesión</v-btn>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

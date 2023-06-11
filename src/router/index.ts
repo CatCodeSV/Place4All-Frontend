@@ -1,3 +1,5 @@
+import RestaurantsPanel from '@/views/Admin/Restaurants/RestaurantsPanel.vue';
+import UsersPanel from '@/views/Admin/Users/UsersPanel.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -44,6 +46,23 @@ const routes = [
         path: 'notificaciones',
         name: 'user-notification',
         component: () => import('@/views/Profile/Components/ProfileNotifications.vue'),
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    name: 'AdminPanel',
+    component: () => import('@/views/Admin/AdminPanel.vue'),
+    children: [
+      {
+        path: 'restaurantes',
+        name: 'admin-restaurants',
+        component: RestaurantsPanel,
+      },
+      {
+        path: 'usuarios',
+        name: 'admin-users',
+        component: UsersPanel,
       },
     ],
   },
