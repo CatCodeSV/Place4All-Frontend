@@ -44,9 +44,6 @@ function onOpenRegisterDialog() {
         <Register :value="registerDialog" @on-close="() => (registerDialog = !registerDialog)" />
         <UserMessageUI />
       </div>
-      <!--  <div class="footer">
-        <Footer />
-      </div> -->
       <Footer></Footer>
     </v-main>
   </v-layout>

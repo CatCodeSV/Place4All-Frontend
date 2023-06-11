@@ -5,10 +5,6 @@
     :elevation="2"
     class="index bg-primary-300 text-center d-flex flex-column align-items-center justify-center"
     color="secondary">
-    <!--  <div>
-      <v-btn v-for="link in links" :key="link.id" class="mx-4" variant="text">{{ link.title }}</v-btn>
-    </div>
-    <v-divider></v-divider> -->
     <div class="text-footer pa-2 my-2 font-weight-bold p-h1 text-p text-primary-800">
       <p>©2023 Place4All by CatCode.</p>
       <p>Todos los derechos reservados.</p>
