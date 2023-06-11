@@ -19,7 +19,7 @@
 
 <style scoped>
 .index {
-  max-height: 20%;
+  max-height: 80px;
 }
 .text-footer {
   color: #0b3d91;
