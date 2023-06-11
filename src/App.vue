@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
+import Register from '@/components/Register.vue';
+import UserMessageUI from '@/components/UserMessageUI.vue';
+import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import Footer from './components/Footer.vue';
 import Header from './components/Header.vue';
 import Login from './components/Login.vue';
 import { useUser } from './composables/useUser';
-import UserMessageUI from '@/components/UserMessageUI.vue';
-import Register from '@/components/Register.vue';
-import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
-import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
 
 const { setConfirmationDialog } = useConfirmationDialog();
 const router = useRouter();
@@ -46,6 +47,7 @@ function onOpenRegisterDialog() {
       <!--  <div class="footer">
         <Footer />
       </div> -->
+      <Footer></Footer>
     </v-main>
   </v-layout>
 </template>
