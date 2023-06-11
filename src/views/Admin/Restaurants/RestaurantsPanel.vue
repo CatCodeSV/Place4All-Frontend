@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { VDataTableVirtual } from 'vuetify/labs/VDataTable';
 import { useAdministrator } from '@/composables/useAdministrator';
-import { onBeforeMount, onUpdated, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { Restaurant } from '@/models/Restaurant';
-import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 import { useConfirmationDialog } from '@/composables/useConfirmationDialog';
 import { useUserMessage } from '@/composables/useUserMessage';
 import { UserMessageType } from '@/store/userMessage.store';
-import { ActionResponse } from '@/composables/ActionResponse';
 import EditRestaurantDialog from '@/views/Admin/Restaurants/Components/EditRestaurantDialog.vue';
 import { EditRestaurant } from '@/helpers/getAdministrator';
 import { ViewMode } from '@/enums/ViewMode';
 import { useRestaurant } from '@/composables/useRestaurant';
+import { ActionResponse } from '@/composables/useBase';
 
 const { getFullRestaurants, deleteRestaurant, editRestaurant } = useAdministrator();
 const { showConfirmationDialog } = useConfirmationDialog();

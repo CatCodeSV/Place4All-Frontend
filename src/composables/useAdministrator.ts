@@ -1,8 +1,7 @@
-import { useBase } from '@/composables/useBase';
+import { ActionResponse, useBase } from '@/composables/useBase';
 import getAdministrator, { EditRestaurant, EditUser } from '@/helpers/getAdministrator';
 import { Restaurant } from '@/models/Restaurant';
 import { User } from '@/models/User';
-import { ActionResponse } from '@/composables/ActionResponse';
 
 export const useAdministrator = () => {
   const baseUse = useBase();
