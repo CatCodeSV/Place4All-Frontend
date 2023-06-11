@@ -57,6 +57,7 @@ async function editItem(item: Restaurant) {
   } as EditRestaurant);
   if (res.success) {
     storeUserMessage(UserMessageType.success, `El restaurante ${item.name} ha sido editado correctamente`);
+    adminRestaurants.value = await getFullRestaurants();
     await setRestaurants();
     loading.value = false;
     return;
