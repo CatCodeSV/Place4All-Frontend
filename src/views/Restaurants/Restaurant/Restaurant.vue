@@ -188,8 +188,8 @@ const windowWidth = ref(window.innerWidth);
               <v-btn
                 v-if="isLogged"
                 append-icon="mdi-plus"
-                color="primaryYellow"
-                variant="flat"
+                color="action"
+                variant="outlined"
                 class="ma-4 xy-6"
                 @click="reviewsDialog = true"
                 >Nueva Review
