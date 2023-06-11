@@ -1,30 +1,22 @@
 <script setup lang="ts">
 import { useRelatedDialog } from '@/composables/useRelatedDialog';
-import { Restaurant } from '@/models/Restaurant';
 import { User } from '@/models/User';
 import { Gender } from '@/helpers/getUser';
 import { DisabilityType } from '@/enums/disabilityType';
 import { ViewMode } from '@/enums/ViewMode';
-import { required } from '@/validation/validationHelper';
+import { required } from '@vuelidate/validators';
 
-const { dialog, relatedInternal, viewModeInternal, closeDialog, v$, readonly, show } = useRelatedDialog<User>(
-  {
-    name: required('El nombre es requerido'),
-    lastName: required('El apellido es requerido'),
-    userName: required('El nombre de usuario es requerido'),
-  },
-  (source, target) => {
-    target.id = source.id;
-    target.name = source.name;
-    target.lastName = source.lastName;
-    target.gender = source.gender;
-    target.birthDate = source.birthDate;
-    target.hasDisability = source.hasDisability;
-    target.disabilityType = source.disabilityType;
-    target.disabilityDegree = source.disabilityDegree;
-    target.userName = source.userName;
-  }
-);
+const { dialog, relatedInternal, viewModeInternal, closeDialog, v$, readonly, show } = useRelatedDialog<User>({}, (source, target) => {
+  target.id = source.id;
+  target.name = source.name;
+  target.lastName = source.lastName;
+  target.gender = source.gender;
+  target.birthDate = source.birthDate;
+  target.hasDisability = source.hasDisability;
+  target.disabilityType = source.disabilityType;
+  target.disabilityDegree = source.disabilityDegree;
+  target.userName = source.userName;
+});
 
 const emit = defineEmits<{
   (e: 'onAccept', viewMode: ViewMode, user: User): void;
