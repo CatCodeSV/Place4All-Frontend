@@ -39,8 +39,8 @@ export const useUserStore = defineStore(
   () => {
     const user = ref<User>();
     const token = ref<string>('');
-    const tokenDetailsState = ref<TokenDetails | undefined>(token.value != '' ? parseToken(token.value) : undefined);
-    const isAdmin = computed(() => tokenDetailsState.value?.roles.some(r => r == 'Administrator'));
+    const tokenDetailsState = computed(() => (token.value ? parseToken(token.value) : undefined));
+    const isAdmin = computed(() => tokenDetailsState.value?.roles.some(r => r == 'Administrator') ?? false);
     const isLogged = computed(() => {
       return user.value != null && token.value != '';
     });
@@ -51,7 +51,6 @@ export const useUserStore = defineStore(
 
     function setToken(tokenIn: string) {
       token.value = tokenIn;
-      tokenDetailsState.value = parseToken(tokenIn);
     }
 
     function clearState() {

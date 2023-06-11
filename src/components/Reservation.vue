@@ -29,7 +29,7 @@ const people = ref(0);
 const selectedFeatures = ref<Features[]>([]);
 const specialInstructions = ref('');
 
-function reserve() {
+async function reserve() {
   let createReservation: CreateReservation = {
     date: new Date(`${date.value}T${time.value}`),
     people: people.value,
@@ -37,7 +37,7 @@ function reserve() {
     features: selectedFeatures.value.map(feature => feature.id!),
     restaurantId: props.restaurant.id!,
   };
-  postReservation(createReservation);
+  const res = await postReservation(createReservation);
   storeUserMessage(UserMessageType.validation, 'Reserva realizada correctamente');
   emit('close');
 }
