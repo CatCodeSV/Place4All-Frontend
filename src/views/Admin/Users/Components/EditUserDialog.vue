@@ -37,19 +37,12 @@ defineExpose({ show });
         <v-container class="h-100">
           <v-row>
             <v-col cols="12" md="4">
-              <v-text-field
-                :readonly="readonly"
-                v-model="v$.relatedInternal.name.$model"
-                :error-messages="v$.relatedInternal.name.$errors.map((e:any) => e.$message)"
-                color="primary"
-                label="Nombre"
-                validate-on="blur" />
+              <v-text-field :readonly="readonly" v-model="relatedInternal.name" color="primary" label="Nombre" validate-on="blur" />
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
                 :readonly="readonly"
-                v-model="v$.relatedInternal.lastName.$model"
-                :error-messages="v$.relatedInternal.lastName.$errors.map((e:any) => e.$message)"
+                v-model="relatedInternal.lastName"
                 color="primary"
                 label="Apellido"
                 required
@@ -58,8 +51,7 @@ defineExpose({ show });
             <v-col cols="12" md="4">
               <v-text-field
                 :readonly="readonly"
-                v-model="v$.relatedInternal.userName.$model"
-                :error-messages="v$.relatedInternal.userName.$errors.map((e: any) => e.$message)"
+                v-model="relatedInternal.userName"
                 color="primary"
                 label="Nombre de usuario"
                 required
