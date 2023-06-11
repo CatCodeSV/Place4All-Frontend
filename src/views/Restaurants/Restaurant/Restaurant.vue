@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Reservation from '@/components/Reservation.vue';
 import { useFeature } from '@/composables/useFeature';
 import { useRestaurant } from '@/composables/useRestaurant';
 import { useReview } from '@/composables/useReview';
@@ -11,7 +12,6 @@ import { InformationAccuracy, Review } from '@/models/Review';
 import { onBeforeMount, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddReviewDialog from './Review/AddReviewDialog.vue';
-import Reservation from '@/components/Reservation.vue';
 
 const { restaurant, addFeatures, setRestaurant, clearRestaurant } = useRestaurant();
 const { isLogged, isAdmin } = useUser();
@@ -75,7 +75,7 @@ const windowWidth = ref(window.innerWidth);
 <template>
   <!--Botón de volver a la lista-->
   <v-card-actions v-if="!loading" class="mx-auto">
-    <v-btn color="primary" variant="elevated" @click="goToListRestaurants()">
+    <v-btn color="textGrey" variant="tonal" @click="goToListRestaurants()">
       <v-icon icon="mdi-arrow-left" start></v-icon>
       Volver
     </v-btn>
@@ -188,8 +188,8 @@ const windowWidth = ref(window.innerWidth);
               <v-btn
                 v-if="isLogged"
                 append-icon="mdi-plus"
-                color="primaryYellow"
-                variant="flat"
+                color="action"
+                variant="outlined"
                 class="ma-4 xy-6"
                 @click="reviewsDialog = true"
                 >Nueva Review
