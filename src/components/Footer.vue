@@ -19,7 +19,6 @@
 
 <style scoped>
 .index {
-  /* z-index: 9999999; */
   max-height: 20%;
 }
 .text-footer {
