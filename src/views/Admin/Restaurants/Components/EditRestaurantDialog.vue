@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { Restaurant } from '@/models/Restaurant';
-import { EditRestaurant } from '@/helpers/getAdministrator';
 import { useRelatedDialog } from '@/composables/useRelatedDialog';
 import { ViewMode } from '@/enums/ViewMode';
+import { Restaurant } from '@/models/Restaurant';
 
 const { dialog, relatedInternal, viewModeInternal, closeDialog, v$, readonly, show } = useRelatedDialog<Restaurant>(
   {},
@@ -48,13 +46,14 @@ defineExpose({ show });
       <v-card-actions>
         <v-btn
           color="primary"
-          class="w-100"
+          class="w-10 mr-9"
           @click="
             emit('onAccept', viewModeInternal, relatedInternal);
             closeDialog();
           ">
           Guardar
         </v-btn>
+        <v-btn class="w-10 pa-0" color="action" @click="closeDialog">Cancelar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

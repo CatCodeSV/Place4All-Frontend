@@ -1,30 +1,22 @@
 <script setup lang="ts">
 import { useRelatedDialog } from '@/composables/useRelatedDialog';
-import { Restaurant } from '@/models/Restaurant';
 import { User } from '@/models/User';
 import { Gender } from '@/helpers/getUser';
 import { DisabilityType } from '@/enums/disabilityType';
 import { ViewMode } from '@/enums/ViewMode';
-import { required } from '@/validation/validationHelper';
+import { required } from '@vuelidate/validators';
 
-const { dialog, relatedInternal, viewModeInternal, closeDialog, v$, readonly, show } = useRelatedDialog<User>(
-  {
-    name: required('El nombre es requerido'),
-    lastName: required('El apellido es requerido'),
-    userName: required('El nombre de usuario es requerido'),
-  },
-  (source, target) => {
-    target.id = source.id;
-    target.name = source.name;
-    target.lastName = source.lastName;
-    target.gender = source.gender;
-    target.birthDate = source.birthDate;
-    target.hasDisability = source.hasDisability;
-    target.disabilityType = source.disabilityType;
-    target.disabilityDegree = source.disabilityDegree;
-    target.userName = source.userName;
-  }
-);
+const { dialog, relatedInternal, viewModeInternal, closeDialog, v$, readonly, show } = useRelatedDialog<User>({}, (source, target) => {
+  target.id = source.id;
+  target.name = source.name;
+  target.lastName = source.lastName;
+  target.gender = source.gender;
+  target.birthDate = source.birthDate;
+  target.hasDisability = source.hasDisability;
+  target.disabilityType = source.disabilityType;
+  target.disabilityDegree = source.disabilityDegree;
+  target.userName = source.userName;
+});
 
 const emit = defineEmits<{
   (e: 'onAccept', viewMode: ViewMode, user: User): void;
@@ -45,19 +37,12 @@ defineExpose({ show });
         <v-container class="h-100">
           <v-row>
             <v-col cols="12" md="4">
-              <v-text-field
-                :readonly="readonly"
-                v-model="v$.relatedInternal.name.$model"
-                :error-messages="v$.relatedInternal.name.$errors.map((e:any) => e.$message)"
-                color="primary"
-                label="Nombre"
-                validate-on="blur" />
+              <v-text-field :readonly="readonly" v-model="relatedInternal.name" color="primary" label="Nombre" validate-on="blur" />
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
                 :readonly="readonly"
-                v-model="v$.relatedInternal.lastName.$model"
-                :error-messages="v$.relatedInternal.lastName.$errors.map((e:any) => e.$message)"
+                v-model="relatedInternal.lastName"
                 color="primary"
                 label="Apellido"
                 required
@@ -66,8 +51,7 @@ defineExpose({ show });
             <v-col cols="12" md="4">
               <v-text-field
                 :readonly="readonly"
-                v-model="v$.relatedInternal.userName.$model"
-                :error-messages="v$.relatedInternal.userName.$errors.map((e: any) => e.$message)"
+                v-model="relatedInternal.userName"
                 color="primary"
                 label="Nombre de usuario"
                 required

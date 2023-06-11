@@ -1,6 +1,6 @@
 import { UserMessageType, useUserMessageStore } from '@/store/userMessage.store';
 
-class ActionResponse<T> {
+export class ActionResponse<T> {
   public content: T | null = null;
   public success: boolean = false;
 

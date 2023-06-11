@@ -11,34 +11,56 @@ function resRestaurant(restaurant: Restaurant) {
 }
 
 onBeforeMount(async () => {
+  loading.value = true;
   if (user.value) {
     reservations.value = await getUserReservations();
   }
+  loading.value = false;
 });
 
+function formatDate(date: Date) {
+  return date.toLocaleString('es-ES', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+}
+
 const router = useRouter();
+const loading = ref(false);
 const { user } = useUser();
 const { getUserReservations } = useReservation();
 const reservations = ref<Reservation[]>([]);
 </script>
 
 <template>
-  <v-layout class="titulo-pantalla-usuario" style="height: auto">
+  <v-layout class="titulo-pantalla-usuario pa-10 pt-0" style="height: auto">
     <div class="lista-titulo bg-primary">
       <p class="titulo">Reservas</p>
     </div>
-    <v-layout class="lista-texto">
-      <v-list v-if="reservations.length > 0">
-        <v-list-item v-for="reservation in reservations" :key="reservation.id">
-          <v-list-item-title>{{ reservation.restaurantId }}</v-list-item-title>
-          <v-list-item-subtitle>{{ reservation.date }}</v-list-item-subtitle>
-          <v-list-item-subtitle>{{ reservation.people }}</v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
-    </v-layout>
-    <div class="lista-texto w-100 h-100 justify-center align-center">
-      <h3 class="text-h4">No tienes reservas</h3>
-    </div>
+    <v-row class="w-100 mt-8">
+      <v-col cols="12" md="6" sm="12" v-for="(reservation, index) of reservations" :key="index">
+        <v-card :loading="loading">
+          <v-card-title>
+            <h3 class="text-h4">{{ reservation.restaurantName }}</h3>
+            <v-card-subtitle
+              >Fecha:
+              {{ formatDate(reservation.date as Date) }}
+            </v-card-subtitle>
+          </v-card-title>
+          <v-card-text>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>Personas: {{ reservation.people }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Observaciones: {{ reservation.specialInstructions }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-layout>
 </template>
 
@@ -231,6 +253,7 @@ h2.titulo {
     display: none;
     justify-content: center;
   }
+
   h3.text-h4 {
     display: flex;
     word-break: normal;
@@ -242,6 +265,7 @@ h2.titulo {
     justify-content: center;
     margin-top: 30%;
   }
+
   .lista-titulo {
     padding: 12px;
     padding-left: 30%;
