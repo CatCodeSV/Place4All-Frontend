@@ -1,17 +1,21 @@
 import { Features } from './Features';
 import { PDocument } from './PDocument';
 import { Restaurant } from './Restaurant';
-import { User } from './User';
 
 export interface Review extends PDocument {
-  value: number;
+  additionalFeatures: Features[];
+  comment: string;
+  informationAccuracy: InformationAccuracy;
+  restaurantId: number;
   restaurant: Restaurant;
-  user: User;
-  comment: Comment;
+  title: string;
+  userName: string;
+  value: number;
 }
 
-export interface Comment extends PDocument {
-  title: string;
-  informationAccuracy: number;
-  hasFeatures: Features[];
+export enum InformationAccuracy {
+  VeryGood = 1,
+  Good = 2,
+  Bad = 3,
+  VeryBad = 4,
 }

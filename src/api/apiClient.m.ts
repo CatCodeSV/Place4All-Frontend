@@ -5,6 +5,8 @@ interface IdValue {
   id: number;
   value: string;
 }
+
+const apiUrl = import.meta.env.VITE_API_URL;
 const injectToken = (config: AxiosRequestConfig): any => {
   try {
     const { token } = useUser();
@@ -42,7 +44,7 @@ class Place4AllHttpClient {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'https://place4all-api-dev.azurewebsites.net',
+      baseURL: apiUrl,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -65,47 +67,48 @@ class Place4AllHttpClient {
     return http;
   }
 
-  get<T = any, R = AxiosResponse<T>>(url: string): Promise<R> {
+  get<T = any, R = AxiosResponse<T>>(url: string): any {
     return this.http.get<T, R>(url);
   }
 
-  getAll<T = any, R = AxiosResponse<T[]>>(url: string, urlSufix?: string): Promise<R> {
-    return this.http.get<T[], R>(`${url}${urlSufix ? urlSufix : ''}`);
+  //T es el tipo de dato que devuelve el método
+  getAll<T = any, R = AxiosResponse<T[]>>(url: string, urlSuffix?: string): any {
+    return this.http.get<T[], R>(`${url}${urlSuffix ? urlSuffix : ''}`);
   }
 
-  getIdValues<T = IdValue, R = AxiosResponse<T[]>>(url: string): Promise<R> {
+  getIdValues<T = IdValue, R = AxiosResponse<T[]>>(url: string): any {
     return this.getAll<T, R>(url);
   }
 
-  getById<T = any, R = AxiosResponse<T>>(url: string, id: string): Promise<R> {
+  getById<T = any, R = AxiosResponse<T>>(url: string, id: number | string): any {
     return this.http.get<T, R>(`${url}/${id}`);
   }
 
-  postWId<T = number, R = AxiosResponse<number>, T1 = any>(url: string, data: T1): Promise<R> {
+  postWId<T = number, R = AxiosResponse<number>, T1 = any>(url: string, data: T1): any {
     return this.http.post<T, R>(url, data);
   }
 
-  post<T = any, R = AxiosResponse<T>, T1 = any>(url: string, data: T1): Promise<R> {
+  post<T = any, R = AxiosResponse<T>, T1 = any>(url: string, data: T1): any {
     return this.http.post<T, R>(url, data);
   }
 
-  put<T = any, R = AxiosResponse<T>, T1 = any>(url: string, data: T1): Promise<R> {
+  put<T = any, R = AxiosResponse<T>, T1 = any>(url: string, data: T1): any {
     return this.http.put<T, R>(url, data);
   }
 
-  putEntity<T = any, R = AxiosResponse<T>, T1 = any>(url: string, entityId: string, data: T1): Promise<R> {
+  putEntity<T = any, R = AxiosResponse<T>, T1 = any>(url: string, entityId: number, data: T1): any {
     return this.put<T, R>(`${url}/${entityId}`, data);
   }
 
-  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: string): Promise<R> {
+  deleteById<T = any, R = AxiosResponse<T>>(url: string, id: number | string): any {
     return this.http.delete<T, R>(`${url}/${id}`);
   }
 
-  add<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: string, childId: string): Promise<R> {
+  add<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: number, childId: number): any {
     return this.http.post<T, R>(`${url}/${parentId}/${childType}/${childId}`);
   }
 
-  remove<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: string, childId: string): Promise<R> {
+  remove<T = void, R = AxiosResponse<T>>(url: string, childType: string, parentId: number, childId: number): any {
     return this.http.delete<T, R>(`${url}/${parentId}/${childType}/${childId}`);
   }
 }

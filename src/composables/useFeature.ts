@@ -12,6 +12,7 @@ export const useFeature = () => {
   async function setFeatures() {
     await baseUse.executeApiAction(getFeature.getFeatures(), (features: Features[]) => featureStore.setFeatures(features));
   }
+
   return {
     features: featuresState,
     setFeatures,

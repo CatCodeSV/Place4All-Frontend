@@ -1,14 +1,19 @@
 import { Address } from './Address';
-import { PDocument } from './PDocument';
+import { DisabilityType } from '@/enums/disabilityType';
+import { Gender } from '@/helpers/getUser';
 
-export interface User extends PDocument {
-  name: string;
-  lastName: string;
-  gender: string;
-  age: number;
+export interface User {
   address: Address;
-  hasDisability: boolean;
+  addressId: string;
+  birthDate: Date;
   disabilityDegree: number;
+  disabilityType: DisabilityType;
   email: string;
-  password: string;
+  gender: Gender;
+  gsm: string;
+  hasDisability: boolean;
+  id: string;
+  lastName: string;
+  name: string;
+  userName: string;
 }
