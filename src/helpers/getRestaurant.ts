@@ -20,7 +20,7 @@ async function getRestaurantsQuery(query: string): Promise<RestaurantSummarized[
 }
 
 async function getRestaurantsByFeatures(features: number[]): Promise<RestaurantSummarized[]> {
-  const response = await apiClient.post<RestaurantSummarized>(`${baseURL}/features`, features);
+  const response = await apiClient.post<RestaurantSummarized>(`${baseURL}/features`, { features: features });
   return response.data;
 }
 

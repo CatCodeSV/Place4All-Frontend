@@ -22,12 +22,6 @@ onBeforeMount(async () => {
   if (features.value.length == 0) {
     await setFeatures();
   }
-  mappedFeatures.value = features.value.map((feature: Features) => {
-    return {
-      value: feature.id,
-      title: feature.name,
-    };
-  });
   if (restaurants.value.length == 0) {
     await setRestaurants();
   }
@@ -44,18 +38,18 @@ onBeforeMount(async () => {
 const loading = ref(false);
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
-
-const selectedFeature = ref();
 const restaurantsToShow = ref();
 const reservationDialog = ref(false);
 const selectedRestaurant = ref();
+const selectedFeatures = ref<Features[]>([]);
 
-async function setFiltered() {
-  if (selectedFeature.value.length === 0) {
+async function setFiltered(filter: any) {
+  if (filter.length == 0) {
+    await setRestaurants();
     restaurantsToShow.value = restaurants.value;
     return;
   }
-  await setRestaurantsByFeatures(selectedFeature.value);
+  await setRestaurantsByFeatures(filter.map((feature: Features) => feature.id!));
   restaurantsToShow.value = restaurants.value;
 }
 
@@ -70,18 +64,30 @@ function openReservationDialog(restaurant: RestaurantSummarized) {
     <v-row class="px-10">
       <v-col cols="12" lg="2" sm="6" xs="6" id="filters">
         <v-select
-          v-model="selectedFeature"
-          :items="mappedFeatures"
+          v-model="selectedFeatures"
+          :items="features"
           bg-color="#93A9CE"
+          item-title="name"
+          item-value="id"
           color="primary"
-          chips
           clearable
           multiple
           label="Necesidades"
+          no-data-text="No se han encontrado servicios"
+          return-object
           rounded-pill
           variant="solo"
           rounded="100"
-          @update:model-value="setFiltered" />
+          @update:model-value="setFiltered">
+          <template v-slot:selection="{ item, index }">
+            <v-chip v-if="index < 1">
+              <span>{{ item.title }}</span>
+            </v-chip>
+            <span v-if="index === 1" class="text-primary-900 text-caption align-self-center">
+              (+{{ selectedFeatures.length - 2 }} otros)
+            </span>
+          </template>
+        </v-select>
       </v-col>
       <v-col cols="12" lg="2" sm="6" xs="6">
         <v-select
@@ -98,6 +104,17 @@ function openReservationDialog(restaurant: RestaurantSummarized) {
   </div>
 
   <span class="span-filtered-results mt-6"> {{ restaurantsToShow?.length || 0 }} Resultados </span>
+  <div class="d-flex flex-wrap w-100 ml-8">
+    <v-chip
+      prepend-icon="mdi-information"
+      v-for="(feature, index) of selectedFeatures"
+      :key="index"
+      class="mx-2 my-2 text-primary"
+      color="primary">
+      {{ feature.name }}
+      <v-tooltip activator="parent" location="top">{{ feature.description }}</v-tooltip>
+    </v-chip>
+  </div>
   <v-divider class="my-10" />
   <v-row class="pa-6">
     <v-col v-for="(restaurant, index) in restaurantsToShow" :key="index" cols="12" md="3" sm="6">
