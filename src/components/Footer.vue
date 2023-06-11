@@ -19,7 +19,8 @@
 
 <style scoped>
 .index {
-  z-index: 9999999;
+  /* z-index: 9999999; */
+  max-height: 20%;
 }
 .text-footer {
   color: #0b3d91;
