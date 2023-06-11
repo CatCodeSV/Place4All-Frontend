@@ -44,18 +44,16 @@ onBeforeMount(async () => {
 const loading = ref(false);
 //Para el filtro de features/necesidades
 const mappedFeatures = ref();
-
-const selectedFeature = ref();
 const restaurantsToShow = ref();
 const reservationDialog = ref(false);
 const selectedRestaurant = ref();
 
-async function setFiltered() {
-  if (selectedFeature.value.length === 0) {
+async function setFiltered(selectedFeatures: number[]) {
+  if (selectedFeatures.length == 0) {
     restaurantsToShow.value = restaurants.value;
     return;
   }
-  await setRestaurantsByFeatures(selectedFeature.value);
+  await setRestaurantsByFeatures(selectedFeatures);
   restaurantsToShow.value = restaurants.value;
 }
 
@@ -81,7 +79,7 @@ function openReservationDialog(restaurant: RestaurantSummarized) {
           rounded-pill
           variant="solo"
           rounded="100"
-          @update:model-value="setFiltered" />
+          @update:model-value="(x: number[]) => setFiltered(x)" />
       </v-col>
       <v-col cols="12" lg="2" sm="6" xs="6">
         <v-select
