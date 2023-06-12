@@ -38,7 +38,7 @@ async function reserve() {
     restaurantId: props.restaurant.id!,
   };
   const res = await postReservation(createReservation);
-  storeUserMessage(UserMessageType.validation, 'Reserva realizada correctamente');
+  storeUserMessage(UserMessageType.success, 'Reserva realizada correctamente');
   emit('close');
 }
 </script>
